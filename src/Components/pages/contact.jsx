@@ -1,4 +1,5 @@
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { useState, useEffect } from "react";
 import {
   TextField,
   Button,
@@ -13,17 +14,14 @@ import {
   CardContent,
   CardMedia,
 } from "@mui/material";
-function handleClick(event) {
-  event.preventDefault();
-  console.info("You clicked a breadcrumb.");
-}
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  // Add your form submission logic here
-};
+import "../../contact.module.css";
 
 const Contact = () => {
+  const handleClick = (event) => {
+    // handle the logic for clicking the link
+    event.preventDefault();
+  };
   const breadcrumbs = [
     <Link underline="hover" key="1" color="#000" href="/" onClick={handleClick}>
       Home
@@ -36,7 +34,6 @@ const Contact = () => {
       Contact Us
     </Typography>,
   ];
-
   const cards = [
     {
       icon: "phone.svg",
@@ -52,6 +49,160 @@ const Contact = () => {
     },
   ];
 
+  const [formState, setFormState] = useState({
+    fName: "",
+    lName: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const [formErrors, setFormErrors] = useState({
+    fName: "",
+    lName: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleChange = (event) => {
+    setFormState({
+      ...formState,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const isValidEmail = (email) => {
+    // Email validation logic (regex or other validation methods)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidPhone = (phone) => {
+    // Phone number validation logic (regex or other validation methods)
+    const phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phone);
+  };
+
+  const validateForm = () => {
+    // Reset form errors
+    setFormErrors({
+      fName: "",
+      lName: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+
+    let isValid = true;
+
+    // Set corresponding error messages if validation fails
+    if (formState.fName.trim() === "") {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        fName: "first Name is required",
+      }));
+      isValid = false;
+    } else if (/\d/.test(formState.fName)) {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        fName: "first Name cannot contain numbers",
+      }));
+      isValid = false;
+    }
+
+    if (formState.lName.trim() === "") {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        lName: "last Name is required",
+      }));
+      isValid = false;
+    } else if (/\d/.test(formState.lName)) {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        lName: "last Name cannot contain numbers",
+      }));
+      isValid = false;
+    }
+
+    if (formState.email.trim() === "") {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Email is required",
+      }));
+      isValid = false;
+    } else if (!isValidEmail(formState.email.trim())) {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Invalid email address",
+      }));
+      isValid = false;
+    }
+
+    if (formState.phone.trim() === "") {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        phone: "Phone is required",
+      }));
+      isValid = false;
+    } else if (!isValidPhone(formState.phone.trim())) {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        phone: "Invalid phone number",
+      }));
+      isValid = false;
+    }
+
+    if (formState.message.trim() === "") {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        message: "message is required",
+      }));
+      isValid = false;
+    }
+
+    return isValid;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      submitForm();
+    }
+  };
+  const submitForm = (e) => {
+    e.preventDefault();
+  };
+
+  const getInputColor = (fieldName) => {
+    return formState[fieldName] != "" && formErrors[fieldName] == ""
+      ? "success"
+      : "";
+  };
+
+  const colorAstrisk = () => {
+    const labels = document.querySelectorAll("label");
+    Array.from(labels).forEach((label) => {
+      console.log(label.parentElement.classList.contains("success"));
+      if (!label.parentElement.classList.contains("success")) {
+        label.innerHTML = label.innerHTML.replace(
+          "*",
+          "<span style='color:red'>*</span>"
+        );
+      } else {
+        label.innerHTML = label.innerHTML.replace(
+          "*",
+          "<span style='color:green'>*</span>"
+        );
+      }
+    });
+  };
+
+  useEffect(() => {
+    colorAstrisk();
+  }, [handleChange]);
+
+  //rememebr to fix success color in inputs when handle change
   return (
     <div>
       <Box marginBottom={10}>
@@ -62,7 +213,7 @@ const Contact = () => {
             height: "400px",
             left: "0px",
             top: "0px",
-            background: `url("contact.png"), #D9D9D9`,
+            background: `url("contact/contact.png"), #D9D9D9`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center center",
@@ -201,76 +352,103 @@ const Contact = () => {
         >
           <Grid container spacing={{ xs: "5", md: "60" }}>
             <Grid item xs={9} sx={{ m: "auto" }} md={5}>
-              <img src="Vector.png" style={{ maxWidth: "100%" }} />
+              <img src="/contact/Vector.png" style={{ maxWidth: "100%" }} />
             </Grid>
             <Grid item xs={12} md={7} style={{ alignSelf: "center" }}>
               <form onSubmit={handleSubmit}>
-                <div
-                  style={{
+                <Box
+                  sx={{
                     display: "flex",
-                    flexDirection: "row",
                     justifyContent: "space-between",
                     gap: "30px",
                   }}
                 >
                   <TextField
-                    label="First Name"
+                    label="First Name*"
                     variant="outlined"
                     fullWidth
                     margin="normal"
-                    required
-                    borderColor="#F3F3F3"
-                    backgroundColor="#F3F3F3"
+                    name="fName"
+                    value={formState.fName}
+                    onChange={handleChange}
+                    error={formErrors.fName !== ""}
+                    helperText={formErrors.fName}
+                    className={getInputColor("fName")}
                   />
                   <TextField
-                    label="Last Name"
+                    label="Last Name*"
                     variant="outlined"
                     fullWidth
                     margin="normal"
-                    required
-                    borderColor="#F3F3F3"
-                    backgroundColor="#F3F3F3"
+                    name="lName"
+                    value={formState.lName}
+                    onChange={handleChange}
+                    error={formErrors.lName !== ""}
+                    helperText={formErrors.lName}
+                    className={getInputColor("lName")}
                   />
-                </div>
+                </Box>
 
-                <div
-                  style={{
+                <Box
+                  sx={{
                     display: "flex",
-                    flexDirection: "row",
                     justifyContent: "space-between",
-                    gap: "30px",
+                    flexDirection: { xs: "column", sm: "column", md: "row" },
+                    gap: { xs: "5px", md: "30px" },
                   }}
                 >
                   <TextField
-                    label="Email"
+                    label="Email*"
                     variant="outlined"
                     fullWidth
                     margin="normal"
-                    required
                     type="email"
-                    backgroundColor="#F3F3F3"
+                    name="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                    error={formErrors.email !== ""}
+                    helperText={formErrors.email}
+                    className={getInputColor("email")}
                   />
                   <TextField
-                    label="Phone"
+                    label="Phone*"
                     variant="outlined"
                     fullWidth
                     margin="normal"
-                    required
                     type="phone"
-                    backgroundColor="#F3F3F3"
+                    name="phone"
+                    value={formState.phone}
+                    onChange={handleChange}
+                    error={formErrors.phone !== ""}
+                    helperText={formErrors.phone}
+                    className={getInputColor("phone")}
                   />
-                </div>
+                </Box>
 
                 <TextField
-                  label="Message"
+                  label="Message*"
                   variant="outlined"
                   fullWidth
                   margin="normal"
                   multiline
                   rows={4}
-                  required
-                  backgroundColor="#F3F3F3"
+                  name="message"
+                  value={formState.message}
+                  onChange={handleChange}
+                  error={formErrors.message !== ""}
+                  helperText={formErrors.message}
+                  className={getInputColor("message")}
                 />
+
+                {formErrors.general && (
+                  <Typography
+                    variant="body2"
+                    color="error"
+                    sx={{ backgroundColor: "#fff" }}
+                  >
+                    {formErrors.general}
+                  </Typography>
+                )}
                 <Box textAlign="center" mt={2}>
                   <Button
                     type="submit"

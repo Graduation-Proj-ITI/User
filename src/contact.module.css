@@ -26,3 +26,7 @@
 .success .MuiInputLabel-formControl {
   color: rgb(32, 126, 32);
 }
+
+input::placeholder {
+  font-family: "Poppins", sans-serif;
+}

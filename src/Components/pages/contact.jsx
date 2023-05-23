@@ -15,7 +15,7 @@ import {
   CardMedia,
 } from "@mui/material";
 
-import "../../contact.module.css";
+import "../../contact.css";
 
 const Contact = () => {
   const handleClick = (event) => {
@@ -301,7 +301,7 @@ const Contact = () => {
                     <Box
                       sx={{
                         background: "#eee",
-                        width: "32px",
+                        width: "50px",
                         padding: "10px",
                         borderRadius: "100%",
                         display: "flex",
@@ -318,7 +318,7 @@ const Contact = () => {
                         height="auto"
                         image={`icons/${card.icon}`}
                         alt="green iguana"
-                        sx={{ maxWidth: "100%", width: "30px" }}
+                        sx={{ maxWidth: "100%", width: "100%" }}
                       />
                     </Box>
                     <Typography

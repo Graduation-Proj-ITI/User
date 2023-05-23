@@ -1,13 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body,
-input,
-textarea,
-button {
-  font-family: "Poppins", sans-serif;
-}
 
-body {
-  -webkit-font-smoothing: antialiased;
+@layer base {
+  html {
+    font-family: Poppins, sans-serif;
+  }
 }

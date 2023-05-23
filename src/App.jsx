@@ -1,16 +1,11 @@
 import "./App.css";
 import "normalize.css";
+import Home from "./pages/Home";
 
-// import Contact from "./Components/pages/contact";
-import Profile from "./Components/pages/profile";
-
-function App() {
+export default function App() {
   return (
     <>
-      {/* <Contact /> */}
-      <Profile />
+      <Home />
     </>
   );
 }
-
-export default App;

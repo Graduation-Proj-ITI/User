@@ -110,7 +110,6 @@ function Profile() {
   const colorAstrisk = () => {
     const labels = document.querySelectorAll("label");
     Array.from(labels).forEach((label) => {
-      console.log(label.previousElementSibling.classList.contains("success"));
       if (!label.previousElementSibling.classList.contains("success")) {
         label.innerHTML = label.innerHTML.replace(
           "*",

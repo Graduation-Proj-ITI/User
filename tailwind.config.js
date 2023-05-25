@@ -15,6 +15,7 @@ export default {
         bgColor: "#EEEEEE",
         transparent: "transparent",
         current: "currentColor",
+
         black: "#000",
         white: "#fff",
         dark:"#4C4C4C",
@@ -43,6 +44,10 @@ export default {
         pink: colors.pink,
         rose: colors.rose,
       },
+
+      backgroundImage: {
+        community: "url('../../public/images/community/community.png')",
+      },
       fontSize: {
         sm: "0.8rem",
         base: "1rem",
@@ -52,6 +57,37 @@ export default {
       boxShadow: {
         base: "0 0 10px 0 rgba(211, 211, 211, 0.25)",
       },
+      animation: {
+        "spin-slow": "spin 3s linear infinite",
+        wiggle: "wiggle 0.5s ease-in-out forwards",
+        fadeInLeft: "fadeInLeft 0.7s  linear",
+        fadeInRight: "fadeInRight 0.7s  linear",
+      },
+      keyframes: {
+        wiggle: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+        fadeInLeft: {
+          "0%": {
+            opacity: 0,
+            transform: "translateX(-50px)",
+          },
+          "100%": {
+            opacity: 1,
+            transform: "translateX(0)",
+          },
+        },
+        fadeInRight: {
+          "0%": {
+            opacity: 0,
+            transform: "translateX(0)",
+          },
+          "100%": {
+            opacity: 1,
+            transform: "translateX(-40px)",
+          },
+        },
       container: {
         center: true,
         padding: "1rem",

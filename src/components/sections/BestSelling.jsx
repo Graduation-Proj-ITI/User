@@ -1,4 +1,3 @@
-import React from "react";
 import ProductCard from "../common/ProductCard";
 
 const BestSelling = () => {

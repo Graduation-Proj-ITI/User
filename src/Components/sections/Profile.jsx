@@ -3,10 +3,17 @@ import { useState, useEffect } from "react";
 import "../../form.css";
 
 function Profile() {
+
+  const userData = {
+    userName: "John Doe",
+    email: " john@gmail.com ",
+    phone: " 0108765432",
+  }
+
   const [formState, setFormState] = useState({
-    userName: "",
-    email: "",
-    phone: "",
+    userName: userData.userName,
+    email: userData.email,
+    phone: userData.phone,
   });
 
   const [formErrors, setFormErrors] = useState({
@@ -213,7 +220,7 @@ function Profile() {
 
             <div className="btns flex flex-col md:flex-row gap-3 ">
               <button className="btn btn-primary md:w-[200px] py-0 mt-5 rounded-[8px] ">
-                Save
+                Update Info
               </button>
               <button className="btn btn-primary-outline py-0 mt-5 rounded-[8px] ">
                 Change password

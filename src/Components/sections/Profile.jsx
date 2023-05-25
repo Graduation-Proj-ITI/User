@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import "../../form.css";
+
 function Profile() {
   const [formState, setFormState] = useState({
     userName: "",
@@ -47,13 +49,13 @@ function Profile() {
     if (formState.userName.trim() === "") {
       setFormErrors((prevErrors) => ({
         ...prevErrors,
-        lName: "user Name is required",
+        userName: "user Name is required",
       }));
       isValid = false;
-    } else if (/\d/.test(formState.lName)) {
+    } else if (/\d/.test(formState.userName)) {
       setFormErrors((prevErrors) => ({
         ...prevErrors,
-        lName: "userName cannot contain numbers",
+        userName: "userName cannot contain numbers",
       }));
       isValid = false;
     }
@@ -91,11 +93,12 @@ function Profile() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      submitForm();
+      submitForm(event);
     }
   };
   const submitForm = (e) => {
     e.preventDefault();
+    console.log(formState);
   };
 
   const getInputColor = (fieldName) => {
@@ -107,8 +110,8 @@ function Profile() {
   const colorAstrisk = () => {
     const labels = document.querySelectorAll("label");
     Array.from(labels).forEach((label) => {
-      console.log(label.parentElement.classList.contains("success"));
-      if (!label.parentElement.classList.contains("success")) {
+      console.log(label.previousElementSibling.classList.contains("success"));
+      if (!label.previousElementSibling.classList.contains("success")) {
         label.innerHTML = label.innerHTML.replace(
           "*",
           "<span style='color:red'>*</span>"
@@ -141,56 +144,71 @@ function Profile() {
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col lg:flex-row gap-10 ">
               <div className="flex flex-col gap-1 flex-auto">
-                <label htmlFor="userName" className="text-primary">
-                  Name
-                </label>
+            
                 <input
                   type="text"
                   name="userName"
                   id="name"
                   className={`${getInputColor(
-                    "userName"
-                  )} border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+                    "userName" 
+                  )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
                   value={formState.userName}
                   onChange={handleChange}
-                  error={formErrors.userName !== ""}
-                  helperText={formErrors.userName}
                 />
+                  <label htmlFor="userName" className="text-primary order-1">
+                 User Name*
+                </label>
+{
+                  formErrors.userName !== "" && (
+                    <p className="text-red-500 text-sm order-3">{formErrors.userName}</p>
+                  )
+                  }
               </div>
               <div className="flex flex-col gap-1 flex-auto">
-                <label htmlFor="email" className="text-primary">
-                  Email
-                </label>
+              
                 <input
                   type="email"
                   name="email"
                   id="email"
                   className={`${getInputColor(
-                    "userName"
-                  )} border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+                    "email"
+                  )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
                   value={formState.email}
                   onChange={handleChange}
-                  error={formErrors.email !== ""}
-                  helperText={formErrors.email}
+               
                 />
+
+<label htmlFor="email" className="text-primary order-1">
+                  Email*
+                </label>
+                {
+                  formErrors.email !== "" && (
+                    <p className="text-red-500 text-sm order-3">{formErrors.email}</p>
+                  )
+                  }
               </div>
 
               <div className="flex flex-col gap-1 flex-auto">
-                <label htmlFor="phone" className="text-primary">
-                  Phone
-                </label>
+              
                 <input
                   type="tel"
                   name="phone"
                   id="phone"
                   className={`${getInputColor(
-                    "userName"
-                  )} border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
-                  value={formState.userName}
+                    "phone"
+                  )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+                  value={formState.phone}
                   onChange={handleChange}
-                  error={formErrors.phone !== ""}
-                  helperText={formErrors.phone}
+                 
                 />
+                  <label htmlFor="phone" className="text-primary order-1">
+                  Phone*
+                </label>
+                   {
+                  formErrors.phone !== "" && (
+                    <p className="text-red-500 text-sm order-3">{formErrors.phone}</p>
+                  )
+                  }
               </div>
             </div>
 

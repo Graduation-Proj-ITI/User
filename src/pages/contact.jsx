@@ -15,7 +15,7 @@ import {
   CardMedia,
 } from "@mui/material";
 
-import "../../contact.css";
+import "../../form.css";
 
 const Contact = () => {
   const handleClick = (event) => {

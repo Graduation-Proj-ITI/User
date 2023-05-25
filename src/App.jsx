@@ -8,7 +8,7 @@ export default function App() {
   return (
     <>
       <Home />
-      <User />
+      {/* <User /> */}
       {/* <Community /> */}
     </>
   );

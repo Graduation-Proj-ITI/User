@@ -7,6 +7,41 @@
     font-family: Poppins, sans-serif;
   }
 
+  h1 
+  {
+    @apply text-4xl font-bold text-primary;
+  }
+
+  h2 
+  {
+    @apply text-3xl font-bold text-primary;
+  }
+
+  h3 
+  {
+    @apply text-2xl font-bold text-primary;
+  }
+
+  h4 
+  {
+    @apply text-xl font-bold text-primary;
+  }
+
+  h5 
+  {
+    @apply text-lg font-bold text-primary;
+  }
+
+  h6 
+  {
+    @apply text-base font-bold text-primary;
+  }
+
+  p 
+  {
+    @apply text-base ;
+  }
+
 
   /*  .btn-secondary {
     @apply border-secondary text-primary font-bold py-2 px-4 rounded border-2;
@@ -20,7 +55,9 @@
   {
     @apply transition duration-700 text-white border-2 px-10 py-1;
   }
-
+  .btn-primary {
+    @apply bg-primary border-primary text-white rounded-[4px] px-3 py-1; 
+  }
   .btn-primary-outline {
     @apply border-primary text-primary;
   }

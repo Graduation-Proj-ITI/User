@@ -2,26 +2,29 @@ import { useState, useEffect } from "react";
 
 import "../../form.css";
 
-function Profile() {
-
+const Profile = () => {
+  //test data
   const userData = {
     userName: "John Doe",
     email: " john@gmail.com ",
     phone: " 0108765432",
-  }
+  };
 
+  // form state inputs value
   const [formState, setFormState] = useState({
     userName: userData.userName,
     email: userData.email,
     phone: userData.phone,
   });
 
+  //error messages
   const [formErrors, setFormErrors] = useState({
     userName: "",
     email: "",
     phone: "",
   });
 
+  // handle change in input fields
   const handleChange = (event) => {
     setFormState({
       ...formState,
@@ -41,6 +44,7 @@ function Profile() {
     return phoneRegex.test(phone);
   };
 
+  // validation form
   const validateForm = () => {
     // Reset form errors
     setFormErrors({
@@ -97,23 +101,14 @@ function Profile() {
     return isValid;
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validateForm()) {
-      submitForm(event);
-    }
-  };
-  const submitForm = (e) => {
-    e.preventDefault();
-    console.log(formState);
-  };
-
+  //handle color of input fields and border with validation
   const getInputColor = (fieldName) => {
     return formState[fieldName] != "" && formErrors[fieldName] == ""
       ? "success"
       : "";
   };
 
+  // change color of asterisk with validation
   const colorAstrisk = () => {
     const labels = document.querySelectorAll("label");
     Array.from(labels).forEach((label) => {
@@ -131,6 +126,16 @@ function Profile() {
     });
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      submitForm();
+    }
+  };
+  const submitForm = () => {
+    console.log(formState);
+  };
+
   useEffect(() => {
     colorAstrisk();
   }, [handleChange]);
@@ -146,32 +151,30 @@ function Profile() {
 
       <div className="flex  flex-col lg:flex-row gap-4 bg-bgColor px-5 w-full lg:px-10 py-10 rounded-[16px] shadow-gray ">
         <div className="w-full">
-          <h2 className="text-primary mb-2">General Info</h2>
+          <h4 className="text-primary mb-2">General Info</h4>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col lg:flex-row gap-10 ">
               <div className="flex flex-col gap-1 flex-auto">
-            
                 <input
                   type="text"
                   name="userName"
                   id="name"
                   className={`${getInputColor(
-                    "userName" 
+                    "userName"
                   )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
                   value={formState.userName}
                   onChange={handleChange}
                 />
-                  <label htmlFor="userName" className="text-primary order-1">
-                 User Name*
+                <label htmlFor="userName" className="text-primary order-1">
+                  User Name*
                 </label>
-{
-                  formErrors.userName !== "" && (
-                    <p className="text-red-500 text-sm order-3">{formErrors.userName}</p>
-                  )
-                  }
+                {formErrors.userName !== "" && (
+                  <p className="text-red-500 text-sm order-3">
+                    {formErrors.userName}
+                  </p>
+                )}
               </div>
               <div className="flex flex-col gap-1 flex-auto">
-              
                 <input
                   type="email"
                   name="email"
@@ -181,21 +184,19 @@ function Profile() {
                   )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
                   value={formState.email}
                   onChange={handleChange}
-               
                 />
 
-<label htmlFor="email" className="text-primary order-1">
+                <label htmlFor="email" className="text-primary order-1">
                   Email*
                 </label>
-                {
-                  formErrors.email !== "" && (
-                    <p className="text-red-500 text-sm order-3">{formErrors.email}</p>
-                  )
-                  }
+                {formErrors.email !== "" && (
+                  <p className="text-red-500 text-sm order-3">
+                    {formErrors.email}
+                  </p>
+                )}
               </div>
 
               <div className="flex flex-col gap-1 flex-auto">
-              
                 <input
                   type="tel"
                   name="phone"
@@ -205,16 +206,15 @@ function Profile() {
                   )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
                   value={formState.phone}
                   onChange={handleChange}
-                 
                 />
-                  <label htmlFor="phone" className="text-primary order-1">
+                <label htmlFor="phone" className="text-primary order-1">
                   Phone*
                 </label>
-                   {
-                  formErrors.phone !== "" && (
-                    <p className="text-red-500 text-sm order-3">{formErrors.phone}</p>
-                  )
-                  }
+                {formErrors.phone !== "" && (
+                  <p className="text-red-500 text-sm order-3">
+                    {formErrors.phone}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -231,6 +231,6 @@ function Profile() {
       </div>
     </div>
   );
-}
+};
 
 export default Profile;

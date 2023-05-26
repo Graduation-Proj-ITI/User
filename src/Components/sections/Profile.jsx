@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-
-import "../../form.css";
+import "../../form.css"
 
 const Profile = () => {
   //test data
@@ -24,20 +23,18 @@ const Profile = () => {
     confirmPassword: "",
   });
 
-    //error messages
-    const [formErrors, setFormErrors] = useState({
-      userName: "",
-      email: "",
-      phone: "",
-    });
+  //error messages
+  const [formErrors, setFormErrors] = useState({
+    userName: "",
+    email: "",
+    phone: "",
+  });
 
   const [passwordChangeErrors, setPasswordChangeErrors] = useState({
     oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
-
-
 
   // handle change in input fields
   const handleChange = (event) => {
@@ -66,8 +63,6 @@ const Profile = () => {
     const phoneRegex = /^\d{10}$/;
     return phoneRegex.test(phone);
   };
-
-
 
   // validation form
   const validateForm = () => {
@@ -129,7 +124,6 @@ const Profile = () => {
     return isValid;
   };
 
-  
   // validation form
   const validationPasswordForm = () => {
     // Reset form errors
@@ -161,7 +155,10 @@ const Profile = () => {
         confirmPassword: "Confirm Password is required",
       }));
       isValid = false;
-    } else if (passwordChange.confirmPassword.trim() !== passwordChange.newPassword.trim()) {
+    } else if (
+      passwordChange.confirmPassword.trim() !==
+      passwordChange.newPassword.trim()
+    ) {
       setPasswordChangeErrors((prevErrors) => ({
         ...prevErrors,
         confirmPassword: "Passwords do not match",
@@ -169,10 +166,8 @@ const Profile = () => {
       isValid = false;
     }
 
-
     return isValid;
   };
-
 
   //handle color of input fields and border with validation
   const getInputColor = (fieldName) => {
@@ -205,17 +200,16 @@ const Profile = () => {
       submitForm();
     }
   };
-const handlePasswordSubmit = (event) => {
-
+  const handlePasswordSubmit = (event) => {
     event.preventDefault();
     if (validationPasswordForm()) {
-      toast.success('Your password updated successfully!');
+      // toast.success('Your password updated successfully!');
       console.log(passwordChange);
     }
   };
 
   const submitForm = () => {
-    toast.success('Your profile updated successfully!');
+    // toast.success('Your profile updated successfully!');
     console.log(formState);
   };
 
@@ -224,7 +218,7 @@ const handlePasswordSubmit = (event) => {
   }, [handleChange]);
 
   return (
-    <div className="flex flex-col gap-9 content-center">
+  <div className="flex flex-col gap-9 content-center">
       <div>
         <h1 className="text-primary mb-2">Profile</h1>
         <p className="text-dark">
@@ -317,8 +311,7 @@ const handlePasswordSubmit = (event) => {
           </form>
         </div>
 
-        {/* Put this part before </body> tag */}
-        <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+         <input type="checkbox" id="my-modal-3" className="modal-toggle" />
         <div className="modal z-100">
           <div className="modal-box relative">
             <label
@@ -331,8 +324,11 @@ const handlePasswordSubmit = (event) => {
               You can change your password here !
             </h3>
 
-            <form onSubmit={handlePasswordSubmit} className="flex flex-col gap-4">
- <div className="flex flex-col gap-1">
+            <form
+              onSubmit={handlePasswordSubmit}
+              className="flex flex-col gap-4"
+            >
+              <div className="flex flex-col gap-1">
                 <input
                   type="text"
                   name="oldPassword"
@@ -343,9 +339,8 @@ const handlePasswordSubmit = (event) => {
                   onChange={handlePasswordChange}
                 />
                 <label htmlFor="oldPasssword" className="text-primary order-1">
-                   Password
+                  Password
                 </label>
-               
               </div>
 
               <div className="flex flex-col gap-1">
@@ -375,7 +370,10 @@ const handlePasswordSubmit = (event) => {
                   value={passwordChange.confirmPassword}
                   onChange={handlePasswordChange}
                 />
-                <label htmlFor="confirmPassword" className="text-primary order-1">
+                <label
+                  htmlFor="confirmPassword"
+                  className="text-primary order-1"
+                >
                   Confirm Password
                 </label>
                 {passwordChangeErrors.confirmPassword !== "" && (
@@ -384,15 +382,21 @@ const handlePasswordSubmit = (event) => {
                   </p>
                 )}
               </div>
-              <button type="submit" className="btn btn-primary w-[200px] py-0 mt-5 rounded-[8px] ">
+              <button
+                type="submit"
+                className="btn btn-primary w-[200px] py-0 mt-5 rounded-[8px] "
+              >
                 Change Password
               </button>
             </form>
-          </div>
-        </div>
-      </div>
+            </div>
+                
+        </div> 
     </div>
-  );
+    </div>
+  )
 };
+
+
 
 export default Profile;

@@ -17,14 +17,14 @@ input:focus + label {
 }
 
 
-.form input.success {
+/* .form input.success {
   border-color: rgb(32, 126, 32);
   color: rgb(32, 126, 32);
 }
 
 .form input.success + label {
   color: rgb(32, 126, 32);
-}
+} */
 
 input::placeholder {
   font-family: "Poppins", sans-serif;

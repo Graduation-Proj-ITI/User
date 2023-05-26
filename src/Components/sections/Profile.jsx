@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import "../../form.css"
+import "../../form.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Profile = () => {
   //test data
@@ -176,6 +178,14 @@ const Profile = () => {
       : "";
   };
 
+  //handle color of input fields and border with validation
+  const getPasswordInput = (fieldName) => {
+    return passwordChange[fieldName] != "" &&
+      passwordChangeErrors[fieldName] == ""
+      ? "success"
+      : "";
+  };
+
   // change color of asterisk with validation
   const colorAstrisk = () => {
     const labels = document.querySelectorAll(".form div>label");
@@ -194,31 +204,64 @@ const Profile = () => {
     });
   };
 
+  const colorAsteriskPassword = () => {
+    const labels = document.querySelectorAll("#passwordForm label");
+    Array.from(labels).forEach((label) => {
+      if (!label.previousElementSibling.classList.contains("success")) {
+        label.innerHTML = label.innerHTML.replace(
+          "*",
+          "<span style='color:red'>*</span>"
+        );
+      } else {
+        label.innerHTML = label.innerHTML.replace(
+          "*",
+          "<span style='color:green'>*</span>"
+        );
+      }
+    });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
+      toast.success("Your profile updated successfully!",{
+        
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        
+      });
       submitForm();
     }
   };
   const handlePasswordSubmit = (event) => {
     event.preventDefault();
     if (validationPasswordForm()) {
-      // toast.success('Your password updated successfully!');
+      toast.success("Your password updated successfully!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+
       console.log(passwordChange);
     }
   };
 
   const submitForm = () => {
-    // toast.success('Your profile updated successfully!');
     console.log(formState);
   };
 
   useEffect(() => {
     colorAstrisk();
-  }, [handleChange]);
+    colorAsteriskPassword();
+  }, [handleChange,handlePasswordChange]);
 
   return (
-  <div className="flex flex-col gap-9 content-center">
+    <div className="flex flex-col gap-9 content-center">
       <div>
         <h1 className="text-primary mb-2">Profile</h1>
         <p className="text-dark">
@@ -299,19 +342,17 @@ const Profile = () => {
               <button className="btn btn-primary md:w-[200px] py-0 mt-5 rounded-[8px] ">
                 Update Info
               </button>
-              <button className="btn btn-primary-outline py-0 px-0  mt-5">
-                <label
-                  htmlFor="my-modal-3"
-                  className="block w-full h-full py-4 px-6 cursor-pointer "
-                >
-                  Change password
-                </label>
-              </button>
+              <label
+                htmlFor="my-modal-3"
+                className="btn btn-primary-outline mt-5 block  py-4 px-6 cursor-pointer "
+              >
+                Change password
+              </label>
             </div>
           </form>
         </div>
 
-         <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+        <input type="checkbox" id="my-modal-3" className="modal-toggle" />
         <div className="modal z-100">
           <div className="modal-box relative">
             <label
@@ -326,6 +367,7 @@ const Profile = () => {
 
             <form
               onSubmit={handlePasswordSubmit}
+              id="passwordForm"
               className="flex flex-col gap-4"
             >
               <div className="flex flex-col gap-1">
@@ -348,12 +390,14 @@ const Profile = () => {
                   type="password"
                   name="newPassword"
                   id="newPassword"
-                  className="border border-[rgba(0,0,0,.1)] rounded px-4 py-2 order-2"
+                  className={`${getPasswordInput(
+                    "newPassword"
+                  )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
                   value={passwordChange.newPassword}
                   onChange={handlePasswordChange}
                 />
                 <label htmlFor="newPasssword" className="text-primary order-1">
-                  New Password
+                  New Password*
                 </label>
                 {passwordChangeErrors.newPassword !== "" && (
                   <p className="text-red-500 text-sm order-3">
@@ -366,7 +410,9 @@ const Profile = () => {
                   type="password"
                   name="confirmPassword"
                   id="confirmPassword"
-                  className="border border-[rgba(0,0,0,.1)] rounded px-4 py-2 order-2"
+                  className={`${getPasswordInput(
+                    "confirmPassword"
+                  )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
                   value={passwordChange.confirmPassword}
                   onChange={handlePasswordChange}
                 />
@@ -374,7 +420,7 @@ const Profile = () => {
                   htmlFor="confirmPassword"
                   className="text-primary order-1"
                 >
-                  Confirm Password
+                  Confirm Password*
                 </label>
                 {passwordChangeErrors.confirmPassword !== "" && (
                   <p className="text-red-500 text-sm order-3">
@@ -389,14 +435,11 @@ const Profile = () => {
                 Change Password
               </button>
             </form>
-            </div>
-                
-        </div> 
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
-  )
+  );
 };
-
-
 
 export default Profile;

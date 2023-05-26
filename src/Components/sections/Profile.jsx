@@ -8,6 +8,7 @@ const Profile = () => {
     userName: "John Doe",
     email: " john@gmail.com ",
     phone: " 0108765432",
+    password: "12345678",
   };
 
   // form state inputs value
@@ -17,17 +18,39 @@ const Profile = () => {
     phone: userData.phone,
   });
 
-  //error messages
-  const [formErrors, setFormErrors] = useState({
-    userName: "",
-    email: "",
-    phone: "",
+  const [passwordChange, setPasswordChange] = useState({
+    oldPassword: userData.password,
+    newPassword: "",
+    confirmPassword: "",
   });
+
+    //error messages
+    const [formErrors, setFormErrors] = useState({
+      userName: "",
+      email: "",
+      phone: "",
+    });
+
+  const [passwordChangeErrors, setPasswordChangeErrors] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+
 
   // handle change in input fields
   const handleChange = (event) => {
     setFormState({
       ...formState,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  //handle change in password fields
+  const handlePasswordChange = (event) => {
+    setPasswordChange({
+      ...passwordChange,
       [event.target.name]: event.target.value,
     });
   };
@@ -44,6 +67,8 @@ const Profile = () => {
     return phoneRegex.test(phone);
   };
 
+
+
   // validation form
   const validateForm = () => {
     // Reset form errors
@@ -51,6 +76,8 @@ const Profile = () => {
       userName: "",
       email: "",
       phone: "",
+      password: "",
+      confirmPassword: "",
     });
 
     let isValid = true;
@@ -98,8 +125,54 @@ const Profile = () => {
       }));
       isValid = false;
     }
+
     return isValid;
   };
+
+  
+  // validation form
+  const validationPasswordForm = () => {
+    // Reset form errors
+    setPasswordChangeErrors({
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+
+    let isValid = true;
+
+    if (passwordChange.newPassword.trim() === "") {
+      setPasswordChangeErrors((prevErrors) => ({
+        ...prevErrors,
+        newPassword: "Password is required",
+      }));
+      isValid = false;
+    } else if (passwordChange.newPassword.trim().length < 8) {
+      setPasswordChangeErrors((prevErrors) => ({
+        ...prevErrors,
+        newPassword: "Password must be at least 8 characters",
+      }));
+      isValid = false;
+    }
+
+    if (passwordChange.confirmPassword.trim() === "") {
+      setPasswordChangeErrors((prevErrors) => ({
+        ...prevErrors,
+        confirmPassword: "Confirm Password is required",
+      }));
+      isValid = false;
+    } else if (passwordChange.confirmPassword.trim() !== passwordChange.newPassword.trim()) {
+      setPasswordChangeErrors((prevErrors) => ({
+        ...prevErrors,
+        confirmPassword: "Passwords do not match",
+      }));
+      isValid = false;
+    }
+
+
+    return isValid;
+  };
+
 
   //handle color of input fields and border with validation
   const getInputColor = (fieldName) => {
@@ -110,7 +183,7 @@ const Profile = () => {
 
   // change color of asterisk with validation
   const colorAstrisk = () => {
-    const labels = document.querySelectorAll("label");
+    const labels = document.querySelectorAll(".form div>label");
     Array.from(labels).forEach((label) => {
       if (!label.previousElementSibling.classList.contains("success")) {
         label.innerHTML = label.innerHTML.replace(
@@ -132,7 +205,17 @@ const Profile = () => {
       submitForm();
     }
   };
+const handlePasswordSubmit = (event) => {
+
+    event.preventDefault();
+    if (validationPasswordForm()) {
+      toast.success('Your password updated successfully!');
+      console.log(passwordChange);
+    }
+  };
+
   const submitForm = () => {
+    toast.success('Your profile updated successfully!');
     console.log(formState);
   };
 
@@ -150,7 +233,7 @@ const Profile = () => {
       </div>
 
       <div className="flex  flex-col lg:flex-row gap-4 bg-bgColor px-5 w-full lg:px-10 py-10 rounded-[16px] shadow-gray ">
-        <div className="w-full">
+        <div className="w-full form">
           <h4 className="text-primary mb-2">General Info</h4>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col lg:flex-row gap-10 ">
@@ -222,11 +305,90 @@ const Profile = () => {
               <button className="btn btn-primary md:w-[200px] py-0 mt-5 rounded-[8px] ">
                 Update Info
               </button>
-              <button className="btn btn-primary-outline py-0 mt-5 rounded-[8px] ">
-                Change password
+              <button className="btn btn-primary-outline py-0 px-0  mt-5">
+                <label
+                  htmlFor="my-modal-3"
+                  className="block w-full h-full py-4 px-6 cursor-pointer "
+                >
+                  Change password
+                </label>
               </button>
             </div>
           </form>
+        </div>
+
+        {/* Put this part before </body> tag */}
+        <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+        <div className="modal z-100">
+          <div className="modal-box relative">
+            <label
+              htmlFor="my-modal-3"
+              className="btn text-error px-4 rounded-[6px] btn-sm btn-circle absolute right-2 top-2 hover:bg-error hover:text-white hover:border-error"
+            >
+              ✕
+            </label>
+            <h3 className="text-lg font-bold pb-4">
+              You can change your password here !
+            </h3>
+
+            <form onSubmit={handlePasswordSubmit} className="flex flex-col gap-4">
+ <div className="flex flex-col gap-1">
+                <input
+                  type="text"
+                  name="oldPassword"
+                  id="oldPassword"
+                  disabled
+                  className="border border-[rgba(0,0,0,.1)] rounded px-4 py-2 order-2 disabled:opacity-80"
+                  value={passwordChange.oldPassword}
+                  onChange={handlePasswordChange}
+                />
+                <label htmlFor="oldPasssword" className="text-primary order-1">
+                   Password
+                </label>
+               
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <input
+                  type="password"
+                  name="newPassword"
+                  id="newPassword"
+                  className="border border-[rgba(0,0,0,.1)] rounded px-4 py-2 order-2"
+                  value={passwordChange.newPassword}
+                  onChange={handlePasswordChange}
+                />
+                <label htmlFor="newPasssword" className="text-primary order-1">
+                  New Password
+                </label>
+                {passwordChangeErrors.newPassword !== "" && (
+                  <p className="text-red-500 text-sm order-3">
+                    {passwordChangeErrors.newPassword}
+                  </p>
+                )}
+              </div>
+              <div className="flex flex-col gap-1">
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  className="border border-[rgba(0,0,0,.1)] rounded px-4 py-2 order-2"
+                  value={passwordChange.confirmPassword}
+                  onChange={handlePasswordChange}
+                />
+                <label htmlFor="confirmPassword" className="text-primary order-1">
+                  Confirm Password
+                </label>
+                {passwordChangeErrors.confirmPassword !== "" && (
+                  <p className="text-red-500 text-sm order-3">
+                    {passwordChangeErrors.confirmPassword}
+                  </p>
+                )}
+              </div>
+              <button type="submit" className="btn btn-primary w-[200px] py-0 mt-5 rounded-[8px] ">
+                Change Password
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

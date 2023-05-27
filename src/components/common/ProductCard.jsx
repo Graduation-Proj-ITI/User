@@ -16,37 +16,50 @@ const ProductCard = () => {
       console.error(err);
     }
   }, []);
-  const renderProduct = products.map((item) => (
-    <div className="card w-fit bg-transparent  " key={item.id}>
+  const renderProduct = products.slice(0, 5).map((item) => (
+    <div
+      className="card w-8/9 bg-transparent m-0 group cursor-pointer"
+      key={item.id}
+    >
       {/* Card Image */}
-      <figure>
-        <img src={item.image} alt="Product" />
+      <figure className="overflow-hidden">
+        <img
+          src={item.image}
+          alt="Product"
+          className="h-52 object-cover scale-100 group-hover:scale-110 ease-in duration-300"
+        />
       </figure>
       {/* Card Content */}
-      <div className="card-body pb-2 z-10 rounded-[20px] bg-gray-50 relative bottom-4 shadow-base">
-        <h2 className="card-title text-lg 2xl:text-xl">{item.name}</h2>
-        <div className="flex justify-between mt-5">
+      <div className="card-body py-3 z-10 rounded-[20px] bg-gray-50 relative bottom-4 shadow-sm px-3 border-2 border-gray-100">
+        <h2 className="card-title text-[14px] font-normal leading-tight h-9 overflow-hidden text-ellipsis flex items-start text-primary">
+          {item.name}
+        </h2>
+        <div className="flex justify-between mt-1">
           {/* Reviews */}
-          <div className="flex gap-2 ">
-            <span className="badge flex justify-evenly relative font-bold text-[18px] border-none w-[80px] h-[30px] bg-[#8FC83D]">
-              <Star /> <span className="relative left-3"></span>
+          <div className="flex gap-2  items-center">
+            <span className="badge badge-lg relative gap-2 font-medium  border-none bg-[#8FC83D] text-sm max-sm:badge-sm max-sm:py-3">
+              <i className="fa-solid fa-star text-sm"></i>
               {item.rating}
             </span>
-            <span className="text-[#8A8A8A]">({item.countReviews})</span>
+            <span className="text-[#8A8A8A] text-sm ">
+              ({item.countReviews})
+            </span>
           </div>
           {/* Prices */}
-          <div className="flex flex-col">
-            <span className="font-bold text-2xl text-left">
+          <div className="flex flex-col items-end">
+            <span className="font-semibold text-base leading-tight">
               ${item.priceAfterDiscount}
             </span>
-            <span className="text-lg line-through">${item.price}</span>
+            <span className="text-sm line-through text-gray-700 leading-tight">
+              ${item.price}
+            </span>
           </div>
         </div>
       </div>
     </div>
   ));
   return (
-    <div className="grid grid-flow-row gap-6 md:grid-cols-2 lg:grid-cols-3  lg:text-lg 2xl:grid-cols-4  ">
+    <div className="grid lg:text-lg gap-2 max-sm:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 ">
       {renderProduct}
     </div>
   );

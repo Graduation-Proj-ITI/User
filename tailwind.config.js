@@ -93,7 +93,7 @@ export default {
         },
       },
     },
-    plugins: [require("daisyui")],
+
     daisyui: {
       themes: [
         {
@@ -169,4 +169,5 @@ export default {
       ],
     },
   },
+  plugins: [require("daisyui")],
 };

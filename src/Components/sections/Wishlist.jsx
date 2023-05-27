@@ -1,7 +1,8 @@
+import { useState,useEffect } from "react";
 const Wishlist = () => {
   const items = [
     {
-      id: "NEGEC0097439103",
+      id: "1",
       name: "Gray comfortable sofa",
       image: "./images/products/product1.jpg",
       price: "100",
@@ -9,7 +10,7 @@ const Wishlist = () => {
       total: "1000",
     },
     {
-      id: "NEGEC0097439103",
+      id: "2",
       name: "Gray comfortable sofa",
       image: "./images/products/product2.jpg",
       price: "100",
@@ -17,7 +18,7 @@ const Wishlist = () => {
       total: "1000",
     },
     {
-      id: "NEGEC0097439103",
+      id: "3",
       name: "Gray comfortable sofa",
       image: "./images/products/product3.jpg",
       price: "100",
@@ -25,7 +26,7 @@ const Wishlist = () => {
       total: "1000",
     },
     {
-      id: "NEGEC0097439103",
+      id: "4",
       name: "Gray comfortable sofa",
       image: "./images/products/product4.jpg",
       price: "100",
@@ -33,7 +34,7 @@ const Wishlist = () => {
       total: "1000",
     },
     {
-      id: "NEGEC0097439103",
+      id: "5",
       name: "Gray comfortable sofa",
       image: "./images/products/product5.jpg",
       price: "100",
@@ -41,7 +42,7 @@ const Wishlist = () => {
       total: "1000",
     },
     {
-      id: "NEGEC0097439103",
+      id: "6",
       name: "Gray comfortable sofa",
       image: "./images/products/product6.jpg",
       price: "100",
@@ -49,12 +50,25 @@ const Wishlist = () => {
       total: "1000",
     },
   ];
+
+  const [wishlist, setWishlist] = useState(items);
+
+  const handleDelete = (id) => {
+    const newWishlist = wishlist.filter((item) => item.id !== id);
+    setWishlist(newWishlist);
+  }
+    
+  useEffect(() => {
+  }, []);
+
+
+
   return (
     <div className="flex flex-col gap-9 content-center">
       <div className="flex flex-col gap-4 md:flex-row items-center justify-between">
         <div>
           <h1 className="text-primary mb-2">Wishlist</h1>
-          <p className="text-dark">{items.length} items in your wishlist</p>
+          <p className="text-dark">{wishlist.length} items in your wishlist</p>
         </div>
       </div>
 
@@ -62,7 +76,7 @@ const Wishlist = () => {
         <div className="w-full">
           <div className="flex flex-row gap-3 flex-wrap justify-start">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 gap-y-12 w-full bg-transparent p-5 rounded-[16px] justify-items-center justify-center">
-              {items.map((item, ind) => (
+              {wishlist.map((item, ind) => (
                 <div
                   className="flex relative h-[270px] flex-col gap-3 min-w-[200px] max-w-[250px] "
                   key={ind}
@@ -75,7 +89,9 @@ const Wishlist = () => {
                     />
 
                     <div className="absolute bg-secondary items-center justify-center rounded-[50px] top-2 right-2 flex flex-col gap-2 p-3">
-                      <button className="btn-icon">
+                      <button className="btn-icon" onClick={
+                        () => handleDelete(item.id)
+                      } >
                         <img src="./icons/filledheart.svg" alt="" />
                       </button>
                     </div>

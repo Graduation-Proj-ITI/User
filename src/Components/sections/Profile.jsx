@@ -247,7 +247,8 @@ const Profile = () => {
         pauseOnHover: true,
       });
 
-      console.log(passwordChange);
+      userData.password = passwordChange.newPassword;
+      console.log(userData);
     }
   };
 

@@ -61,11 +61,9 @@ const Address = () => {
     zip: "",
     phone: "",
     country: "",
-  })
-  
+  });
+
   const [isEdit, setIsEdit] = useState(false);
-  const toggleEdit = () => setIsEdit(!isEdit);
-;
 
   // handle change in input fields
   const handleChange = (event) => {
@@ -190,6 +188,7 @@ const Address = () => {
     }
     if (validateForm() && isEdit) {
       editForm();
+      setIsEdit(false);
     }
   };
 
@@ -198,6 +197,18 @@ const Address = () => {
       allAdresses.forEach((address) => {
         address.isDefault = false;
       });
+
+      setFormState({
+        name: "",
+        address: "",
+        city: "",
+        zip: "",
+        phone: "",
+        country: "",
+        isDefault: false,
+      });
+
+      setAllAdresses([...allAdresses]);
     }
 
     formState.isDefault = isDefault;
@@ -227,13 +238,11 @@ const Address = () => {
     });
   };
 
-
   const handleEdit = (id) => {
-
     const address = allAdresses.find((address) => address.id === id);
     setFormState(address);
-    setIsEdit(true);
     setIsDefault(address.isDefault);
+    setIsEdit(true);
   };
 
   const editForm = () => {
@@ -272,6 +281,20 @@ const Address = () => {
         </div>
         <label
           className="btn-primary py-2 px-10 text-[16px] text-white rounded-[26px] self-end cursor-pointer transition duration-500"
+          onClick={
+            ()=>{
+              setFormState({
+                name: "",
+                address: "",
+                city: "",
+                zip: "",
+                phone: "",
+                country: "",
+                isDefault: false,
+              });
+              setIsEdit(false);
+            }
+          }
           htmlFor="my-modal-3"
         >
           Add New Address
@@ -354,7 +377,7 @@ const Address = () => {
             ✕
           </label>
           <h3 className="text-lg font-bold pb-4">
-            You can add new address here!
+            You can {isEdit? "edit" : "add"} new address here!
           </h3>
 
           <form onSubmit={handleSubmit} className="form flex flex-col gap-4">
@@ -498,18 +521,12 @@ const Address = () => {
               </label>
             </div>
 
-
-    <button
-    type="submit"
-    className="btn btn-primary w-[200px] py-0 mt-5 rounded-[8px] "
-  >
-    {
-      isEdit ? "Edit Address" : "Add Address"
-    }
-  </button>
-
-
-           
+            <button
+              type="submit"
+              className="btn btn-primary w-[200px] py-0 mt-5 rounded-[8px] "
+            >
+              {isEdit ? "Edit Address" : "Add Address"}
+            </button>
           </form>
         </div>
       </div>

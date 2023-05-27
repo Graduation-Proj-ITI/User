@@ -7,14 +7,14 @@ export default function ReadMore({ children }) {
     setIsReadMore(!isReadMore);
   };
   return (
-    <p className=" ">
+    <div className=" ">
       {isReadMore ? text.slice(0, 120) : text}
       <span
         onClick={toggleReadMore}
-        className="read-or-hide cursor-pointer text-gray-400"
+        className="read-or-hide cursor-pointer text-gray-400 "
       >
-        {isReadMore ? "...read more" : " show less"}
+        {isReadMore ? " ...read more" : " show less"}
       </span>
-    </p>
+    </div>
   );
 }

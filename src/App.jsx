@@ -10,16 +10,19 @@ import Community from "./pages/Community";
 // import NavBar from "./Components/Shared/NavBar";
 // import About from "./pages/About";
 import User from "./Components/user/user";
+import Footer from "./Components/Shared/Footer";
 
 export default function App() {
   return (
     <>
       {/* <NavBar /> */}
-      {/* <Home /> */}
-      <User />
-      <ToastContainer />
+      <Home />
+      {/* <User /> */}
+      {/*<ToastContainer /> */}
       {/* <Community /> */}
       {/* <About /> */}
+
+      <Footer />
     </>
   );
 }

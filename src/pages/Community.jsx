@@ -3,6 +3,7 @@ import community from "../../public/images/community/community.png";
 import "../App.css";
 import axios from "axios";
 import ReadMore from "../../../../tailwind graduation/User/src/Components/Shared/Readmore";
+import Footer from "../Components/Shared/Footer";
 
 const Community = () => {
   const [tabElements, setTabElements] = useState([
@@ -88,26 +89,27 @@ const Community = () => {
               className="mx-auto group border-2 border-gray-100 shadow-sm rounded-md p-5 w-fit "
               key={question.id}
             >
-              <h5 className="text-primary font-medium font-poppins text-base">
-                {question.title}
-              </h5>
-              <h6 className="text-slate-500 font-poppins text-sm pt-1 pb-3 capitalize">
-                By: {question.username}
-              </h6>
-              <div className="overflow-hidden rounded-lg">
+              <div className="overflow-hidden rounded-lg pb-3">
                 <img
                   src={question.image}
                   className="object-cover w-full h-60 shadow-sm scale-100 group-hover:scale-110 ease-in duration-300"
                 />
               </div>
 
-              <p className="text-[0.9rem] text-gray-600 pt-3">
+              <h5 className="text-primary font-medium font-poppins text-base">
+                {question.title}
+              </h5>
+              <h6 className="text-slate-500 font-poppins text-sm pt-1 capitalize">
+                By: {question.username}
+              </h6>
+
+              <div className="text-[0.9rem] text-gray-600 pt-3">
                 {question.description.length > 160 ? (
                   <ReadMore>{question.description}</ReadMore>
                 ) : (
                   question.description
                 )}
-              </p>
+              </div>
 
               <div className="flex gap-5 pt-2 pb-2 ps-2">
                 <div className="text-gray-400 flex gap-2 items-center">
@@ -153,21 +155,21 @@ const Community = () => {
                         <p className="text-base font-semibold capitalize">
                           {comment.username}
                         </p>
-                        <p className=" text-gray-600 text-sm">
+                        <div className=" text-gray-600 text-sm">
                           {" "}
                           {comment.comment.length > 160 ? (
                             <ReadMore>{comment.comment}</ReadMore>
                           ) : (
                             comment.comment
                           )}
-                        </p>
+                        </div>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="w-full flex justify-between border-gray-600 rounded-lg shadow-sm py-2 pe-4 items-center ">
+              <div className="w-full flex gap-3 justify-between border-gray-600 rounded-lg shadow-sm py-2 pe-4 items-center ">
                 <input
                   type="text"
                   placeholder="Write comment"
@@ -187,6 +189,75 @@ const Community = () => {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      <label
+        htmlFor="AddNewQuestion"
+        className="z-20 btn bg-secondary text-white btn-circle border-0 cursor-pointer bottom-12 right-10 px-0 shadow-md hover:bg-secondary fixed"
+      >
+        <i className="fa-solid fa-plus text-xl"></i>
+      </label>
+
+      <input type="checkbox" id="AddNewQuestion" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box relative">
+          <label
+            htmlFor="AddNewQuestion"
+            className="btn btn-sm btn-circle absolute right-2 top-2 bg-secondary border-0 px-0 "
+          >
+            ✕
+          </label>
+          <h3 className="text-lg font-medium capitalize text-center">
+            Ask question
+          </h3>
+          <div className="py-4 flex flex-col items-center">
+            <input
+              type="text"
+              placeholder="Add Question"
+              className="input w-full max-w-xs input-md focus:outline-none my-2"
+              value={comment}
+              onChange={(e) => {
+                setComment(() => e.target.value);
+                console.log(comment);
+              }}
+            />
+            <input
+              type="text"
+              placeholder="Add Description"
+              className="input w-full max-w-xs input-md focus:outline-none my-2"
+              value={comment}
+              onChange={(e) => {
+                setComment(() => e.target.value);
+                console.log(comment);
+              }}
+            />
+
+            <div className="flex gap-4 my-2">
+              <label
+                htmlFor="image"
+                className="btn btn-outline text-primary  btn-sm  capitalize rounded-2xl px-4 gap-3 hover:bg-white hover:text-primary"
+              >
+                <i className="fa-solid fa-upload"></i>
+                Upload Image
+              </label>
+
+              <input
+                hidden
+                accept="image/*"
+                type="file"
+                id="image"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  console.log(file);
+                }}
+              />
+
+              <button className=" capitalize btn btn-primary btn-sm rounded-2xl px-12 hover:bg-primary hover:text-white hover:border-primary">
+                post
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

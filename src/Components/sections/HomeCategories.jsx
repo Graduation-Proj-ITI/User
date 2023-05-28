@@ -69,13 +69,13 @@ const Categories = () => {
 
         <div className="flex gap-2">
           <button
-            className="btn btn-circle btn-outline btn-sm border-secondary border-2 text-secondary hover:bg-secondary hover:border-secondary hover:text-white"
+            className="btn btn-circle btn-sm btn-secondary-outline bg-transparent hover:text-white px-0"
             onClick={() => scroll(-180)}
           >
             <i className="fa-solid fa-angle-left"></i>
           </button>
           <button
-            className="btn btn-circle btn-outline btn-sm border-secondary border-2 text-secondary hover:bg-secondary hover:border-secondary hover:text-white"
+            className="btn btn-circle btn-sm btn-secondary-outline bg-transparent hover:text-white px-0"
             onClick={() => scroll(+180)}
           >
             <i className="fa-solid fa-angle-right"></i>
@@ -91,7 +91,7 @@ const Categories = () => {
             className="max-sm:w-28 w-40 carousel-item flex flex-col cursor-pointer group"
             key={category.id}
           >
-            <div className="w-full h-24 flex align-items-center justify-center">
+            <div className="w-full h-24 flex align-items-center justify-center bg-gray-50 rounded-2xl">
               {/* <svg
                 id="sw-js-blob-svg"
                 viewBox="0 0 100 100"

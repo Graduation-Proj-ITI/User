@@ -46,6 +46,8 @@ export default {
 
       backgroundImage: {
         community: "url('../../public/images/community/community.png')",
+        footerBg:
+          "linear-gradient(to top, #EEEEEEae, #EEEEEEae), url('https://i.shgcdn.com/4427c8e2-7042-41d8-bcfb-0fb78efd53bf/-/format/auto/-/preview/3000x3000/-/quality/lighter/')",
       },
       fontSize: {
         sm: "0.8rem",

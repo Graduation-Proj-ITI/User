@@ -1,12 +1,13 @@
 import React from "react";
 
-import { Pagination, A11y, Autoplay } from "swiper";
+import { Pagination, A11y, Autoplay, EffectFade } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import "swiper/css/effect-fade";
 
 import slide1 from "../../../public/images/categories/image1.webp";
 import slide2 from "../../../public/images/categories/image2.webp";
@@ -16,12 +17,13 @@ const Slider = () => {
   return (
     <div>
       <Swiper
-        modules={[Pagination, A11y, Autoplay]}
+        modules={[Pagination, A11y, EffectFade, Autoplay]}
         slidesPerView={1}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
         }}
+        effect={"fade"}
         pagination={{ clickable: true }}
         onSwiper={(swiper) => console.log(swiper)}
       >

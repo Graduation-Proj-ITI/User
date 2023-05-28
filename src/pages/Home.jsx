@@ -4,6 +4,7 @@ import BestSelling from "../components/sections/BestSelling";
 import Slider from "../Components/sections/HomeSlider";
 import Categories from "../Components/sections/HomeCategories";
 import GridProducts from "../Components/sections/HomeGridProducts";
+import ScrollButton from "../Components/Shared/ScrollToTopButton";
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
         <BestSelling />
         <GridProducts />
       </div>
+      <ScrollButton />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 const Wishlist = () => {
   const items = [
     {
@@ -56,18 +56,15 @@ const Wishlist = () => {
   const handleDelete = (id) => {
     const newWishlist = wishlist.filter((item) => item.id !== id);
     setWishlist(newWishlist);
-  }
-    
-  useEffect(() => {
-  }, []);
+  };
 
-
+  useEffect(() => {}, []);
 
   return (
-    <div className="flex flex-col gap-9 content-center">
+    <div className="flex flex-col gap-5 content-center">
       <div className="flex flex-col gap-4 md:flex-row items-center justify-between">
         <div>
-          <h1 className="text-primary mb-2">Wishlist</h1>
+          <h2 className="text-primary my-2">Wishlist</h2>
           <p className="text-dark">{wishlist.length} items in your wishlist</p>
         </div>
       </div>
@@ -89,9 +86,10 @@ const Wishlist = () => {
                     />
 
                     <div className="absolute bg-secondary items-center justify-center rounded-[50px] top-2 right-2 flex flex-col gap-2 p-3">
-                      <button className="btn-icon" onClick={
-                        () => handleDelete(item.id)
-                      } >
+                      <button
+                        className="btn-icon"
+                        onClick={() => handleDelete(item.id)}
+                      >
                         <img src="./icons/filledheart.svg" alt="" />
                       </button>
                     </div>

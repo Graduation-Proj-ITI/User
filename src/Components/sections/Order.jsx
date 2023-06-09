@@ -112,9 +112,9 @@ function Orders() {
   const [allOrders, setAllOrders] = useState(Orders);
   const [id, setId] = useState("");
   return (
-    <div className="flex flex-col gap-9 content-center">
+    <div className="flex flex-col gap-5 content-center">
       <div className="">
-        <h1 className="text-primary mb-2">Orders</h1>
+        <h2 className="text-primary my-2">Orders</h2>
         <p className="text-dark">
           View your order history and check the delivery status for items
         </p>
@@ -122,12 +122,12 @@ function Orders() {
 
       {allOrders.map((order, ind) => (
         <div
-          className="flex  flex-col lg:flex-row gap-4 bg-bgColor px-5 w-full lg:px-10 py-10 rounded-[16px] shadow-gray "
+          className="flex flex-col lg:flex-row gap-1 bg-bgColor px-5 w-full lg:px-10 py-7 rounded-[16px] shadow-gray "
           key={ind}
         >
           <div className="w-full">
             <div className="flex flex-col gap-4">
-              <div className="w-full flex flex-row items-center  gap-1 ">
+              <div className="w-full flex flex-row items-center gap-2">
                 <p className="text-primary font-bold "> {order.id} </p>
                 <p
                   className={`${
@@ -221,7 +221,7 @@ function Orders() {
           {allOrders.map(
             (order, ind) =>
               order.id === id && (
-                <div   key={ind}>
+                <div key={ind}>
                   <div className="w-full flex flex-row items-center  gap-4 pb-4 ">
                     <p className="text-primary font-bold "> {order.id} </p>
                     <p
@@ -294,18 +294,13 @@ function Orders() {
 
                   <div className="w-full flex flex-row items-center justify-between  gap-4 pt-2">
                     <p className="text-primary font-bold "> Total: </p>
-                  
+
                     <p className="text-secondary font-bold ">
-                        {
-                          order.items.reduce((acc, item) => {
-                            return acc + Number(item.total)
-                          }
-                          , 0)
-                          +"$"
-                        }
+                      {order.items.reduce((acc, item) => {
+                        return acc + Number(item.total);
+                      }, 0) + "$"}
                     </p>
                   </div>
-
                 </div>
               )
           )}

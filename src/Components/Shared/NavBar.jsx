@@ -1,114 +1,364 @@
-import React from "react";
-import logo from "../../../public/images/logo/furnivalLogo.png";
+import React, { useEffect } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+// import logo from "../../../public/images/logo/furnivalLogo.png";
 
 const NavBar = () => {
+  const [visible, setVisible] = React.useState(false);
+
+  const location = useLocation();
+  console.log(location.pathname);
+
+  const toggleVisible = () => {
+    const scrolled = document.documentElement.scrollTop;
+    if (scrolled > 150) {
+      setVisible(true);
+    } else if (scrolled <= 150) {
+      setVisible(false);
+    }
+  };
+
+  window.addEventListener("scroll", toggleVisible);
+
   return (
     <>
-      <div className="navbar bg-white fixed z-20 shadow-md max-sm:px-[1rem] sm:px-[2.5rem] md:px-[3rem] lg:px-[4rem] xl:px-[12rem]">
-        <div className="navbar-start gap-5">
-          <a className="normal-case text-xl">
-            <img src={logo} className=" w-32" />
-          </a>
-          <div className=" bg-gray-50 flex justify-between items-center px-3 p-1 rounded-2xl w-72">
-            <input
-              type="search"
-              placeholder="Search"
-              className="input w-full input-sm max-w-xs bg-gray-50  focus:outline-none"
-            />
-            <i className="fa-solid fa-magnifying-glass text-gray-400 hover:text-primary hover:cursor-pointer btn btn-sm bg-transparent border-0 hover:bg-transparent"></i>
-          </div>
-
-          {/* <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost btn-circle">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+      <div className="max-sm:drawer sm:drawer  h-full lg:h-32 lg:overflow-visible fixed z-40 ">
+        <input
+          id="sidemenu"
+          type="checkbox"
+          className="drawer-toggle lg:hidden"
+        />
+        <div className="drawer-content flex flex-col ">
+          <div
+            className={
+              "fixed z-50 px-[1rem] sm:px-[2.5rem] md:px-[3rem] lg:px-[4rem] xl:px-[12rem] w-full py-2 navbar justify-between  " +
+              (visible || location.pathname === "/profile"
+                ? " animate-wiggle bg-primary "
+                : " bg-transparent ")
+            }
+          >
+            <div className="lg:hidden">
+              <label
+                htmlFor="sidemenu"
+                className="btn btn-square btn-ghost px-0 text-white"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h7"
-                />
-              </svg>
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <a>Homepage</a>
+                <i className="fa-solid fa-bars text-xl"></i>
+              </label>
+            </div>
+
+            <h3 className=" text-white">Furnival</h3>
+
+            <div className="max-sm:hidden sm:hidden bg-gray-100 lg:flex md:hidden items-center rounded-2xl justify-around w-3/12">
+              <input
+                type="text"
+                placeholder="Search"
+                className="input input-sm input-ghost w-4/6 max-w-xs rounded-2xl focus:outline-none border-0 "
+              />
+
+              <button className="btn btn-ghost btn-sm p-0  hover:bg-transparent">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-5 h-5 text-primary "
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <ul className="max-sm:hidden sm:hidden lg:flex md:hidden justify-center gap-5 items-center">
+              <li className=" text-lg">
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-secondary font-bold"
+                      : "text-white text-lg hover:text-secondary  cursor-pointer"
+                  }
+                >
+                  Home
+                </NavLink>
               </li>
-              <li>
-                <a>Portfolio</a>
+              <li className=" text-lg">
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-secondary font-bold"
+                      : "text-white  text-lg hover:text-secondary  cursor-pointer"
+                  }
+                >
+                  Shop
+                </NavLink>
               </li>
-              <li>
-                <a>About</a>
+              <li className=" text-lg">
+                <NavLink
+                  to="/community"
+                  className={({ isActive }) =>
+                    (isActive ? "text-secondary font-bold" : "text-white") +
+                    " text-lg hover:text-secondary  cursor-pointer"
+                  }
+                >
+                  Community
+                </NavLink>
+              </li>
+              <li className=" text-lg">
+                <NavLink
+                  to=""
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-secondary font-bold"
+                      : "text-white text-lg hover:text-secondary  cursor-pointer"
+                  }
+                >
+                  Blog
+                </NavLink>
+              </li>
+              <li className=" text-lg">
+                <NavLink
+                  to="/about"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-secondary font-bold"
+                      : "text-white  text-lg hover:text-secondary  cursor-pointer"
+                  }
+                >
+                  About
+                </NavLink>
+              </li>
+              <li className=" text-lg">
+                <NavLink
+                  to="/contact"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-secondary font-bold"
+                      : "text-white text-lg hover:text-secondary  cursor-pointer"
+                  }
+                >
+                  Contact
+                </NavLink>
               </li>
             </ul>
-          </div> */}
-        </div>
-        <div className="navbar-center"></div>
-        <div className="navbar-end ">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <a>
-                {" "}
-                <div className="indicator">
-                  <button className="btn btn-ghost btn-circle btn-sm group hover:bg-primary hover:border-0">
-                    <i class="fa-solid fa-heart text-xl  text-primary group-hover:text-white "></i>
-                  </button>
 
-                  <span className="badge badge-sm badge-[#FF9934]  bg-secondary border-0 indicator-item">
-                    1
-                  </span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a>
-                {" "}
-                <div className="indicator">
-                  <button className="btn btn-ghost btn-circle btn-sm group hover:bg-primary hover:border-0">
-                    <i class="fa-solid fa-cart-shopping text-xl text-primary group-hover:text-white"></i>
-                  </button>
-
-                  <span className="badge badge-sm badge-[#FF9934]  bg-secondary border-0 indicator-item">
-                    1
-                  </span>
-                </div>
-              </a>
-            </li>
-            <li tabIndex={0}>
-              <a>
-                <p className=" text-primary">User Name </p>
-                <div className="avatar">
-                  <div className="w-8 rounded-full">
-                    <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1331&q=80" />
-                  </div>
-                </div>
-
-                {/* <svg
-                  className="fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
+            <ul className=" menu menu-horizontal px-1 ">
+              <li>
+                <NavLink
+                  to="/contact"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-secondary font-bold"
+                      : "text-white text-lg hover:text-secondary  cursor-pointer"
+                  }
                 >
-                  <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                </svg> */}
-              </a>
-              <ul className="p-2 bg-base-100">
-                <li>
-                  <a>orders</a>
-                </li>
-                <li>
-                  <a>Logout</a>
-                </li>
-              </ul>
+                  <div className="indicator">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-5 h-5 text-white"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                      />
+                    </svg>
+
+                    <span className="badge badge-sm badge-white  bg-secondary text-primary border-0 indicator-item">
+                      1
+                    </span>
+                  </div>
+                </NavLink>
+              </li>
+              <li className="max-sm:hidden sm:hidden lg:inline md:hidden">
+                <NavLink
+                  to="/contact"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-secondary font-bold"
+                      : "text-white text-lg hover:text-secondary  cursor-pointer"
+                  }
+                >
+                  <div className="indicator">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-5 h-5 text-white"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                      />
+                    </svg>
+
+                    <span className="badge badge-sm badge-white bg-secondary text-primary border-0 indicator-item">
+                      0
+                    </span>
+                  </div>
+                </NavLink>
+              </li>
+              <li
+                tabIndex={0}
+                className="max-sm:hidden sm:hidden lg:inline md:hidden"
+              >
+                <NavLink
+                  to="/profile"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-secondary font-bold"
+                      : "text-white text-lg hover:text-secondary  cursor-pointer"
+                  }
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 text-white"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                    />
+                  </svg>
+                </NavLink>
+
+                <ul className="p-2 bg-base-100">
+                  <li>
+                    <a>Logout</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="drawer-side overflow-visible  lg:hidden ">
+          <label htmlFor="sidemenu" className="drawer-overlay"></label>
+          <ul className="menu p-4 ps-12 w-80 h-full bg-primary ">
+            <li>
+              <div className=" bg-gray-100 flex items-center rounded-2xl justify-around w-full">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="input input-sm input-ghost w-4/6 max-w-xs  focus:outline-none border-0 "
+                />
+
+                <button className="btn btn-ghost btn-sm p-0  hover:bg-transparent">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 text-primary "
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </li>
+            <li>
+              {" "}
+              <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-secondary font-bold"
+                    : "text-white text-lg hover:text-secondary  cursor-pointer"
+                }
+              >
+                Profile
+              </NavLink>
+            </li>
+            <li className=" text-lg">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-secondary font-bold"
+                    : "text-white text-lg hover:text-secondary  cursor-pointer"
+                }
+              >
+                Home
+              </NavLink>
+            </li>
+            <li className=" text-lg">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-secondary font-bold"
+                    : "text-white  text-lg hover:text-secondary  cursor-pointer"
+                }
+              >
+                Shop
+              </NavLink>
+            </li>
+            <li className=" text-lg">
+              <NavLink
+                to="/community"
+                className={({ isActive }) =>
+                  (isActive ? "text-secondary font-bold" : "text-white") +
+                  " text-lg hover:text-secondary  cursor-pointer"
+                }
+              >
+                Community
+              </NavLink>
+            </li>
+            <li className=" text-lg">
+              <NavLink
+                to=""
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-secondary font-bold"
+                    : "text-white text-lg hover:text-secondary  cursor-pointer"
+                }
+              >
+                Blog
+              </NavLink>
+            </li>
+            <li className=" text-lg">
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-secondary font-bold"
+                    : "text-white  text-lg hover:text-secondary  cursor-pointer"
+                }
+              >
+                About
+              </NavLink>
+            </li>
+            <li className=" text-lg">
+              <NavLink
+                to="/contact"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-secondary font-bold"
+                    : "text-white text-lg hover:text-secondary  cursor-pointer"
+                }
+              >
+                Contact
+              </NavLink>
             </li>
           </ul>
         </div>

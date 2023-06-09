@@ -366,11 +366,11 @@ const Address = () => {
         .reverse()}
 
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-      <div className="modal z-100">
-        <div className="modal-box relative">
+      <div className="modal ">
+        <div className="modal-box relative z-50">
           <label
             htmlFor="my-modal-3"
-            className="btn text-error px-4 rounded-[6px] btn-sm btn-circle absolute right-4 top-2 hover:bg-error hover:text-white hover:border-error"
+            className="btn text-error px-4 rounded-full  btn-sm  border-error btn-outline btn-circle absolute right-4 top-2 hover:bg-error hover:text-white hover:border-error"
           >
             ✕
           </label>

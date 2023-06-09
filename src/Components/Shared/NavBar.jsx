@@ -21,7 +21,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="max-sm:drawer sm:drawer  h-full lg:h-32 lg:overflow-visible fixed z-40 ">
+      <div className="max-sm:drawer sm:drawer  h-full lg:h-16 lg:overflow-visible fixed z-40 ">
         <input
           id="sidemenu"
           type="checkbox"

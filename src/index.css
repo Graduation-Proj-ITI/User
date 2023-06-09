@@ -64,6 +64,10 @@
     @apply bg-secondary border-secondary text-white;
   }
 
+  .btn-secondary:hover {
+    @apply bg-secondary border-secondary;
+  }
+
   .btn-secondary-outline {
     @apply border-secondary text-secondary;
   }

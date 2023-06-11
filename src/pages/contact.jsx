@@ -1,39 +1,12 @@
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useState, useEffect } from "react";
-import {
-  TextField,
-  Button,
-  Card,
-  Grid,
-  Box,
-  Container,
-  Breadcrumbs,
-  Typography,
-  Link,
-  Stack,
-  CardContent,
-  CardMedia,
-} from "@mui/material";
-
-import "../../form.css";
+// import "../../form.css";
 
 const Contact = () => {
   const handleClick = (event) => {
     // handle the logic for clicking the link
     event.preventDefault();
   };
-  const breadcrumbs = [
-    <Link underline="hover" key="1" color="#000" href="/" onClick={handleClick}>
-      Home
-    </Link>,
-    <Typography
-      key="2"
-      color="#fff
-    "
-    >
-      Contact Us
-    </Typography>,
-  ];
+
   const cards = [
     {
       icon: "phone.svg",
@@ -167,7 +140,8 @@ const Contact = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      submitForm();
+      submitForm(event);
+      // console.log(formState)
     }
   };
   const submitForm = (e) => {
@@ -175,15 +149,19 @@ const Contact = () => {
   };
 
   const getInputColor = (fieldName) => {
+    if(formState[fieldName] != "" && formErrors[fieldName] == ""){
+      document.getElementById(fieldName).parentElement.classList.add("success");
+    
+    }
     return formState[fieldName] != "" && formErrors[fieldName] == ""
-      ? "success"
+      ? "green"
       : "";
   };
 
   const colorAstrisk = () => {
     const labels = document.querySelectorAll("label");
+   
     Array.from(labels).forEach((label) => {
-      console.log(label.parentElement.classList.contains("success"));
       if (!label.parentElement.classList.contains("success")) {
         label.innerHTML = label.innerHTML.replace(
           "*",
@@ -204,266 +182,179 @@ const Contact = () => {
 
   //rememebr to fix success color in inputs when handle change
   return (
-    <div>
-      <Box marginBottom={10}>
-        <header
+    <div>  
+
+
+      <header className="mb-5 relative top-0 left-0 w-[100%] bg-[url('contact/contact.png')]  bg-size-cover bg-no-repeat bg-center flex items-center justify-center h-[400px]">
+
+        <div className="container relative z-10 index top-0 left-0 text-light w-full h-full text-white flex flex-col items-center justify-center">
+          <h1 className="m-0 mb-2 text-white ">Contact Us</h1>
+
+          <div className="text-sm breadcrumbs">
+            <ul>
+              <li className="underline">
+                <a>Home</a>
+              </li>
+             
+              <li className="font-bold">Contact us</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* overlay */}
+        <div
+          className="overlay absolute top-0 left-0 w-full h-full z-[1]"
           style={{
-            position: "relative",
-            width: "100%",
-            height: "400px",
-            left: "0px",
-            top: "0px",
-            background: `url("contact/contact.png"), #D9D9D9`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center center",
+            background: "rgba(117, 117, 117, 0.39)",
           }}
-        >
-          <Container
-            maxWidth="lg"
-            sx={{
-              position: "relative",
-              zIndex: "2",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "100%",
-              flexDirection: "column",
-              color: "#fff",
-              textAlign: "center",
-            }}
-          >
-            <h1 style={{ margin: 0, marginBottom: 10 }}>Contact Us</h1>
-
-            <Stack>
-              <Breadcrumbs
-                separator={<NavigateNextIcon fontSize="small" />}
-                aria-label="breadcrumb"
-                color="#000"
-              >
-                {breadcrumbs}
-              </Breadcrumbs>
-            </Stack>
-          </Container>
-
-          {/* overlay */}
-          <div
-            className="overlay"
-            style={{
-              position: "absolute",
-              width: "100%",
-              height: "100%",
-              left: "0px",
-              top: "0px",
-              background: "rgba(117, 117, 117, 0.39)",
-              zIndex: "1",
-            }}
-          ></div>
-        </header>
-      </Box>
+        ></div>
+     
+      </header>
 
       {/* cards contact */}
 
-      <Box>
-        <Container
-          maxWidth="lg"
-          sx={{
-            position: "relative",
-            zIndex: "2",
-            color: "#fff",
-            textAlign: "center",
-            marginBottom: "80px",
-          }}
-        >
-          <Grid
-            container
-            spacing={{ xs: "44", md: "80" }}
-            justifyContent="center"
-          >
+      <section className="card-contact text-white mb-[20px]">
+        <div className="container mx-auto px-5 lg:px-[100px] ">
+          <div className="grid items-center justify-center  grid-cols-1 md:grid-cols-3 gap-[50px] md:gap-[30px] lg:gap-[80px]">
             {cards.map((card, ind) => (
-              <Grid item xs={7} md={4} key={ind}>
-                <Card
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: "50px",
-                    color: "#fff",
-                    textAlign: "center",
-                    width: "100%",
-                    minHeight: "140px",
-                    overflow: "visible",
+              <div className="" key={ind}>
+                <div
+                  className="flex m-auto items-center justify-center text-center text-white gap-[50px] w-[90%] min-h-[140px] "
+                  style={{
                     boxShadow: "0px 0px 20px rgba(185, 185, 185, 0.25)",
                     borderRadius: "16px",
                   }}
                 >
-                  <CardContent sx={{ width: "100%" }}>
-                    <Box
-                      sx={{
-                        background: "#eee",
-                        width: "50px",
-                        padding: "10px",
-                        borderRadius: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        position: "relative",
-                        top: "-50px",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                      }}
-                    >
-                      <CardMedia
-                        component="img"
-                        height="auto"
-                        image={`icons/${card.icon}`}
-                        alt="green iguana"
-                        sx={{ maxWidth: "100%", width: "100%" }}
+                  <div className="w-full">
+                    <div className="w-[50px] p-2 flex items-center justify-center bg-bgColor rounded-full m-auto relative top-[-60px]  transform translate-x-[-40%] left-[7%]">
+                      <img
+                        src={`./icons/${card.icon}`}
+                        alt="card icon"
+                        className="max-w-full w-full"
                       />
-                    </Box>
-                    <Typography
-                      variant="heading"
-                      component="div"
-                      textAlign={"center"}
-                      color={"#133A5E"}
-                      sx={{ fontWeight: "bold", mt: -2, mb: 2 }}
-                    >
+                    </div>
+                    <div className="text-center text-primary font-bold mt-[-2] mb-[2]">
                       {card.desc}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
+                    </div>
+                  </div>
+                </div>
+              </div>
             ))}
-          </Grid>
-        </Container>
-      </Box>
-
+          </div>
+        </div>
+      </section>
+     
       {/* form */}
-      <Box>
-        <Container
-          maxWidth="lg"
-          sx={{
-            position: "relative",
-            zIndex: "2",
-            color: "#fff",
-            textAlign: "center",
-            marginBottom: "40px",
-          }}
-        >
-          <Grid container spacing={{ xs: "5", md: "60" }}>
-            <Grid item xs={9} sx={{ m: "auto" }} md={5}>
-              <img src="/contact/Vector.png" style={{ maxWidth: "100%" }} />
-            </Grid>
-            <Grid item xs={12} md={7} style={{ alignSelf: "center" }}>
-              <form onSubmit={handleSubmit}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "30px",
-                  }}
-                >
-                  <TextField
-                    label="First Name*"
-                    variant="outlined"
-                    fullWidth
-                    margin="normal"
-                    name="fName"
-                    value={formState.fName}
-                    onChange={handleChange}
-                    error={formErrors.fName !== ""}
-                    helperText={formErrors.fName}
-                    className={getInputColor("fName")}
-                  />
-                  <TextField
-                    label="Last Name*"
-                    variant="outlined"
-                    fullWidth
-                    margin="normal"
-                    name="lName"
-                    value={formState.lName}
-                    onChange={handleChange}
-                    error={formErrors.lName !== ""}
-                    helperText={formErrors.lName}
-                    className={getInputColor("lName")}
-                  />
-                </Box>
+      <section className="contact-form">
+      <div className="container mx-auto px-5  lg:px-[40px] xl:px-[100px] mb-[40px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[30px] lg:gap-[0px]">
+              <img src="/contact/Vector.png"  className="w-full m-auto md:w-3/4 max-w-[100%]" />
+            
+            <div className="self-center ">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+              
+              <div className="flex justify-between gap-6">
+              <div className="flex w-full flex-col gap-1">
+              <input
+                type="text"
+                name="fName"
+                id="fName"
+                value={formState.fName}
+                onChange={handleChange}
+                className={`${getInputColor("fName")} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+              />
+              <label htmlFor="fName" className="text-primary order-1">
+              First Name*
+              </label>
 
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    flexDirection: { xs: "column", sm: "column", md: "row" },
-                    gap: { xs: "5px", md: "30px" },
-                  }}
-                >
-                  <TextField
-                    label="Email*"
-                    variant="outlined"
-                    fullWidth
-                    margin="normal"
-                    type="email"
-                    name="email"
-                    value={formState.email}
-                    onChange={handleChange}
-                    error={formErrors.email !== ""}
-                    helperText={formErrors.email}
-                    className={getInputColor("email")}
-                  />
-                  <TextField
-                    label="Phone*"
-                    variant="outlined"
-                    fullWidth
-                    margin="normal"
-                    type="phone"
-                    name="phone"
-                    value={formState.phone}
-                    onChange={handleChange}
-                    error={formErrors.phone !== ""}
-                    helperText={formErrors.phone}
-                    className={getInputColor("phone")}
-                  />
-                </Box>
+              {formErrors.fName && (
+                <span className="text-error order-2">{formErrors.fName}</span>
+              )}
+            </div>
+            <div className="flex w-full flex-col gap-1">
+              <input
+                type="text"
+                name="lName"
+                id="lName"
+                value={formState.lName}
+                onChange={handleChange}
+                className={`${getInputColor("lName")} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+              />
+              <label htmlFor="lName" className="text-primary order-1">
+              Last Name*
+              </label>
 
-                <TextField
-                  label="Message*"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  multiline
-                  rows={4}
-                  name="message"
-                  value={formState.message}
-                  onChange={handleChange}
-                  error={formErrors.message !== ""}
-                  helperText={formErrors.message}
-                  className={getInputColor("message")}
-                />
+              {formErrors.lName && (
+                <span className="text-error order-2">{formErrors.lName}</span>
+              )}
+            </div>
+          </div>
+          
+          <div className="flex justify-between gap-4 md:gap-6 flex-col md:flex-row">
+              <div className="flex w-full flex-col gap-1">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={formState.email}
+                onChange={handleChange}
+                className={`${getInputColor("email")} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+              />
+              <label htmlFor="email" className="text-primary order-1">
+              Email*
+              </label>
 
-                {formErrors.general && (
-                  <Typography
-                    variant="body2"
-                    color="error"
-                    sx={{ backgroundColor: "#fff" }}
-                  >
-                    {formErrors.general}
-                  </Typography>
-                )}
-                <Box textAlign="center" mt={2}>
-                  <Button
+              {formErrors.email && (
+                <span className="text-error order-2">{formErrors.email}</span>
+              )}
+            </div>
+            <div className="flex w-full flex-col gap-1">
+              <input
+                type="phone"
+                name="phone"
+                id="phone"
+                value={formState.phone}
+                onChange={handleChange}
+                className={`${getInputColor("phone")} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+              />
+              <label htmlFor="phone" className="text-primary order-1">
+              Phone*
+              </label>
+
+              {formErrors.phone && (
+                <span className="text-error order-2">{formErrors.phone}</span>
+              )}
+            </div>
+          </div>
+          
+          <div className="flex w-[100%] flex-col gap-1">
+          <textarea id="message"   name="message"
+                value={formState.message}
+                onChange={handleChange}
+                className={`${getInputColor("message")} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2 min-h-[140px]`}
+              >
+          </textarea>
+              <label htmlFor="message" className="text-primary order-1">
+              Message*
+              </label>
+
+              {formErrors.message && (
+                <span className="text-error order-2">{formErrors.message}</span>
+              )}
+          </div>
+
+               
+                  <button
                     type="submit"
-                    variant="contained"
-                    fullWidth
-                    style={{ backgroundColor: "#133A5E", padding: "7px" }}
+                    className="btn-primary text-[17px] py-[8px] mt-2 w-full md:w-1/2 mx-auto "
                   >
                     Send Message
-                  </Button>
-                </Box>
+                  </button>
               </form>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

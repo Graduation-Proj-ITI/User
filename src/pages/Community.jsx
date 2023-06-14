@@ -213,7 +213,7 @@ const Community = () => {
           <h3 className="text-lg font-medium capitalize text-center">
             Ask question
           </h3>
-          <div className="py-4 flex flex-col items-center">
+          <form className="py-4 flex flex-col items-center">
             <input
               type="text"
               placeholder="Add Question"
@@ -259,7 +259,7 @@ const Community = () => {
                 post
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

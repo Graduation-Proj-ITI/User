@@ -78,7 +78,7 @@ const Wishlist = () => {
                   className="flex relative h-[270px] flex-col gap-3 min-w-[200px] max-w-[250px] "
                   key={ind}
                 >
-                  <div className="relative h-[90%]">
+                  <figure className="relative h-[90%]">
                     <img
                       src={item.image}
                       alt=""
@@ -93,7 +93,7 @@ const Wishlist = () => {
                         <img src="./icons/filledheart.svg" alt="" />
                       </button>
                     </div>
-                  </div>
+                  </figure>
                   <div className="flex flex-col absolute -bottom-3 w-[90%] mx-auto self-center bg-white px-4 py-4 rounded-[8px] h-auto gap-2 ">
                     <p className="text-black">{item.name}</p>
                     <div className="flex flex-row justify-between items-center content-center gap-2">

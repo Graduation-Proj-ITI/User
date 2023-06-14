@@ -92,7 +92,7 @@ const Sidebar = () => {
                     isMenuOpen ? "-left-200 hidden  " : " opacity-100 left-0 "
                   } flex content-center transition-all duration-100 items-center flex-col gap-2 py-4 mb-2  border-b-2 border-[rgba(0,0,0,.1)]`}
                 >
-                  <div className="relative w-[150px] h-[150px] rounded">
+                  <figure className="relative w-[150px] h-[150px] rounded">
                     <img
                       src="./profile/profile.jpg"
                       alt="profile.jpg"
@@ -101,7 +101,7 @@ const Sidebar = () => {
                     <div className="icon absolute -bottom-0 right-1 text-white bg-secondary flex items-center content-center py-2 px-2 rounded-[50%] cursor-pointer">
                       <img src="./icons/camera.svg" className="w-[100%]" />
                     </div>
-                  </div>
+                  </figure>
 
                   <h4 className="text-primary">
                     Hi, <span>John Doe</span>

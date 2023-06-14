@@ -76,20 +76,20 @@ const Testimonials = () => {
           <SwiperSlide key={step.id}>
             <div className="w-full p-5 mb-12">
               <div className="relative border-8 rounded-3xl border-dark-gray p-8 mb-5 max-sm:h-64 sm:h-72 md:h-56">
-                <div className="bg-bgColor absolute right-8 max-sm:bottom-56 max-sm:w-1/6 sm:bottom-60 sm:w-1/5 md:bottom-48 md:p-1 md:w-1/12">
+                <figure className="bg-bgColor absolute right-8 max-sm:bottom-56 max-sm:w-1/6 sm:bottom-60 sm:w-1/5 md:bottom-48 md:p-1 md:w-1/12">
                   <img src={quote} />
-                </div>
+                </figure>
                 <p className="text-xl text-primary max-sm:text-base sm:text-base md:text-lg ">
                   "{step.description}"
                 </p>
               </div>
 
               <div className="flex gap-2 items-center">
-                <div className="avatar">
+                <figure className="avatar">
                   <div className="w-24 rounded-full">
                     <img src={step.img} />
                   </div>
-                </div>
+                </figure>
                 <div>
                   <h6 className="">{step.name}</h6>
                   <p className=" text-gray-500">{step.role}</p>

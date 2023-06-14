@@ -9,8 +9,8 @@ const GridProducts = () => {
   return (
     <div>
       <section className="py-16 max-sm:py-4">
-        <div className="grid grid-flow-row lg:gap-4 max-sm:gap-0 sm:gap-0 md:gap-2 max-sm:grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-3 ">
-          <div className="relative col-span-1 sm:w-full">
+        <div className="grid grid-flow-row lg:gap-4 max-sm:gap-0 max-sm:space-y-3 sm:gap-0 md:gap-2 max-sm:grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-3 ">
+          <figure className="relative col-span-1 sm:w-full">
             <img src={gImg1} className="h-full " />
             <div className="group">
               <button className="absolute btn-circle bg-slate-800 bg-opacity-50 btn-sm  scale-100 transition-transform ease-linear 0.5s group-hover:scale-90 bottom-40 left-20 ">
@@ -37,8 +37,8 @@ const GridProducts = () => {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="relative col-span-1 max-sm:col-span-2 sm:col-span-2  md:col-span-1">
+          </figure>
+          <figure className="relative col-span-1 max-sm:col-span-2 sm:col-span-2  md:col-span-1">
             <img src={gImg2} className=" h-full" />
             <div className="group">
               <button className="absolute btn-circle bg-slate-800 bg-opacity-50 btn-sm  scale-100 transition-transform ease-linear 0.5s group-hover:scale-90 bottom-24 left-28 ">
@@ -65,8 +65,8 @@ const GridProducts = () => {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="relative col-span-1 row-span-2">
+          </figure>
+          <figure className="relative col-span-1 row-span-2">
             <img src={gImg3} className=" h-full" />
             <div className="group">
               <button className="absolute btn-circle bg-slate-800 bg-opacity-50 btn-sm  scale-100 transition-transform ease-linear 0.5s group-hover:scale-90 bottom-32 right-20 ">
@@ -93,8 +93,8 @@ const GridProducts = () => {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="relative col-span-2 row-span-2">
+          </figure>
+          <figure className="relative col-span-2 row-span-2">
             <img src={gImg4} className=" h-full" />
             <div className="group">
               <button className="absolute btn-circle bg-slate-800 bg-opacity-50 btn-sm  scale-100 transition-transform ease-linear 0.5s group-hover:scale-90 bottom-48 md:right-60 max-sm:bottom-20 max-sm:right-20 ">
@@ -118,8 +118,8 @@ const GridProducts = () => {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="relative col-span-1">
+          </figure>
+          <figure className="relative col-span-1">
             <img src={gImg5} className=" h-full" />
             <div className="group">
               <button className="absolute btn-circle bg-slate-800 bg-opacity-50 btn-sm  scale-100 transition-transform ease-linear 0.5s group-hover:scale-90 bottom-32 right-28 ">
@@ -146,7 +146,7 @@ const GridProducts = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </figure>
         </div>
       </section>
 

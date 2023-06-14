@@ -7,7 +7,7 @@ export default function ReadMore({ children }) {
     setIsReadMore(!isReadMore);
   };
   return (
-    <div className=" ">
+    <div className="text-gray-600 text-sm ">
       {isReadMore ? text.slice(0, 120) : text}
       <span
         onClick={toggleReadMore}

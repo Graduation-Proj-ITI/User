@@ -61,7 +61,7 @@ const Team = () => {
             <div className="relative overflow-hidden rounded-lg m-3 ">
               <img
                 src={name.img}
-                alt="livng room"
+                alt={name.name}
                 className=" scale-100 group-hover:scale-110 cursor-pointer ease-in duration-300 object-cover w-full"
                 style={{ height: "15rem" }}
               />

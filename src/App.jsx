@@ -13,12 +13,18 @@ import Footer from "./Components/Shared/Footer";
 import NavBar from "./Components/Shared/NavBar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Drawer from "./Components/Shared/Drawer";
+import Product from "./pages/Product/Product";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register";
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
 // import Contact from "./pages/contact";
+
 
 export default function App() {
   return (
     <>
       <BrowserRouter>
+
         <Drawer>
           <NavBar />
           <Routes>
@@ -28,17 +34,19 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<User />} />
             {/* <Route path="/contact" element={<Contact />} /> */}
+            
+          <Route path="/login" element={<Login />} />
+          <Route path="/Register" element={<Register/>} />
+          <Route path="/Product" element={<Product/>}/>
+          <Route path="product/:productId" element={<ProductDetails/>}/>
           </Routes>
           <ToastContainer />
           <Footer />
         </Drawer>
       </BrowserRouter>
 
-      {/* <Home /> */}
-      {/* <User /> */}
-      {/*<ToastContainer /> */}
-      {/* <Community /> */}
-      {/* <About /> */}
+     
+
     </>
   );
 }

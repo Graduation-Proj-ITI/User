@@ -11,7 +11,7 @@ export default {
     extend: {
       colors: {
         primary: "#133A5E",
-        secondary: "#FF9934",
+        secondary: "#FFB921",
         bgColor: "#EEEEEE",
         transparent: "transparent",
         current: "currentColor",
@@ -47,7 +47,18 @@ export default {
       backgroundImage: {
         community: "url('../../public/images/community/community.png')",
         footerBg:
-          "linear-gradient(to top, #EEEEEEae, #EEEEEEae), url('https://i.shgcdn.com/4427c8e2-7042-41d8-bcfb-0fb78efd53bf/-/format/auto/-/preview/3000x3000/-/quality/lighter/')",
+          "linear-gradient(to top, #133A5Ecf, #133A5Ecf), url('https://i.shgcdn.com/4427c8e2-7042-41d8-bcfb-0fb78efd53bf/-/format/auto/-/preview/3000x3000/-/quality/lighter/')",
+        slide1: "url('../../public/images/slider/slide1.jpg')",
+        slide2: "url('../../public/images/slider/slide2.jpg')",
+        slide3: " url('../../public/images/slider/slide3.jpg')",
+        slide4: " url('../../public/images/slider/slide4.jpg')",
+        bgLamp: "url('../../public/images/categories/lamp-1.jpg')",
+        bgSofa: "url('../../public/images/categories/sofa.jpg')",
+        bgChair: "url('../../public/images/categories/chair.jpg')",
+        bgDecoration: "url('../../public/images/categories/decoration.jpg')",
+        bgStorage: "url('../../public/images/categories/storage.jpg')",
+        bgBed: "url('../../public/images/categories/bed.jpg')",
+        bgTable: "url('../../public/images/categories/table.jpg')",
       },
       fontSize: {
         sm: "0.8rem",
@@ -100,7 +111,7 @@ export default {
         {
           dark: {
             primary: "#133A5E",
-            secondary: "#FF9934",
+            secondary: "#FFB921",
             bgColor: "#EEEEEE",
             transparent: "transparent",
             current: "currentColor",
@@ -134,7 +145,7 @@ export default {
           },
           light: {
             primary: "#133A5E",
-            secondary: "#FF9934",
+            secondary: "#FFB921",
             bgColor: "#EEEEEE",
             transparent: "transparent",
             current: "currentColor",

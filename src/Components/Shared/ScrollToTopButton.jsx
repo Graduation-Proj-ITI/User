@@ -22,17 +22,15 @@ export default function ScrollButton() {
 
   return (
     <>
-      <div className="flex flex-row ">
-        <button
-          className={
-            "z-20 btn bg-secondary text-white btn-circle border-0 cursor-pointer bottom-12 right-10 px-0 shadow-md hover:bg-secondary " +
-            (visible ? " fixed" : " none")
-          }
-          onClick={scrollToTop}
-        >
-          <i className="fa-solid fa-angle-up text-xl"></i>
-        </button>
-      </div>
+      <button
+        className={
+          "z-20 btn btn-secondary btn-circle cursor-pointer bottom-12 right-10 px-0 shadow-md    " +
+          (visible ? " fixed animate-wiggle " : " none")
+        }
+        onClick={scrollToTop}
+      >
+        <i className="fa-solid fa-angle-up text-xl"></i>
+      </button>
     </>
   );
 }

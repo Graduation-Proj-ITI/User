@@ -224,14 +224,12 @@ const Profile = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      toast.success("Your profile updated successfully!",{
-        
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-        
+      toast.success("Your profile updated successfully!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
       });
       submitForm();
     }
@@ -259,18 +257,18 @@ const Profile = () => {
   useEffect(() => {
     colorAstrisk();
     colorAsteriskPassword();
-  }, [handleChange,handlePasswordChange]);
+  }, [handleChange, handlePasswordChange]);
 
   return (
-    <div className="flex flex-col gap-9 content-center">
+    <div className="flex flex-col gap-5 content-center">
       <div>
-        <h1 className="text-primary mb-2">Profile</h1>
+        <h2 className="text-primary my-2 ">Profile</h2>
         <p className="text-dark">
           Manage your details, view your tier status and change your password
         </p>
       </div>
 
-      <div className="flex  flex-col lg:flex-row gap-4 bg-bgColor px-5 w-full lg:px-10 py-10 rounded-[16px] shadow-gray ">
+      <div className="flex  flex-col lg:flex-row gap-4 bg-bgColor px-5 w-full lg:px-10 py-7 rounded-[16px] shadow-gray ">
         <div className="w-full form">
           <h4 className="text-primary mb-2">General Info</h4>
           <form onSubmit={handleSubmit}>

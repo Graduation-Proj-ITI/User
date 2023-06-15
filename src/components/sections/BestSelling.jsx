@@ -8,7 +8,7 @@ const BestSelling = () => {
         <h2 className="font-poppins max-sm:text-lg sm:text-xl md:text-2xl lg:text-2xl 2xl:text-2xl font-bold text-primary">
           Best Selling
         </h2>
-        <button className="btn btn-outline btn-sm rounded-2xl border-secondary border-2 text-secondary hover:bg-secondary hover:border-secondary hover:text-white">
+        <button className="btn bg-transparent btn-primary-outline btn-sm rounded-2xl">
           See All
         </button>
       </div>

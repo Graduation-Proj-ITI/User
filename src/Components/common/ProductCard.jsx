@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Star from "../icons/Star";
 
@@ -59,7 +59,6 @@ const ProductCard = ({ news }) => {
     </div>
   ));
   return (
-
     <div className="grid lg:text-lg gap-2 max-sm:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 ">
       {renderProduct}
     </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import community from "../../public/images/community/community.png";
 import "../App.css";
 import axios from "axios";
-import ReadMore from "../../../../tailwind graduation/User/src/Components/Shared/Readmore";
+import ReadMore from "../../src/Components/Shared/Readmore";
 import Footer from "../Components/Shared/Footer";
 
 const Community = () => {

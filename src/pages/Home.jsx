@@ -1,9 +1,9 @@
 import React from "react";
 
-// import ProductCard from "../components/common/ProductCard";
-import BestSelling from "../components/sections/BestSelling";
-    import NewArrivals from "../components/sections/NewArrivals";
-import Services from "../co mponents/sections/Services";
+// import ProductCard from "../Components/common/ProductCard";
+import BestSelling from "../Components/sections/BestSelling";
+import NewArrivals from "../Components/sections/NewArrivals";
+import Services from "../Components/sections/Services";
 import Slider from "../Components/sections/HomeSlider";
 import Categories from "../Components/sections/HomeCategories";
 import GridProducts from "../Components/sections/HomeGridProducts";
@@ -17,8 +17,8 @@ const Home = () => {
         <Categories />
         <BestSelling />
         <NewArrivals />
-       <Services />
         <GridProducts />
+        <Services />
       </div>
       <ScrollButton />
     </div>

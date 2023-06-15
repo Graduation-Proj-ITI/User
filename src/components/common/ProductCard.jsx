@@ -2,7 +2,7 @@ import  { useEffect, useState } from "react";
 import axios from "axios";
 import Star from "../icons/Star";
 
-const ProductCard = () => {
+const ProductCard = ({ news }) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     try {
@@ -32,7 +32,7 @@ const ProductCard = () => {
       {/* Card Content */}
       <div className="card-body py-3 z-10 rounded-[20px] bg-gray-50 relative bottom-4 shadow-sm px-3 border-2 border-gray-100">
         <h2 className="card-title text-[14px] font-normal leading-tight h-9 overflow-hidden text-ellipsis flex items-start text-primary">
-          {item.name}
+          {item.name} {news}
         </h2>
         <div className="flex justify-between mt-1">
           {/* Reviews */}
@@ -59,6 +59,7 @@ const ProductCard = () => {
     </div>
   ));
   return (
+
     <div className="grid lg:text-lg gap-2 max-sm:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 ">
       {renderProduct}
     </div>

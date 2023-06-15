@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Star from "../icons/Star";
 
-const ProductCard = () => {
+const ProductCard = ({ news }) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     try {
@@ -24,7 +24,9 @@ const ProductCard = () => {
       </figure>
       {/* Card Content */}
       <div className="card-body pb-2 z-10 rounded-[20px] bg-gray-50 relative bottom-4 shadow-base">
-        <h2 className="card-title text-lg 2xl:text-xl">{item.name}</h2>
+        <h2 className="card-title text-[#133A5E] text-lg 2xl:text-xl">
+          {item.name} {news}
+        </h2>
         <div className="flex justify-between mt-5">
           {/* Reviews */}
           <div className="flex gap-2 ">
@@ -46,7 +48,7 @@ const ProductCard = () => {
     </div>
   ));
   return (
-    <div className="grid grid-flow-row gap-6 md:grid-cols-2 lg:grid-cols-3  lg:text-lg 2xl:grid-cols-4  ">
+    <div className="grid grid-flow-row gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  lg:text-lg 2xl:grid-cols-5  ">
       {renderProduct}
     </div>
   );

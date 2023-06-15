@@ -1,0 +1,31 @@
+input {
+  border-width: 2px;
+  background-color: #f3f3f3 !important;
+  border-color: #f3f3f3;
+  box-shadow: none;
+}
+
+input:focus {
+  border-color: #133a5e !important;
+  color: #133a5e !important;
+  box-shadow: none;
+  outline: none;
+}
+
+input:focus + label {
+  color: #133a5e !important;
+}
+
+
+/* .form input.success {
+  border-color: rgb(32, 126, 32);
+  color: rgb(32, 126, 32);
+}
+
+.form input.success + label {
+  color: rgb(32, 126, 32);
+} */
+
+input::placeholder {
+  font-family: "Poppins", sans-serif;
+}

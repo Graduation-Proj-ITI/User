@@ -85,7 +85,8 @@
       "icon": "<Payment />",
       "title": "Secure payment",
       "details": "Safe & more secure way to pay online."
-],
+    }
+  ],
   "community": [
     {
       "id": 1,

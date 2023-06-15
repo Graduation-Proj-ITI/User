@@ -12,8 +12,7 @@ import chair from "../../../public/images/categories/chair.svg";
 import sofa from "../../../public/images/categories/sofa.svg";
 import table from "../../../public/images/categories/table.svg";
 import storage from "../../../public/images/categories/storage.svg";
-import decoration from "../../../public/images/categories/decoration.svg";
-
+import decoration from "../../../public/images/categories/Decoration.svg";
 const categories = [
   {
     id: 1,
@@ -180,7 +179,7 @@ const Categories = () => {
             key={category.id}
           >
             <div className="w-full h-24 flex align-items-center justify-center bg-gray-50 rounded-2xl">
-              
+
               <img
                 src={category.img}
                 alt={category.name}

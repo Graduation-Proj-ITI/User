@@ -111,7 +111,7 @@ function Product() {
   /*---------html and css--------*/
   return (
     <div  className="pb-44">
-      <Navbar />
+    
       <div className="welcome">
         <div className="overlay flex flex-col justify-center items-center text-black">
           <h1 className="text-white text-4xl">Shop</h1>

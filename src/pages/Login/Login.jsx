@@ -1,6 +1,33 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+import { useState } from "react";
+import axios from "axios";
+import { toast } from 'react-toastify';
 function Login() {
+  const navigate =useNavigate()
+  const [login, setLogin] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("true");
+    await axios.post("https://furnival.onrender.com/auth/login",login)
+    .then((res)=>{
+      toast("Login Succesufully");
+      navigate("/")
+    }).catch((e)=>{
+      console.log(e);
+      toast("Try Again")
+    });
+  };
+
+const handleChange=(e)=>{
+  setLogin({...login,[e.target.name]:e.target.value});
+};
+
+
   return (
     <>
       <div className="container parentform m-auto text-center">
@@ -16,12 +43,17 @@ function Login() {
               </span>
             </div>
             <div className="forminput text-center">
-              <form>
+              <form onSubmit={handleSubmit}>
+               
+               
                 <div className="form-control m-auto max-w-xs">
                   <label className="label" htmlFor="username">
                     <span className="label-text">User name *</span>
                   </label>
                   <input
+                  name="email"
+                  onChange={handleChange}
+                  value={login.email}
                     id="username"
                     type="text"
                     placeholder="Type here"
@@ -37,6 +69,9 @@ function Login() {
                     <span className="label-text">Password *</span>
                   </label>
                   <input
+                  name="password"
+                  onChange={handleChange}
+                  value={login.password}
                     id="password"
                     type="password"
                     placeholder="Type here"
@@ -48,13 +83,19 @@ function Login() {
                 </div>
 
                 <button className="btn mt-7 subbutton w-72">sign in</button>
-     <br/>
-                <button className="btn mt-7 googlebtn w-72"><i class="fa-brands fa-google me-4 text-lg"></i>Continue with Google</button>
-
+                <br />
+                
               </form>
-              <p className="toregister mt-3 text-lg">Don’t have account,  <Link to="/Register" className="">
-              sign up
-            </Link></p>
+              <button className="btn mt-7 googlebtn w-72">
+                  <i className="fa-brands fa-google me-4 text-lg"></i>Continue with
+                  Google
+                </button>
+              <p className="toregister mt-3 text-lg">
+                Don’t have account,{" "}
+                <Link to="/Register" className="">
+                  sign up
+                </Link>
+              </p>
             </div>
           </div>
           <div className=""></div>

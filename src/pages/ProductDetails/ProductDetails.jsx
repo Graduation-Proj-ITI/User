@@ -1,7 +1,6 @@
 import { useState ,useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import  axios  from 'axios';
-import Navbar from '../../Components/navbar/Navbar';
 
 function ProductDetails() {
     const {productId}=useParams();
@@ -14,7 +13,7 @@ function ProductDetails() {
         setOneProduct(data.data)
         console.log(data.data);
     }
-    catch{
+    catch{   
         console.log("error");
     }
    }
@@ -25,7 +24,7 @@ function ProductDetails() {
 
     return (
         <>
-        <Navbar/>
+        
         <div className="container m-auto">
         hello {oneProduct?.title}
         </div>

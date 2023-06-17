@@ -46,12 +46,12 @@
   form input{
     background-color: #F3F6F9 !important;
   }
-  form .googlebtn{
+  .googlebtn{
     background-color: white !important;
     color: #133a5e;
     border: 1px solid orange ;
   }
-  form .googlebtn i{
+.googlebtn i{
     color: orange;
   }
   .toregister a{

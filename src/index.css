@@ -47,19 +47,32 @@
   .btn-primary {
     @apply bg-primary border-primary text-white rounded-[4px] px-3 py-1;
   }
+
+  .btn-primary:hover {
+    @apply bg-primary border-primary;
+  }
+
   .btn-primary-outline {
-    @apply border-primary text-primary;
+    @apply border-primary text-primary bg-transparent;
   }
 
   .btn-primary-outline:hover {
     @apply bg-primary border-primary text-white;
   }
 
+  .btn-secondary {
+    @apply bg-secondary border-secondary text-white;
+  }
+
+  .btn-secondary:hover {
+    @apply bg-secondary border-secondary;
+  }
+
   .btn-secondary-outline {
     @apply border-secondary text-secondary;
   }
   .btn-secondary-outline:hover {
-    @apply bg-secondary border-secondary;
+    @apply bg-secondary border-secondary text-white;
   }
 
   .btn-error-outline {
@@ -72,6 +85,37 @@
 
 @layer layout {
   .container {
-    @apply max-sm:mx-[1rem] sm:mx-[2.5rem] md:mx-[3rem] lg:mx-[4rem] xl:mx-[12rem]  py-[5rem];
+    @apply max-sm:mx-[1rem] sm:mx-[2.5rem] md:mx-[3rem] lg:mx-[4rem] xl:mx-[12rem] py-[5rem];
   }
 }
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ffb921;
+  padding: 4rem;
+}
+
+.swiper-pagination-bullet {
+  background-color: #ffb921;
+}
+
+.menu :where(li:not(.menu-title):not(:empty)) > :where(:not(ul).active),
+.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):active) {
+  background-color: #133a5e;
+}
+
+/* .swiper-container {
+  width: 480px;
+}
+
+@media screen and (min-width: 640px) {
+  .swiper-container {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .swiper-container {
+    width: 100%;
+  }
+} */

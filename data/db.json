@@ -61,6 +61,32 @@
       "image": "/images/products/product1.jpg"
     }
   ],
+  "services": [
+    {
+      "id": "1",
+      "icon": "<Shop />",
+      "title": "Fast Shipping",
+      "details": "Free delivery for order over $100.00"
+    },
+    {
+      "id": "2",
+      "icon": "<Support />",
+      "title": "Online Support",
+      "details": "Feel Free to call us & get best support."
+    },
+    {
+      "id": "3",
+      "icon": "<Gift />",
+      "title": "gift voucher",
+      "details": "Refer a friend & get a surprise gifts."
+    },
+    {
+      "id": "4",
+      "icon": "<Payment />",
+      "title": "Secure payment",
+      "details": "Safe & more secure way to pay online."
+    }
+  ],
   "community": [
     {
       "id": 1,
@@ -68,7 +94,7 @@
       "userID": 2,
       "title": "What’s the best type of wood used for making chairs?",
       "description": "Woody chairs come in various designs and forms to suit different preferences and needs. They can range from traditional and classic designs with intricate details, ornate carvings, and curved elements,to modern and minimalist styles with clean lines and sleek profiles.",
-      "image": "https://scontent.fcai20-2.fna.fbcdn.net/v/t39.30808-6/345654087_1181690245845935_773258486881709672_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=9267fe&_nc_ohc=yj2jmKgYX9IAX9Hv-aV&_nc_ht=scontent.fcai20-2.fna&oh=00_AfDNq36lreCUmKEaLQHKf6bM1oS2iDja3uY_dZM7Z3c9yw&oe=6470A92F",
+      "image": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
       "comments": [
         {
           "id": 1,
@@ -85,7 +111,7 @@
       "userID": 1,
       "title": "What’s the best type of wood used for making chairs?",
       "description": "Woody chairs come in various designs and forms to suit different preferences and needs. They can range from traditional and classic designs with intricate details, ornate carvings, and curved elements,to modern and minimalist styles with clean lines and sleek profiles.",
-      "image": "https://scontent.fcai20-1.fna.fbcdn.net/v/t39.30808-6/347640524_622633556433392_3856248806417421307_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=9267fe&_nc_ohc=9Qrmh8OT8YUAX9XIKM2&_nc_ht=scontent.fcai20-1.fna&oh=00_AfAPrOoavvoV8SppJof7fQmafRcpg_3yseR_IAMLYXAalw&oe=64719E13",
+      "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
       "comments": [
         {
           "id": 1,
@@ -131,7 +157,7 @@
       "userID": 1,
       "title": "What’s the best type of wood used for making chairs?",
       "description": "Woody chairs come in various designs and forms to suit different preferences and needs. They can range from traditional and classic designs with intricate details, ornate carvings, and curved elements,to modern and minimalist styles with clean lines and sleek profiles.",
-      "image": "https://scontent.fcai20-1.fna.fbcdn.net/v/t39.30808-6/343017207_798109668152684_3864360207623526568_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=9267fe&_nc_ohc=2fJN9MnMnpoAX8YGFs8&_nc_ht=scontent.fcai20-1.fna&oh=00_AfBj3LMyU8XiKhqSZSRvzqYmURmFkFWF6xgKG8uZGZCsww&oe=6470F7A0",
+      "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZnVybml0dXJlfGVufDB8fDB8fHwy&auto=format&fit=crop&w=600&q=60",
       "comments": [
         {
           "id": 1,
@@ -166,7 +192,7 @@
       "userID": 4,
       "title": "What’s the best type of wood used for making chairs?",
       "description": "Woody chairs come in various designs and forms to suit different preferences and needs. They can range from traditional and classic designs with intricate details, ornate carvings, and curved elements,to modern and minimalist styles with clean lines and sleek profiles.",
-      "image": "https://scontent.fcai20-2.fna.fbcdn.net/v/t39.30808-6/340532755_183146444129802_7466755845713595406_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=9267fe&_nc_ohc=-YTkDgLGNJoAX-_KpNl&_nc_ht=scontent.fcai20-2.fna&oh=00_AfAFMixZ8cUmnmVSCniI07vLiUEX8Gt30ActbXsnR9_CMw&oe=6471EAB8",
+      "image": "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
       "comments": [
         {
           "id": 2,
@@ -218,7 +244,7 @@
       "userID": 5,
       "title": "What’s the best type of wood used for making chairs?",
       "description": "Woody chairs come in various designs and forms to suit different preferences and needs. They can range from traditional and classic designs with intricate details, ornate carvings, and curved elements,to modern and minimalist styles with clean lines and sleek profiles.",
-      "image": "https://scontent.fcai20-2.fna.fbcdn.net/v/t39.30808-6/339469218_218045704157828_1767156896806643932_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=9267fe&_nc_ohc=z8FwI-1bmRoAX8JaRp3&_nc_ht=scontent.fcai20-2.fna&oh=00_AfCcDGoGj6seph3Fp9dI0IY-Xtwq7WBKqdiA7G5wDBLE0g&oe=64720A3C",
+      "image": "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
       "comments": [
         {
           "id": 1,
@@ -264,7 +290,7 @@
       "userID": 6,
       "title": "What’s the best type of wood used for making chairs?",
       "description": "Woody chairs come in various designs and forms to suit different preferences and needs. They can range from traditional and classic designs with intricate details, ornate carvings, and curved elements,to modern and minimalist styles with clean lines and sleek profiles.",
-      "image": "https://scontent.fcai20-2.fna.fbcdn.net/v/t39.30808-6/329735584_1397315304345204_9053571835528042152_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=9267fe&_nc_ohc=HWGWJv0hqQwAX-BvFpB&_nc_ht=scontent.fcai20-2.fna&oh=00_AfD0yYXq4hd3oJ4butKiAB-OkdwgSzjpgTXXwSuzrkiBJg&oe=6470C55D",
+      "image": "https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
       "comments": [
         {
           "id": 1,
@@ -331,7 +357,7 @@
       "userID": 1,
       "title": "What’s the best type of wood used for making chairs?",
       "description": "Woody chairs come in various designs and forms to suit different preferences and needs. They can range from traditional and classic designs with intricate details, ornate carvings, and curved elements,to modern and minimalist styles with clean lines and sleek profiles.",
-      "image": "https://scontent.fcai20-1.fna.fbcdn.net/v/t39.30808-6/338192222_1265429777699052_115975220543825166_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=9267fe&_nc_ohc=AFFsFKWd8EUAX92uNQX&_nc_ht=scontent.fcai20-1.fna&oh=00_AfDP3ak5yabOE7SHy5feygEBezWQ-BlRUzlGImaHP55kbg&oe=647159D5",
+      "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fGZ1cm5pdHVyZXxlbnwwfHwwfHx8Mg%3D%3D&auto=format&fit=crop&w=600&q=60",
       "comments": [
         {
           "id": 1,
@@ -369,7 +395,7 @@
       "userID": 8,
       "title": "What’s the best type of wood used for making chairs?",
       "description": "Woody chairs come in various designs and forms to suit different preferences and needs. They can range from traditional and classic designs with intricate details, ornate carvings, and curved elements,to modern and minimalist styles with clean lines and sleek profiles.",
-      "image": "https://scontent.fcai20-1.fna.fbcdn.net/v/t39.30808-6/334179080_918044465884600_2509211910415988350_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=730e14&_nc_ohc=vnNocZax-oAAX9SnvyE&_nc_ht=scontent.fcai20-1.fna&oh=00_AfCDsomObXO01yKcZLTH-m_X7e293Tft1y1b0nMuKQaqNg&oe=64711336",
+      "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDR8fGZ1cm5pdHVyZXxlbnwwfHwwfHx8Mg%3D%3D&auto=format&fit=crop&w=600&q=60",
       "comments": [
         {
           "id": 1,
@@ -397,7 +423,7 @@
       "userID": 1,
       "title": "What’s the best type of wood used for making chairs?",
       "description": "Woody chairs come in various designs and forms to suit different preferences and needs. They can range from traditional and classic designs with intricate details, ornate carvings, and curved elements,to modern and minimalist styles with clean lines and sleek profiles.",
-      "image": "https://scontent.fcai20-2.fna.fbcdn.net/v/t39.30808-6/329735584_1397315304345204_9053571835528042152_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=9267fe&_nc_ohc=HWGWJv0hqQwAX-BvFpB&_nc_ht=scontent.fcai20-2.fna&oh=00_AfD0yYXq4hd3oJ4butKiAB-OkdwgSzjpgTXXwSuzrkiBJg&oe=6470C55D",
+      "image": "https://images.unsplash.com/photo-1615875605825-5eb9bb5d52ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTh8fGZ1cm5pdHVyZXxlbnwwfHwwfHx8Mg%3D%3D&auto=format&fit=crop&w=600&q=60",
       "comments": [],
       "likes": [
         {
@@ -423,7 +449,7 @@
       "userID": 10,
       "title": "What’s the best type of wood used for making chairs?",
       "description": "Woody chairs come in various designs and forms to suit different preferences and needs. They can range from traditional and classic designs with intricate details, ornate carvings, and curved elements,to modern and minimalist styles with clean lines and sleek profiles.",
-      "image": "https://scontent.fcai20-2.fna.fbcdn.net/v/t39.30808-6/314109239_10159169257441134_2842877017961229550_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=730e14&_nc_ohc=GIapZCo9-94AX-mQEy9&_nc_ht=scontent.fcai20-2.fna&oh=00_AfCRT_U7fgzHinvwm3jtR4DpUsbpTr8lRwku58N8DpelAg&oe=6471D5EB",
+      "image": "https://images.unsplash.com/photo-1615529179035-e760f6a2dcee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80",
       "comments": [
         {
           "id": 1,

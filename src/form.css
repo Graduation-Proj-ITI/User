@@ -1,18 +1,18 @@
-input {
+input,textarea {
   border-width: 2px;
   background-color: #f3f3f3 !important;
   border-color: #f3f3f3;
   box-shadow: none;
 }
 
-input:focus {
+input:focus,textarea:focus {
   border-color: #133a5e !important;
   color: #133a5e !important;
   box-shadow: none;
   outline: none;
 }
 
-input:focus + label {
+input:focus + label,textarea:focus + label {
   color: #133a5e !important;
 }
 
@@ -26,6 +26,6 @@ input:focus + label {
   color: rgb(32, 126, 32);
 } */
 
-input::placeholder {
+input::placeholder,textarea::placeholder {
   font-family: "Poppins", sans-serif;
 }

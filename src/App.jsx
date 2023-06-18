@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import "normalize.css";
+import Contact from "./pages/contact"
 import Home from "./pages/Home";
 import Community from "./pages/Community";
 import About from "./pages/About";
@@ -17,12 +18,16 @@ import Product from "./pages/Product/Product";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
-// import Contact from "./pages/contact";
 
 
 export default function App() {
+  const userToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDhkZDY5NjBkYmMyZGU4YTM2NzIzOGUiLCJpYXQiOjE2ODcwODY1OTUsImV4cCI6MTY5NDg2MjU5NX0.rZb9grqwpPBbX3IHxGFPOmkyJOfbpd3MF0ynFBWlTuY";
+  localStorage.setItem("token", userToken);
+
   return (
     <>
+    
       <BrowserRouter>
 
         <Drawer>
@@ -46,7 +51,6 @@ export default function App() {
       </BrowserRouter>
 
      
-
     </>
   );
 }

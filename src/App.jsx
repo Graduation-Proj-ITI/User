@@ -21,9 +21,6 @@ import ProductDetails from "./pages/ProductDetails/ProductDetails";
 
 
 export default function App() {
-  const userToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDhkZDY5NjBkYmMyZGU4YTM2NzIzOGUiLCJpYXQiOjE2ODcwODY1OTUsImV4cCI6MTY5NDg2MjU5NX0.rZb9grqwpPBbX3IHxGFPOmkyJOfbpd3MF0ynFBWlTuY";
-  localStorage.setItem("token", userToken);
 
   return (
     <>

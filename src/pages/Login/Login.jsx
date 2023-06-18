@@ -15,8 +15,10 @@ function Login() {
     console.log("true");
     await axios.post("https://furnival.onrender.com/auth/login",login)
     .then((res)=>{
+       localStorage.setItem('token',res.data.token);
       toast("Login Succesufully");
-      navigate("/")
+      
+      // navigate("/")
     }).catch((e)=>{
       console.log(e);
       toast("Try Again")
@@ -48,7 +50,7 @@ const handleChange=(e)=>{
                
                 <div className="form-control m-auto max-w-xs">
                   <label className="label" htmlFor="username">
-                    <span className="label-text">User name *</span>
+                    <span className="label-text">Email *</span>
                   </label>
                   <input
                   name="email"

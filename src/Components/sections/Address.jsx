@@ -270,10 +270,10 @@ const Address = () => {
   }, [handleChange, isDefault, allAdresses]);
 
   return (
-    <div className="flex flex-col gap-9 content-center">
+    <div className="flex flex-col gap-5 content-center">
       <div className="flex flex-col gap-4 md:flex-row items-center justify-between">
         <div>
-          <h1 className="text-primary mb-2">Address</h1>
+          <h2 className="text-primary my-2">Address</h2>
           <p className="text-dark">
             Manage your saved addresses for fast and easy checkout across our
             marketplaces{" "}
@@ -281,20 +281,18 @@ const Address = () => {
         </div>
         <label
           className="btn-primary py-2 px-10 text-[16px] text-white rounded-[26px] self-end cursor-pointer transition duration-500"
-          onClick={
-            ()=>{
-              setFormState({
-                name: "",
-                address: "",
-                city: "",
-                zip: "",
-                phone: "",
-                country: "",
-                isDefault: false,
-              });
-              setIsEdit(false);
-            }
-          }
+          onClick={() => {
+            setFormState({
+              name: "",
+              address: "",
+              city: "",
+              zip: "",
+              phone: "",
+              country: "",
+              isDefault: false,
+            });
+            setIsEdit(false);
+          }}
           htmlFor="my-modal-3"
         >
           Add New Address
@@ -304,12 +302,12 @@ const Address = () => {
       {allAdresses
         .map((address, ind) => (
           <div
-            className="flex  flex-col lg:flex-row gap-4 bg-bgColor px-5 w-full lg:px-10 py-10 rounded-[16px] shadow-gray "
+            className="flex  flex-col lg:flex-row gap-1 bg-bgColor px-5 w-full lg:px-10 py-7 rounded-[16px] shadow-gray "
             key={ind}
           >
             <div className="w-full">
               <div className="flex flex-row gap-1 justify-between">
-                <h3 className="text-primary mb-2">Address</h3>
+                <h5 className="text-primary mb-2">Address</h5>
 
                 <div className=" btns flex items-center gap-4">
                   <button className="btn-secondary px-0 py-0  text-[14px] text-white rounded-[6px] transition duration-500 ">
@@ -345,21 +343,21 @@ const Address = () => {
               <div className="flex flex-col gap-4">
                 <div className="w-full flex flex-col md:flex-row  gap-1 ">
                   <p className="text-dark">User Name: </p>
-                  <p className="text-primary font-bold">
+                  <p className="text-primary ">
                     {address.name}
                     {address.isDefault && "(Default)"}
                   </p>
                 </div>
                 <div className="w-full flex flex-col md:flex-row  gap-1 ">
                   <p className="text-dark"> Address: </p>
-                  <p className="text-primary font-bold">
+                  <p className="text-primary ">
                     {address.address} {address.city}, {address.country}{" "}
                     {address.zip}
                   </p>
                 </div>
                 <div className="w-full flex flex-col md:flex-row  gap-1">
                   <p className="text-dark">Phone Number: </p>
-                  <p className="text-primary font-bold">{address.phone} </p>
+                  <p className="text-primary ">{address.phone} </p>
                 </div>
               </div>
             </div>
@@ -368,16 +366,16 @@ const Address = () => {
         .reverse()}
 
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-      <div className="modal z-100">
-        <div className="modal-box relative">
+      <div className="modal ">
+        <div className="modal-box relative z-50">
           <label
             htmlFor="my-modal-3"
-            className="btn text-error px-4 rounded-[6px] btn-sm btn-circle absolute right-4 top-2 hover:bg-error hover:text-white hover:border-error"
+            className="btn text-error px-4 rounded-full  btn-sm  border-error btn-outline btn-circle absolute right-4 top-2 hover:bg-error hover:text-white hover:border-error"
           >
             ✕
           </label>
           <h3 className="text-lg font-bold pb-4">
-            You can {isEdit? "edit" : "add"} new address here!
+            You can {isEdit ? "edit" : "add"} new address here!
           </h3>
 
           <form onSubmit={handleSubmit} className="form flex flex-col gap-4">

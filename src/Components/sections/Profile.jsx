@@ -2,25 +2,29 @@ import { useState, useEffect } from "react";
 import "../../form.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const Profile = () => {
-  //test data
-  const userData = {
-    userName: "John Doe",
-    email: " john@gmail.com ",
-    phone: " 0108765432",
-    password: "12345678",
-  };
 
-  // form state inputs value
+  //test data
+  const [userData, setUserData] = useState({ name: "", email: "" });
+  const [loading, setLoading] = useState(true);
+
+  // {
+  //   userName: "John Doe",
+  //   email: " john@gmail.com ",
+  //   phone: " 0108765432",
+  //   password: "12345678",
+  // };
+
   const [formState, setFormState] = useState({
-    userName: userData.userName,
+    userName: userData.name,
     email: userData.email,
-    phone: userData.phone,
+    // phone: userData.phone,
   });
 
   const [passwordChange, setPasswordChange] = useState({
-    oldPassword: userData.password,
+    oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
@@ -29,11 +33,11 @@ const Profile = () => {
   const [formErrors, setFormErrors] = useState({
     userName: "",
     email: "",
-    phone: "",
+    // phone: "",
   });
 
   const [passwordChangeErrors, setPasswordChangeErrors] = useState({
-    oldPassword: "",
+    // oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
@@ -60,11 +64,11 @@ const Profile = () => {
     return emailRegex.test(email);
   };
 
-  const isValidPhone = (phone) => {
-    // Phone number validation logic (regex or other validation methods)
-    const phoneRegex = /^\d{10}$/;
-    return phoneRegex.test(phone);
-  };
+  // const isValidPhone = (phone) => {
+  //   // Phone number validation logic (regex or other validation methods)
+  //   const phoneRegex = /^\d{10}$/;
+  //   return phoneRegex.test(phone);
+  // };
 
   // validation form
   const validateForm = () => {
@@ -72,9 +76,9 @@ const Profile = () => {
     setFormErrors({
       userName: "",
       email: "",
-      phone: "",
-      password: "",
-      confirmPassword: "",
+      // phone: "",
+      // password: "",
+      // confirmPassword: "",
     });
 
     let isValid = true;
@@ -109,19 +113,19 @@ const Profile = () => {
       isValid = false;
     }
 
-    if (formState.phone.trim() === "") {
-      setFormErrors((prevErrors) => ({
-        ...prevErrors,
-        phone: "Phone is required",
-      }));
-      isValid = false;
-    } else if (!isValidPhone(formState.phone.trim())) {
-      setFormErrors((prevErrors) => ({
-        ...prevErrors,
-        phone: "Invalid phone number",
-      }));
-      isValid = false;
-    }
+    // if (formState.phone.trim() === "") {
+    //   setFormErrors((prevErrors) => ({
+    //     ...prevErrors,
+    //     phone: "Phone is required",
+    //   }));
+    //   isValid = false;
+    // } else if (!isValidPhone(formState.phone.trim())) {
+    //   setFormErrors((prevErrors) => ({
+    //     ...prevErrors,
+    //     phone: "Invalid phone number",
+    //   }));
+    //   isValid = false;
+    // }
 
     return isValid;
   };
@@ -137,16 +141,24 @@ const Profile = () => {
 
     let isValid = true;
 
+    if (passwordChange.oldPassword.trim() === "") {
+      setPasswordChangeErrors((prevErrors) => ({
+        ...prevErrors,
+        oldPassword: " current Password is required",
+      }));
+      isValid = false;
+    }
+
     if (passwordChange.newPassword.trim() === "") {
       setPasswordChangeErrors((prevErrors) => ({
         ...prevErrors,
         newPassword: "Password is required",
       }));
       isValid = false;
-    } else if (passwordChange.newPassword.trim().length < 8) {
+    } else if (passwordChange.newPassword.trim().length < 6) {
       setPasswordChangeErrors((prevErrors) => ({
         ...prevErrors,
-        newPassword: "Password must be at least 8 characters",
+        newPassword: "Password must be at least 6 characters",
       }));
       isValid = false;
     }
@@ -224,42 +236,105 @@ const Profile = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      toast.success("Your profile updated successfully!",{
-        
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-        
-      });
       submitForm();
     }
   };
   const handlePasswordSubmit = (event) => {
     event.preventDefault();
     if (validationPasswordForm()) {
-      toast.success("Your password updated successfully!", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
-
-      userData.password = passwordChange.newPassword;
-      console.log(userData);
+      axios
+        .put(
+          "https://furnival.onrender.com/users/changeMyPassword",
+          {
+            currentPassword: passwordChange.oldPassword,
+            password: passwordChange.newPassword,
+            passwordConfirm: passwordChange.confirmPassword,
+          },
+          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+        )
+        .then((response) => {
+          toast.success("Your password updated successfully!", {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+          });
+          localStorage.setItem('token', response.data.token);
+        })
+        .catch((error) => {
+          error.response.data.errors.forEach((err) => {
+            toast.error(`${err.msg}!`, {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+          });
+          console.log(error.response.data.errors);
+        });
     }
   };
 
   const submitForm = () => {
+    axios
+      .put(
+        "https://furnival.onrender.com/users/updateMe",
+        {
+          ...formState,
+          name: formState.userName,
+        },
+        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      )
+      .then((response) => {
+        toast.success("Your profile updated successfully!", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+        console.log("User updated successfully");
+      })
+      .catch((error) => {
+        toast.error(`${error.response.data.errors[0].msg}!`, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+        console.log(error.response.data.errors[0].msg);
+      });
     console.log(formState);
   };
+  
 
   useEffect(() => {
+    const getUser = () => {
+      axios
+        .get("https://furnival.onrender.com/users/getMe", {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        })
+        .then((response) => {
+          setLoading(false);
+          //  console.log(response.data.data);
+          setFormState({
+            userName: response.data.data.name,
+            email: response.data.data.email,
+          });
+          setUserData(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    getUser();
+
     colorAstrisk();
     colorAsteriskPassword();
-  }, [handleChange,handlePasswordChange]);
+  }, []);
 
   return (
     <div className="flex flex-col gap-9 content-center">
@@ -316,7 +391,7 @@ const Profile = () => {
                   </p>
                 )}
               </div>
-
+              {/* 
               <div className="flex flex-col gap-1 flex-auto">
                 <input
                   type="tel"
@@ -336,7 +411,7 @@ const Profile = () => {
                     {formErrors.phone}
                   </p>
                 )}
-              </div>
+              </div> */}
             </div>
 
             <div className="btns flex flex-col md:flex-row gap-3 ">
@@ -376,14 +451,18 @@ const Profile = () => {
                   type="text"
                   name="oldPassword"
                   id="oldPassword"
-                  disabled
-                  className="border border-[rgba(0,0,0,.1)] rounded px-4 py-2 order-2 disabled:opacity-80"
+                  className="border border-[rgba(0,0,0,.1)] rounded px-4 py-2 order-2 "
                   value={passwordChange.oldPassword}
                   onChange={handlePasswordChange}
                 />
                 <label htmlFor="oldPasssword" className="text-primary order-1">
-                  Password
+                  Current Password*
                 </label>
+                {passwordChangeErrors.oldPassword !== "" && (
+                  <p className="text-red-500 text-sm order-3">
+                    {passwordChangeErrors.oldPassword}
+                  </p>
+                )}
               </div>
 
               <div className="flex flex-col gap-1">

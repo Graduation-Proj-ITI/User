@@ -11,17 +11,21 @@ import "normalize.css";
 // import About from "./Components/pages/About";
 import Contact from "./pages/contact"
 import User from "./Components/user/user"
-import ErrorPage from './pages/error';
+// import ErrorPage from './pages/error';
 
 
      
 
 export default function App() {
+  const userToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDhkZDY5NjBkYmMyZGU4YTM2NzIzOGUiLCJpYXQiOjE2ODcwODY1OTUsImV4cCI6MTY5NDg2MjU5NX0.rZb9grqwpPBbX3IHxGFPOmkyJOfbpd3MF0ynFBWlTuY";
+  localStorage.setItem("token", userToken);
+
   return (
     <>
      {/* <Contact/> */}
-     <ErrorPage/>
-     {/* <User/> */}
+     {/* <ErrorPage/> */}
+     <User/>
       <ToastContainer/>
       {/* <Community /> */}
       {/* <About /> */}

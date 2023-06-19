@@ -1,67 +1,48 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 const Wishlist = () => {
-  const items = [
-    {
-      id: "1",
-      name: "Gray comfortable sofa",
-      image: "./images/products/product1.jpg",
-      price: "100",
-      quantity: 1,
-      total: "1000",
-    },
-    {
-      id: "2",
-      name: "Gray comfortable sofa",
-      image: "./images/products/product2.jpg",
-      price: "100",
-      quantity: 1,
-      total: "1000",
-    },
-    {
-      id: "3",
-      name: "Gray comfortable sofa",
-      image: "./images/products/product3.jpg",
-      price: "100",
-      quantity: 1,
-      total: "1000",
-    },
-    {
-      id: "4",
-      name: "Gray comfortable sofa",
-      image: "./images/products/product4.jpg",
-      price: "100",
-      quantity: 1,
-      total: "1000",
-    },
-    {
-      id: "5",
-      name: "Gray comfortable sofa",
-      image: "./images/products/product5.jpg",
-      price: "100",
-      quantity: 1,
-      total: "1000",
-    },
-    {
-      id: "6",
-      name: "Gray comfortable sofa",
-      image: "./images/products/product6.jpg",
-      price: "100",
-      quantity: 1,
-      total: "1000",
-    },
-  ];
-
-  const [wishlist, setWishlist] = useState(items);
+   const token = localStorage.getItem("token");
+  const [wishlist, setWishlist] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+   const getWishlist =  () => {
+    axios
+      .get("https://furnival.onrender.com/wishlist", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setLoading(false);
+        setWishlist(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    };
+    getWishlist();
+  }, []);
 
   const handleDelete = (id) => {
-    const newWishlist = wishlist.filter((item) => item.id !== id);
-    setWishlist(newWishlist);
+    axios
+      .delete(`https://furnival.onrender.com/wishlist/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setWishlist(wishlist.filter((item) => item._id !== id));
+        console.log("Item deleted successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  useEffect(() => {}, []);
+  console.log(wishlist);
 
   return (
-    <div className="flex flex-col gap-5 content-center">
+    loading ? (
+      <div className="loader">Loading...</div>
+    ) : (
+    <div className="flex flex-col gap-9 content-center">
+   
       <div className="flex flex-col gap-4 md:flex-row items-center justify-between">
         <div>
           <h2 className="text-primary my-2">Wishlist</h2>
@@ -80,7 +61,7 @@ const Wishlist = () => {
                 >
                   <figure className="relative h-[90%]">
                     <img
-                      src={item.image}
+                      src={item.imageCover}
                       alt=""
                       className="w-full h-full object-cover rounded-[8px]"
                     />
@@ -88,17 +69,19 @@ const Wishlist = () => {
                     <div className="absolute bg-secondary items-center justify-center rounded-[50px] top-2 right-2 flex flex-col gap-2 p-3">
                       <button
                         className="btn-icon"
-                        onClick={() => handleDelete(item.id)}
+                        onClick={() => handleDelete(item._id)}
                       >
                         <img src="./icons/filledheart.svg" alt="" />
                       </button>
                     </div>
                   </figure>
                   <div className="flex flex-col absolute -bottom-3 w-[90%] mx-auto self-center bg-white px-4 py-4 rounded-[8px] h-auto gap-2 ">
-                    <p className="text-black">{item.name}</p>
+                    <p className="text-black truncate">{item.title}</p>
                     <div className="flex flex-row justify-between items-center content-center gap-2">
-                      <button className="btn-primary">Add to cart</button>
-                      <p className="text-black font-bold self-end">
+                      <button className="btn-primary text-sm">
+                        Add to cart
+                      </button>
+                      <p className="text-black text-sm font-bold self-end">
                         {item.price}$
                       </p>
                     </div>
@@ -110,6 +93,7 @@ const Wishlist = () => {
         </div>
       </div>
     </div>
+    )
   );
 };
 

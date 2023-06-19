@@ -1,7 +1,44 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-function Register(props) {
+function Register() {
+  // const [loading, setLoading] = useState(false);
+  const [regiester, setregister] = useState({
+    name: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+  });
+  const navigate = useNavigate();
+  const handlesubmit = async (e) => {
+    e.preventDefault();
+    console.log("success true");
+    // setLoading(true);
+    //call back end
+    await axios
+      .post("https://furnival.onrender.com/auth/signup", regiester)
+      .then((res) => {
+        localStorage.setItem("access_token", res.data.data.access_token);
+        console.log(res.data.data);
+        toast(`Create Account succsefully ${regiester.name} `);
+
+        navigate("/");
+      })
+      .catch((e) => {
+        console.log(e);
+        // setLoading(true);
+        toast("please Try again");
+        console.log(regiester);
+      });
+    // .finally(() => setLoading(false));
+  };
+
+  const handlechange = (e) => {
+    setregister({ ...regiester, [e.target.name]: e.target.value });
+  };
+
   return (
     <>
       <div className="container parentform m-auto text-center">
@@ -20,15 +57,19 @@ function Register(props) {
             </div>
 
             <div className="forminput text-center">
-              <form>
+              <form onSubmit={handlesubmit}>
                 <div className="form-control m-auto max-w-xs">
                   <label className="label pb-0" htmlFor="username">
                     <span className="label-text">User name *</span>
                   </label>
                   <input
-                    id="username"
+                    name="name"
                     type="text"
-                    placeholder="Type here"
+                    placeholder="name"
+                    onChange={handlechange}
+                    value={regiester.name}
+                    id="username"
+                    required
                     className="input input-bordered w-full max-w-xs px-3"
                   />
                   <label className="label hidden">
@@ -41,14 +82,16 @@ function Register(props) {
                     <span className="label-text">Email *</span>
                   </label>
                   <input
-                    id="Email"
+                    name="email"
                     type="email"
-                    placeholder="Type here"
+                    placeholder="EMAIL"
+                    onChange={handlechange}
+                    value={regiester.email}
+                    id="email"
+                    required
                     className="input input-bordered w-full max-w-xs px-3"
                   />
-                  <label className="label hidden">
-                    <span className="label-text-alt ">Password *</span>
-                  </label>
+                 
                 </div>
                 <div className="form-control m-auto max-w-xs">
                   <label className="label pb-0" htmlFor="Phone">
@@ -67,11 +110,16 @@ function Register(props) {
                 <div className="form-control m-auto max-w-xs">
                   <label className="label pb-0" htmlFor="password">
                     <span className="label-text">password *</span>
+
                   </label>
                   <input
-                    id="password"
+                    name="password"
                     type="password"
-                    placeholder="Type here"
+                    placeholder="password"
+                    onChange={handlechange}
+                    value={regiester.password}
+                    id="password"
+                    required
                     className="input input-bordered w-full max-w-xs px-3"
                   />
                   <label className="label hidden">
@@ -84,9 +132,13 @@ function Register(props) {
                     <span className="label-text">confirm password *</span>
                   </label>
                   <input
+                    name="passwordConfirm"
                     id="confirm"
                     type="password"
-                    placeholder="Type here"
+                    placeholder="password"
+                    onChange={handlechange}
+                    value={regiester.passwordConfirm}
+                    required
                     className="input input-bordered w-full max-w-xs px-3"
                   />
                   <label className="label hidden">
@@ -96,11 +148,15 @@ function Register(props) {
 
                 <button className="btn mt-2 subbutton w-80">sign in</button>
                 <br />
+
                 <button className="btn mt-2 googlebtn w-80">
                   <i class="fa-brands fa-google me-4 text-lg"></i>Continue with
                   Google
                 </button>
+
               </form>
+              
+
               <p className="toregister  text-lg">
                 Already have account,
                 <Link to="/Login" className="">

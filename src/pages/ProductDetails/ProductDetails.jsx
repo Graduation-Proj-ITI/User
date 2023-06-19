@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -17,6 +18,7 @@ function ProductDetails() {
       console.log(data.data);
     } catch {
       console.log("error");
+
     }
   };
 
@@ -24,12 +26,14 @@ function ProductDetails() {
     getOneProduct();
   }, [oneProduct]);
 
+
   return (
     <>
       {/* <Navbar/> */}
       <div className="container m-auto">hello {oneProduct?.title}</div>
     </>
   );
+
 }
 
 export default ProductDetails;

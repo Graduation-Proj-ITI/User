@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Star from "../icons/Star";
 
-const ProductCard = ({ news }) => {
+const ProductCard = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     try {
@@ -18,21 +18,21 @@ const ProductCard = ({ news }) => {
   }, []);
   const renderProduct = products.slice(0, 4).map((item) => (
     <div
-      className="card w-8/9 bg-transparent m-0 group cursor-pointer"
+      className="card w-8/9 bg-transparent m-0 group cursor-pointer h-80 max-sm:h-72"
       key={item.id}
     >
       {/* Card Image */}
-      <figure className="overflow-hidden rounded-[20px]">
+      <figure className="overflow-hidden rounded-xl h-full w-full ">
         <img
           src={item.image}
           alt="Product"
-          className="h-60 max-sm:h-52 object-cover scale-100 group-hover:scale-110 ease-in duration-300"
+          className="object-cover h-full w-full  scale-100 group-hover:scale-110 ease-in duration-300"
         />
       </figure>
       {/* Card Content */}
-      <div className="card-body py-3 z-10 rounded-[20px] bg-gray-50 relative bottom-12 shadow-sm px-3 border-2 border-gray-100 w-11/12 mx-auto">
+      <div className="card-body py-3 z-10 rounded-xl bg-white relative bottom-10  shadow-md px-3  w-11/12 mx-auto h-1/3 max-sm:h-1/3">
         <h2 className="card-title text-[14px] font-normal leading-tight h-9 overflow-hidden text-ellipsis flex items-start text-primary">
-          {item.name} {news}
+          {item.name}
         </h2>
         <div className="flex justify-between mt-1 max-sm:mt-0">
           {/* Reviews */}
@@ -59,7 +59,7 @@ const ProductCard = ({ news }) => {
     </div>
   ));
   return (
-    <div className="grid lg:text-lg gap-2 max-sm:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 ">
+    <div className="grid lg:text-lg gap-7 max-sm:grid-cols-2 max-sm:gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-4 ">
       {renderProduct}
     </div>
   );

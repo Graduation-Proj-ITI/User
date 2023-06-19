@@ -1,9 +1,18 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function Footer() {
+  const location = useLocation();
+  // console.log(location.pathname);
   return (
     <>
-      <footer>
+      <footer
+        className={
+          location.pathname === "/login" || location.pathname === "/Register"
+            ? "hidden"
+            : ""
+        }
+      >
         <div className="bg-footerBg bg-fixed relative mt-10 py-20 flex justify-between flex-wrap max-sm:px-[1rem] sm:px-[2.5rem] md:px-[3rem] lg:px-[4rem] xl:px-[12rem]">
           <div className="max-sm:w-10/12 sm:w-5/12 md:w-5/12 lg:w-5/12 xl:w-3/12  max-sm:flex max-sm:justify-center mt-5">
             <div className="space-y-5 mx-2 ">
@@ -19,20 +28,20 @@ export default function Footer() {
               </p>
 
               <div className="flex space-x-1 ">
-                <div className="rounded-md  bg-gray-500  bg-opacity-50  text-white py-2 hover:bg-secondary hover:bg-opacity-100  group w-10 text-center">
-                  <i className="fa-brands fa-facebook-f group-hover:animate-bounce"></i>
+                <div className="rounded-md  bg-gray-500  bg-opacity-50  text-white py-2 hover:bg-secondary hover:bg-opacity-100 transition duration-700 cursor-pointer group w-10 text-center">
+                  <i className="fa-brands fa-facebook-f"></i>
                 </div>
-                <div className="rounded-md bg-gray-500  bg-opacity-50  text-white py-2 hover:bg-secondary hover:bg-opacity-100  group w-10 text-center">
-                  <i className="fa-brands fa-twitter group-hover:animate-bounce"></i>
+                <div className="rounded-md bg-gray-500  bg-opacity-50  text-white py-2 hover:bg-secondary hover:bg-opacity-100 transition duration-700 cursor-pointer group w-10 text-center">
+                  <i className="fa-brands fa-twitter"></i>
                 </div>
-                <div className="rounded-md bg-gray-500  bg-opacity-50  text-white py-2 hover:bg-secondary hover:bg-opacity-100  group w-10 text-center">
-                  <i className="fa-brands fa-instagram group-hover:animate-bounce"></i>
+                <div className="rounded-md bg-gray-500  bg-opacity-50  text-white py-2 hover:bg-secondary hover:bg-opacity-100 transition duration-700 cursor-pointer group w-10 text-center">
+                  <i className="fa-brands fa-instagram"></i>
                 </div>
-                <div className="rounded-md bg-gray-500  bg-opacity-50  text-white py-2 hover:bg-secondary hover:bg-opacity-100  group w-10 text-center">
-                  <i className="fa-brands fa-whatsapp group-hover:animate-bounce"></i>
+                <div className="rounded-md bg-gray-500  bg-opacity-50  text-white py-2 hover:bg-secondary hover:bg-opacity-100 transition duration-700 cursor-pointer group w-10 text-center">
+                  <i className="fa-brands fa-whatsapp"></i>
                 </div>
-                <div className="rounded-md bg-gray-500  bg-opacity-50  text-white py-2 hover:bg-secondary hover:bg-opacity-100  group w-10 text-center">
-                  <i className="fa-brands fa-pinterest-p group-hover:animate-bounce"></i>
+                <div className="rounded-md bg-gray-500  bg-opacity-50  text-white py-2 hover:bg-secondary hover:bg-opacity-100 transition duration-700 cursor-pointer group w-10 text-center">
+                  <i className="fa-brands fa-pinterest-p"></i>
                 </div>
               </div>
             </div>

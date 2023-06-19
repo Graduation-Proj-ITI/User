@@ -19,38 +19,32 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 
-
 export default function App() {
-  const userToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDhkZDY5NjBkYmMyZGU4YTM2NzIzOGUiLCJpYXQiOjE2ODcwODY1OTUsImV4cCI6MTY5NDg2MjU5NX0.rZb9grqwpPBbX3IHxGFPOmkyJOfbpd3MF0ynFBWlTuY";
-  localStorage.setItem("token", userToken);
+  
 
   return (
     <>
     
       <BrowserRouter>
-
         <Drawer>
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route path="/" element={<Shop />} /> */}
+            <Route path="/Product" element={<Product />} />
             <Route path="/community" element={<Community />} />
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<User />} />
             {/* <Route path="/contact" element={<Contact />} /> */}
-            
-          <Route path="/login" element={<Login />} />
-          <Route path="/Register" element={<Register/>} />
-          <Route path="/Product" element={<Product/>}/>
-          <Route path="product/:productId" element={<ProductDetails/>}/>
+
+            <Route path="/login" element={<Login />} />
+            <Route path="/Register" element={<Register />} />
+
+            <Route path="product/:productId" element={<ProductDetails />} />
           </Routes>
           <ToastContainer />
           <Footer />
         </Drawer>
       </BrowserRouter>
-
-     
     </>
   );
 }

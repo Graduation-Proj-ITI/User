@@ -3,6 +3,7 @@ import "../../form.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import Loader from "../Shared/Loader";
 
 const Profile = () => {
 
@@ -236,20 +237,14 @@ const Profile = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-
-      toast.success("Your profile updated successfully!", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
       submitForm();
+
     }
   };
   const handlePasswordSubmit = (event) => {
     event.preventDefault();
     if (validationPasswordForm()) {
+      setLoading(true);
       axios
         .put(
           "https://furnival.onrender.com/users/changeMyPassword",
@@ -261,6 +256,7 @@ const Profile = () => {
           { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
         )
         .then((response) => {
+          setLoading(false);
           toast.success("Your password updated successfully!", {
             position: "bottom-right",
             autoClose: 5000,
@@ -280,22 +276,25 @@ const Profile = () => {
               pauseOnHover: true,
             });
           });
+          setLoading(false);
           console.log(error.response.data.errors);
         });
     }
   };
 
   const submitForm = () => {
+    setLoading(true);
     axios
       .put(
         "https://furnival.onrender.com/users/updateMe",
         {
-          ...formState,
           name: formState.userName,
+          // email: formState.email,
         },
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       )
       .then((response) => {
+        setLoading(false);
         toast.success("Your profile updated successfully!", {
           position: "bottom-right",
           autoClose: 5000,
@@ -313,9 +312,9 @@ const Profile = () => {
           closeOnClick: true,
           pauseOnHover: true,
         });
-        console.log(error.response.data.errors[0].msg);
+        setLoading(false);
+
       });
-    console.log(formState);
   };
   
 
@@ -339,13 +338,15 @@ const Profile = () => {
         });
     };
     getUser();
-
     colorAstrisk();
     colorAsteriskPassword();
   }, []);
 
   return (
+    
+            
     <div className="flex flex-col gap-5 content-center">
+    {loading && <Loader/>}
       <div>
         <h2 className="text-primary my-2 ">Profile</h2>
         <p className="text-dark">
@@ -520,7 +521,7 @@ const Profile = () => {
                 type="submit"
                 className="btn btn-primary w-[200px] py-0 mt-5 rounded-[8px] "
               >
-                Change Password
+              Change Password
               </button>
             </form>
           </div>

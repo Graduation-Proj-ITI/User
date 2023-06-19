@@ -17,8 +17,7 @@ function Login() {
     .then((res)=>{
        localStorage.setItem('token',res.data.token);
       toast("Login Succesufully");
-      
-      // navigate("/")
+      navigate("/")
     }).catch((e)=>{
       console.log(e);
       toast("Try Again")

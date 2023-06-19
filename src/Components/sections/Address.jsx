@@ -2,65 +2,35 @@ import { useState, useEffect } from "react";
 import "../../form.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import Loader from "../Shared/Loader";
 
 const Address = () => {
-  const addresses = [
-    {
-      id: 1,
-      name: "Home",
-      address: "1234 Main St",
-      city: "Boston",
-      zip: "02101",
-      country: "USA",
-      phone: "617-555-1234",
-      isDefault: true,
-    },
-    {
-      id: 2,
-      name: "Office",
-      address: "5678 Main St",
-      city: "Boston",
-      zip: "02101",
-      country: "USA",
-      phone: "617-555-5678",
-      isDefault: false,
-    },
-    {
-      id: 3,
-      name: "Vacation",
-      address: "9012 Main St",
-      city: "Boston",
-      zip: "02101",
-      country: "USA",
-      phone: "617-555-5678",
-      isDefault: false,
-    },
-  ];
-
-  const [allAdresses, setAllAdresses] = useState(addresses);
-
+  const [allAdresses, setAllAdresses] = useState([]);
   const [isDefault, setIsDefault] = useState(false);
+  const [loading,setLoading]=useState(true)
   const toggleDefault = () => setIsDefault(!isDefault);
 
   // form state inputs value
   const [formState, setFormState] = useState({
     name: "",
     address: "",
-    city: "",
+    // city: "",
     zip: "",
     phone: "",
-    country: "",
-    isDefault: isDefault,
+    // country: "",
+    isDefault: false,
   });
 
   //error messages
   const [formErrors, setFormErrors] = useState({
     name: "",
     address: "",
-    city: "",
+    // city: "",
     zip: "",
     phone: "",
-    country: "",
+    isDefault: false,
+    // country: "",
   });
 
   const [isEdit, setIsEdit] = useState(false);
@@ -75,7 +45,7 @@ const Address = () => {
 
   const isValidPhone = (phone) => {
     // Phone number validation logic (regex or other validation methods)
-    const phoneRegex = /^\d{10}$/;
+    const phoneRegex = /^\d{11}$/;
     return phoneRegex.test(phone);
   };
 
@@ -85,10 +55,10 @@ const Address = () => {
     setFormErrors({
       name: "",
       address: "",
-      city: "",
+      // city: "",
       zip: "",
       phone: "",
-      country: "",
+      // country: "",
       isDefault: "",
     });
 
@@ -100,13 +70,8 @@ const Address = () => {
         name: "name of address is required ex. Home , Office",
       }));
       isValid = false;
-    } else if (/\d/.test(formState.name)) {
-      setFormErrors((prevErrors) => ({
-        ...prevErrors,
-        name: "name cannot contain numbers",
-      }));
-      isValid = false;
     }
+    
 
     if (formState.phone.trim() === "") {
       setFormErrors((prevErrors) => ({
@@ -130,21 +95,21 @@ const Address = () => {
       isValid = false;
     }
 
-    if (formState.city.trim() === "") {
-      setFormErrors((prevErrors) => ({
-        ...prevErrors,
-        city: "city is required ex. Boston",
-      }));
-      isValid = false;
-    }
+    // if (formState.city.trim() === "") {
+    //   setFormErrors((prevErrors) => ({
+    //     ...prevErrors,
+    //     city: "city is required ex. Boston",
+    //   }));
+    //   isValid = false;
+    // }
 
-    if (formState.country.trim() === "") {
-      setFormErrors((prevErrors) => ({
-        ...prevErrors,
-        country: "country is required ex. USA",
-      }));
-      isValid = false;
-    }
+    // if (formState.country.trim() === "") {
+    //   setFormErrors((prevErrors) => ({
+    //     ...prevErrors,
+    //     country: "country is required ex. USA",
+    //   }));
+    //   isValid = false;
+    // }
 
     if (formState.zip.trim() === "") {
       setFormErrors((prevErrors) => ({
@@ -188,7 +153,7 @@ const Address = () => {
     }
     if (validateForm() && isEdit) {
       editForm();
-      setIsEdit(false);
+      // setIsEdit(false);
     }
   };
 
@@ -201,19 +166,27 @@ const Address = () => {
       setFormState({
         name: "",
         address: "",
-        city: "",
         zip: "",
         phone: "",
-        country: "",
         isDefault: false,
+        // country: "",
+        // city: "",
       });
+
 
       setAllAdresses([...allAdresses]);
     }
 
     formState.isDefault = isDefault;
-    let newId = addresses.length + 1;
-    setAllAdresses([...allAdresses, { id: newId, ...formState }]);
+    setLoading(true);
+    setIsEdit(false);
+
+    axios.post("https://furnival.onrender.com/addresses",  {'alias':formState.name,'details':formState.address,'phone':formState.phone,'postalCode':formState.zip},{
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    })
+    .then((res) => {
+    setLoading(false);
+    setAllAdresses(res.data.data);
     toast.success("Your address added successfully!", {
       position: "bottom-right",
       autoClose: 5000,
@@ -221,56 +194,105 @@ const Address = () => {
       closeOnClick: true,
       pauseOnHover: true,
     });
-    console.log(formState);
-    console.log(addresses);
+  console.log(res.data)
+    })
+    .catch((err) => {
+      setLoading(false);
+    console.log(err.data)
+    });
+    
+   
   };
 
   const handleDelete = (id) => {
-    const newAddresses = allAdresses.filter((address) => address.id !== id);
-    setAllAdresses(newAddresses);
-    toast.success("Your address deleted successfully!", {
-      position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      color: "red",
-    });
+    setLoading(true);
+    axios
+      .delete(`https://furnival.onrender.com/addresses/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      })
+      .then((response) => {
+        setLoading(false);
+        setAllAdresses( allAdresses.filter((address) => address._id !== id));
+        toast.success("Your address deleted successfully!", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          color: "red",
+        });
+        console.log("address deleted successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      
   };
 
+const [editId,setEditId]=useState('');
   const handleEdit = (id) => {
-    const address = allAdresses.find((address) => address.id === id);
-    setFormState(address);
-    setIsDefault(address.isDefault);
+    const address = allAdresses.find((address) => address._id === id);
+    setFormState({
+    name: address.alias,
+    address: address.details,
+    phone: address.phone,
+    zip: address.postalCode,
+    
+    });
+    setEditId(id);
     setIsEdit(true);
   };
 
   const editForm = () => {
-    if (isDefault) {
-      allAdresses.forEach((address) => {
-        address.isDefault = false;
-      });
-    }
+    setLoading(true);
+    const newAddresses = allAdresses.filter(address=>address._id!==editId);
+    axios.put(`https://furnival.onrender.com/addresses/${editId}`,  {'alias':formState.name,'details':formState.address,'phone':formState.phone,'postalCode':formState.zip},{
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    })
+    .then((res) => {
     formState.isDefault = isDefault;
-    const newAddresses = allAdresses.filter(
-      (address) => address.id !== formState.id
-    );
-    setAllAdresses([...newAddresses, formState]);
-    toast.success("Your address edited successfully!", {
+    setAllAdresses([...newAddresses,res.data.data]);
+    setIsEdit(true);
+    setLoading(false);
+    toast.success("Your address updated successfully!", {
       position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
-      color: "green",
     });
+    console.log(res.data);
+    })
+    .catch((err) => {
+      setLoading(false);
+      setIsEdit(true);
+
+    console.log(err.data)
+    });
+ 
   };
   useEffect(() => {
+ 
+      const  getAdresses=()=>{
+        axios
+        .get("https://furnival.onrender.com/addresses", {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        })
+        .then((response) => {
+          setLoading(false);
+          setAllAdresses(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
+    getAdresses();
     colorAstrisk();
-  }, [handleChange, isDefault, allAdresses]);
+  }, [ isDefault]);
 
   return (
     <div className="flex flex-col gap-5 content-center">
+    {loading && <Loader/>}
       <div className="flex flex-col gap-4 md:flex-row items-center justify-between">
         <div>
           <h2 className="text-primary my-2">Address</h2>
@@ -285,10 +307,10 @@ const Address = () => {
             setFormState({
               name: "",
               address: "",
-              city: "",
+              // city: "",
               zip: "",
               phone: "",
-              country: "",
+              // country: "",
               isDefault: false,
             });
             setIsEdit(false);
@@ -313,7 +335,7 @@ const Address = () => {
                   <button className="btn-secondary px-0 py-0  text-[14px] text-white rounded-[6px] transition duration-500 ">
                     <label
                       onClick={() => {
-                        handleEdit(address.id);
+                        handleEdit(address._id);
                       }}
                       className="block px-1 py-1 cursor-pointer"
                       htmlFor="my-modal-3"
@@ -328,7 +350,7 @@ const Address = () => {
 
                   <button
                     onClick={() => {
-                      handleDelete(address.id);
+                      handleDelete(address._id);
                     }}
                     className="btn-error  px-1 py-1 text-[14px] text-white rounded-[6px] hover:bg-red-700 transition duration-500 "
                   >
@@ -342,17 +364,17 @@ const Address = () => {
               </div>
               <div className="flex flex-col gap-4">
                 <div className="w-full flex flex-col md:flex-row  gap-1 ">
-                  <p className="text-dark">User Name: </p>
+                  <p className="text-dark">Name: </p>
                   <p className="text-primary ">
-                    {address.name}
-                    {address.isDefault && "(Default)"}
+                    {address.alias}
+                    {formState.isDefault && "(Default)"}
                   </p>
                 </div>
                 <div className="w-full flex flex-col md:flex-row  gap-1 ">
                   <p className="text-dark"> Address: </p>
                   <p className="text-primary ">
-                    {address.address} {address.city}, {address.country}{" "}
-                    {address.zip}
+                    {address.details} {" "}
+                    {address.postalCode}
                   </p>
                 </div>
                 <div className="w-full flex flex-col md:flex-row  gap-1">
@@ -375,7 +397,7 @@ const Address = () => {
             ✕
           </label>
           <h3 className="text-lg font-bold pb-4">
-            You can {isEdit ? "edit" : "add"} new address here!
+            You can {isEdit ? "edit" : "add new"}  address here!
           </h3>
 
           <form onSubmit={handleSubmit} className="form flex flex-col gap-4">
@@ -441,7 +463,7 @@ const Address = () => {
                 <span className="text-error order-2">{formErrors.address}</span>
               )}
             </div>
-
+{/* 
             <div className="flex flex-col gap-1">
               <input
                 type="text"
@@ -461,9 +483,9 @@ const Address = () => {
               {formErrors.city && (
                 <span className="text-error order-2">{formErrors.city}</span>
               )}
-            </div>
+            </div> */}
 
-            <div className="flex flex-col gap-1">
+            {/* <div className="flex flex-col gap-1">
               <input
                 type="text"
                 name="country"
@@ -482,7 +504,7 @@ const Address = () => {
               {formErrors.country && (
                 <span className="text-error order-2">{formErrors.country}</span>
               )}
-            </div>
+            </div> */}
 
             <div className="flex flex-col gap-1">
               <input
@@ -510,7 +532,7 @@ const Address = () => {
                 type="checkbox"
                 name="isDefault"
                 id="isDefault"
-                className="checkbox checkbox-primary text-white order-1"
+                className="checkbox checkbox-primaryC text-white order-1"
                 checked={isDefault}
                 onChange={toggleDefault}
               />
@@ -521,7 +543,7 @@ const Address = () => {
 
             <button
               type="submit"
-              className="btn btn-primary w-[200px] py-0 mt-5 rounded-[8px] "
+              className="btn btn-primary w-[200px] py-0 mt-5 rounded-[8px]"
             >
               {isEdit ? "Edit Address" : "Add Address"}
             </button>

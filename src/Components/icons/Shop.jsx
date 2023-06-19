@@ -8,7 +8,7 @@ const Shop = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#133A5E"
-      className="w-20 h-20"
+      className="w-12 h-12"
     >
       <path
         strokeLinecap="round"

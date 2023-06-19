@@ -16,7 +16,7 @@ const Home = () => {
       <div className="max-sm:mx-[1rem] sm:mx-[2.5rem] md:mx-[3rem] lg:mx-[4rem] xl:mx-[12rem]">
         <Categories />
         <BestSelling />
-        <NewArrivals />
+        {/* <NewArrivals /> */}
         <GridProducts />
         <Services />
       </div>

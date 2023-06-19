@@ -1,10 +1,4 @@
 import React, { useRef } from "react";
-
-// import Sofa from "../../../public/images/categories/sofa.webp";
-// import Chair from "../../../public/images/categories/chair.png";
-// import Storage from "../../../public/images/categories/Storage-Unit.png";
-// import Table from "../../../public/images/categories/tables.png";
-// import Decoration from "../../../public/images/categories/decoration.webp";
 import Shape from "../../../public/images/categories/shape.png";
 import lamp from "../../../public/images/categories/lamp.svg";
 import bed from "../../../public/images/categories/bed.svg";
@@ -116,6 +110,7 @@ const categories = [
 //     img: Table,
 //   },
 // ];
+
 const Categories = () => {
   const ref = useRef(null);
   const scroll = (scrollOffset) => {
@@ -123,7 +118,7 @@ const Categories = () => {
     console.log(ref.current.scrollLeft);
   };
   return (
-    <section className="py-16 max-sm:py-5 sm:py-10 xl:pt-32">
+    <section className="my-28 max-sm:my-12 sm:my-12 xl:my-28">
       <div className="flex justify-between lg:mb-10 ">
         <h4 className="font-poppins max-sm:text-lg sm:text-xl md:text-2xl lg:text-2xl 2xl:text-2xl font-bold text-primary">
           Shop by category

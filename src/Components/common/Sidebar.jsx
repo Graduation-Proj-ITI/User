@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Profile from "../sections/Profile";
 import Orders from "../sections/Order";
 import Address from "../sections/Address";
 import Payment from "../sections/Payment";
 import Wishlist from "../sections/Wishlist";
+import axios from 'axios';
+import Loader from "../Shared/Loader";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -48,9 +51,80 @@ const Sidebar = () => {
       component: <Payment />,
     },
   ];
+  
+  const [selectedImage, setSelectedImage] = useState(null);
+const [userImage,setUserImage] = useState(null);
+const [loading,setLoading]=useState(null);
+const [isChecked,setChecked]=useState(false);
+// if (selectedImage != null) 
+// {
+// setChecked(true);
+// }
+const handleFetchImg=()=>{
+  const userImg = {
+    profileImg:selectedImage,
+  };
+  console.log(userImg);
+   const formData = new FormData();
+     formData.append(
+        "profileImg",
+        userImg.profileImg,
+        userImg.profileImg.name
+    ); 
+    setLoading(true)
+  axios
+    .put("https://furnival.onrender.com/users/updateMe", formData, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    })
+    .then((res) => {
+    setLoading(false)
+      setUserImage(res?.data.data.profileImg);
+      setChecked(false);
+      toast.success("Your Picture updated successfully!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      console.log('post image',res.data);
+    })
+    .catch((err) => {
+      setLoading(false);
+      setChecked(false);
+      toast.error("there is an error please,try again!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      console.log(err);
+    });
+  };
+  
+  const [user,setUser]=useState(null);
+  useEffect(() => {
+    setLoading(true)
+    axios
+    .get("https://furnival.onrender.com/users/getMe", {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    })
+    .then((res) => {
+      setLoading(false)
+      setUserImage(res?.data.data.profileImg);
+      setUser(res?.data.data);
+      console.log('get data',res.data);
+    })
+    .catch((err) => {
+      setLoading(false)
+      console.log(err.response.data.message);
+    });
+  }, [userImage]);
 
   return (
     <div className=" h-screen overflow-x-hidden ">
+    {loading && <Loader/>}
       <div className="flex w-full ">
         {/* Burger Menu */}
         {/* Left Menu */}
@@ -94,19 +168,36 @@ const Sidebar = () => {
                 >
                   <figure className="relative w-[150px] h-[150px] rounded">
                     <img
-                      src="./profile/profile.jpg"
+                      src={userImage??"./profile/profile.jpg"}
                       alt="profile.jpg"
                       className="w-full h-full max-w-[100%] rounded-full object-cover "
                     />
-                    <div className="icon absolute -bottom-0 right-1 text-white bg-secondary flex items-center content-center py-2 px-2 rounded-[50%] cursor-pointer">
-                      <img src="./icons/camera.svg" className="w-[100%]" />
-                    </div>
+                    <label className="icon  w-[40px] h-[40px] absolute -bottom-0 right-1 text-white bg-secondary flex items-center content-center py-2 px-2 rounded-[50%] -pointer">
+                      <img
+                        src={"./icons/camera.svg"}
+                        className="max-w-[100%] absolute z-[10] rounded-[50%] cursor-pointer"
+                      />
+                      <input
+                        accept="image/*"
+                        multiple
+                        type="file"
+                        className="absolute z-[20] opacity-0 w-[80%]  rounded-[50%] cursor-pointer"
+                        onChange={(e) => {
+                          const file = e.target.files[0];
+                          setSelectedImage(file);
+                          setChecked(true)
+                          console.log(isChecked)
+                          console.log('image',selectedImage)
+                        }}
+                      />
+      
+                    </label>
                   </figure>
 
                   <h4 className="text-primary">
-                    Hi, <span>John Doe</span>
+                    Hi, <span>{user?.name}</span>
                   </h4>
-                  <p className="text-dark-gray">example@gmail.com</p>
+                  <p className="text-dark-gray">{user?.email}</p>
                 </li>
 
                 {/* Menu items */}
@@ -166,7 +257,34 @@ const Sidebar = () => {
           {navLinks[activeLink].component}
         </div>
       </div>
+      
+      <input type="checkbox" id="my-modal-4" className="modal-toggle" checked={isChecked}/>
+      <div className="modal">
+        <div className="modal-box relative z-50">
+          <label
+            onClick={() => {setChecked(false)}}
+            htmlFor="my-modal-4"
+            className="btn text-error px-4 rounded-full  btn-sm  border-error btn-outline btn-circle absolute right-4 top-2 hover:bg-error hover:text-white hover:border-error"
+          >
+            ✕
+          </label>
+          <h3 className="text-lg font-bold pb-4">
+            confirm upload image
+          </h3>
+
+          <form onSubmit={handleFetchImg} className="form flex flex-col gap-4">
+            <button
+              type="submit"
+              className="btn btn-primary w-[200px] py-0 mx-auto mt-5  rounded-[8px]"
+            >
+              upload
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
+    
+    
   );
 };
 

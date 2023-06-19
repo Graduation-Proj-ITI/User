@@ -20,8 +20,6 @@ import Register from "./pages/Register";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 
 export default function App() {
-  
-
   return (
     <>
     

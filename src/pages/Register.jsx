@@ -91,14 +91,26 @@ function Register() {
                     required
                     className="input input-bordered w-full max-w-xs px-3"
                   />
+                 
+                </div>
+                <div className="form-control m-auto max-w-xs">
+                  <label className="label pb-0" htmlFor="Phone">
+                    <span className="label-text">Phone *</span>
+                  </label>
+                  <input
+                    id="Phone"
+                    type="text"
+                    placeholder="Type here"
+                    className="input input-bordered w-full max-w-xs px-3"
+                  />
                   <label className="label hidden">
-                    <span className="label-text-alt ">Password *</span>
+                    <span className="label-text-alt">Bottom Left label</span>
                   </label>
                 </div>
+                <div className="form-control m-auto max-w-xs">
+                  <label className="label pb-0" htmlFor="password">
+                    <span className="label-text">password *</span>
 
-                <div className="form-control m-auto max-w-xs ">
-                  <label className="label pb-0 " htmlFor="password">
-                    <span className="label-text text-black">password*</span>
                   </label>
                   <input
                     name="password"
@@ -117,7 +129,7 @@ function Register() {
 
                 <div className="form-control m-auto max-w-xs">
                   <label className="label pb-0" htmlFor="confirm">
-                    <span className="label-text">confirm password*</span>
+                    <span className="label-text">confirm password *</span>
                   </label>
                   <input
                     name="passwordConfirm"
@@ -134,13 +146,16 @@ function Register() {
                   </label>
                 </div>
 
-                <button className="btn mt-2 subbutton w-72">sign in</button>
+                <button className="btn mt-2 subbutton w-80">sign in</button>
                 <br />
+
+                <button className="btn mt-2 googlebtn w-80">
+                  <i class="fa-brands fa-google me-4 text-lg"></i>Continue with
+                  Google
+                </button>
+
               </form>
-              <button className="btn mt-2 googlebtn text-black w-72">
-                <i className="fa-brands fa-google me-4 text-lg"></i>
-                <p>Continue with Google</p>
-              </button>
+              
 
               <p className="toregister  text-lg">
                 Already have account,

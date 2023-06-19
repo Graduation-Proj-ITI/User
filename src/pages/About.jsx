@@ -23,7 +23,7 @@ const About = () => {
           style={{ opacity: "0.8" }}
         />
         <div
-          className="absolute inset-0 flex flex-col justify-center items-center"
+          className="bg-gray-600/30 backdrop-brightness-75 absolute inset-0 flex flex-col justify-center items-center"
           onClick={handleClick}
         >
           <h4 className="text-white font-semibold text-xl md:text-4xl mb-4 md:mb-6">

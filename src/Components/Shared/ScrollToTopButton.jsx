@@ -25,7 +25,7 @@ export default function ScrollButton() {
       <button
         className={
           "z-20 btn btn-secondary btn-circle cursor-pointer bottom-12 right-10 px-0 shadow-md    " +
-          (visible ? " fixed animate-wiggle " : " none")
+          (visible ? " fixed  " : " none")
         }
         onClick={scrollToTop}
       >

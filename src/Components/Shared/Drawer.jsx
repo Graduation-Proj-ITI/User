@@ -1,15 +1,18 @@
+import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 const Drawer = ({ children }) => {
   const location = useLocation();
   console.log(location.pathname);
+
+  const [search, setsearch] = useState([]);
   return (
     <>
-      <div className="drawer h-full">
+      <div className="drawer  h-full  ">
         <input id="sidemenu" type="checkbox" className="drawer-toggle " />
         <div className="drawer-content flex flex-col ">{children}</div>
 
-        <div className="drawer-side overflow-visible">
+        <div className="drawer-side  h-screen overflow-scroll   ">
           <label htmlFor="sidemenu" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 h-full bg-primary ">
             <li>
@@ -18,6 +21,11 @@ const Drawer = ({ children }) => {
                   type="text"
                   placeholder="Search"
                   className="input input-sm input-ghost w-4/6 max-w-xs  focus:outline-none border-0 "
+                  value={search}
+                  onChange={(e) => {
+                    setsearch(() => e.target.value);
+                    console.log(search);
+                  }}
                 />
 
                 <button className="btn btn-ghost btn-sm p-0  hover:bg-transparent">
@@ -65,7 +73,7 @@ const Drawer = ({ children }) => {
             </li>
             <li className=" text-lg">
               <NavLink
-                to="/"
+                to="/Product"
                 className={({ isActive }) =>
                   isActive
                     ? "text-secondary font-bold"
@@ -86,7 +94,7 @@ const Drawer = ({ children }) => {
                 Community
               </NavLink>
             </li>
-            <li className=" text-lg">
+            {/* <li className=" text-lg">
               <NavLink
                 to=""
                 className={({ isActive }) =>
@@ -97,7 +105,7 @@ const Drawer = ({ children }) => {
               >
                 Blog
               </NavLink>
-            </li>
+            </li> */}
             <li className=" text-lg">
               <NavLink
                 to="/about"

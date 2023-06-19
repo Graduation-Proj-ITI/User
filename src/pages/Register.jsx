@@ -56,7 +56,7 @@ function Register(props) {
                   </label>
                   <input
                     id="Phone"
-                    type="number"
+                    type="text"
                     placeholder="Type here"
                     className="input input-bordered w-full max-w-xs px-3"
                   />
@@ -66,7 +66,7 @@ function Register(props) {
                 </div>
                 <div className="form-control m-auto max-w-xs">
                   <label className="label pb-0" htmlFor="password">
-                    <span className="label-text">password*</span>
+                    <span className="label-text">password *</span>
                   </label>
                   <input
                     id="password"
@@ -81,7 +81,7 @@ function Register(props) {
 
                 <div className="form-control m-auto max-w-xs">
                   <label className="label pb-0" htmlFor="confirm">
-                    <span className="label-text">confirm password*</span>
+                    <span className="label-text">confirm password *</span>
                   </label>
                   <input
                     id="confirm"
@@ -94,9 +94,9 @@ function Register(props) {
                   </label>
                 </div>
 
-                <button className="btn mt-2 subbutton w-72">sign in</button>
+                <button className="btn mt-2 subbutton w-80">sign in</button>
                 <br />
-                <button className="btn mt-2 googlebtn w-72">
+                <button className="btn mt-2 googlebtn w-80">
                   <i class="fa-brands fa-google me-4 text-lg"></i>Continue with
                   Google
                 </button>

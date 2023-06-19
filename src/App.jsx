@@ -19,34 +19,29 @@ import Register from "./pages/Register";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 // import Contact from "./pages/contact";
 
-
 export default function App() {
   return (
     <>
       <BrowserRouter>
-
         <Drawer>
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route path="/" element={<Shop />} /> */}
+            <Route path="/Product" element={<Product />} />
             <Route path="/community" element={<Community />} />
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<User />} />
             {/* <Route path="/contact" element={<Contact />} /> */}
-            
-          <Route path="/login" element={<Login />} />
-          <Route path="/Register" element={<Register/>} />
-          <Route path="/Product" element={<Product/>}/>
-          <Route path="product/:productId" element={<ProductDetails/>}/>
+
+            <Route path="/login" element={<Login />} />
+            <Route path="/Register" element={<Register />} />
+
+            <Route path="product/:productId" element={<ProductDetails />} />
           </Routes>
           <ToastContainer />
           <Footer />
         </Drawer>
       </BrowserRouter>
-
-     
-
     </>
   );
 }

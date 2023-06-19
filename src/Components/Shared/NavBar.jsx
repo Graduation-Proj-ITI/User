@@ -23,10 +23,13 @@ const NavBar = () => {
     <>
       <nav
         className={
-          "navbar fixed z-50 px-[1rem] sm:px-[2.5rem] md:px-[3rem] lg:px-[4rem] xl:px-[12rem] w-full py-2 justify-between  " +
+          "navbar fixed z-50 px-[1rem] sm:px-[2.5rem] md:px-[3rem] lg:px-[4rem] xl:px-[12rem] w-full py-2 justify-between " +
           (visible || location.pathname === "/profile"
             ? " animate-wiggle bg-primary "
-            : " bg-transparent ")
+            : " bg-transparent ") +
+          (location.pathname === "/Register" || location.pathname === "/Login"
+            ? " hidden"
+            : " ")
         }
       >
         <div className="lg:hidden">
@@ -40,14 +43,14 @@ const NavBar = () => {
 
         <h3 className=" text-white">Furnival</h3>
 
-        <div className="max-sm:hidden sm:hidden bg-gray-100 lg:flex md:hidden items-center rounded-2xl justify-around w-3/12">
+        <div className="max-sm:hidden sm:hidden bg-gray-100 lg:flex md:hidden items-center rounded-3xl justify-around w-1/4 sm:w-1/5 py-1">
           <input
             type="text"
             placeholder="Search"
             className="input input-sm input-ghost w-4/6 max-w-xs rounded-2xl focus:outline-none border-0 "
           />
 
-          <button className="btn btn-ghost btn-sm p-0  hover:bg-transparent">
+          <button className="btn btn-ghost btn-sm p-0 hover:bg-transparent">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -80,7 +83,7 @@ const NavBar = () => {
           </li>
           <li className=" text-lg">
             <NavLink
-              to="/"
+              to="/Product"
               className={({ isActive }) =>
                 isActive
                   ? "text-secondary font-bold"
@@ -101,7 +104,7 @@ const NavBar = () => {
               Community
             </NavLink>
           </li>
-          <li className=" text-lg">
+          {/* <li className=" text-lg">
             <NavLink
               to=""
               className={({ isActive }) =>
@@ -112,7 +115,7 @@ const NavBar = () => {
             >
               Blog
             </NavLink>
-          </li>
+          </li> */}
           <li className=" text-lg">
             <NavLink
               to="/about"

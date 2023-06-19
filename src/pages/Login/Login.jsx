@@ -47,14 +47,19 @@ function Login() {
                   </label>
                 </div>
 
-                <button className="btn mt-7 subbutton w-72">sign in</button>
-     <br/>
-                <button className="btn mt-7 googlebtn w-72"><i class="fa-brands fa-google me-4 text-lg"></i>Continue with Google</button>
-
+                <button className="btn mt-7 subbutton w-80">sign in</button>
+                <br />
+                <button className="btn mt-7 googlebtn w-80">
+                  <i class="fa-brands fa-google me-4 text-lg"></i>Continue with
+                  Google
+                </button>
               </form>
-              <p className="toregister mt-3 text-lg">Don’t have account,  <Link to="/Register" className="">
-              sign up
-            </Link></p>
+              <p className="toregister mt-3 text-lg">
+                Don’t have account,{" "}
+                <Link to="/Register" className="">
+                  sign up
+                </Link>
+              </p>
             </div>
           </div>
           <div className=""></div>

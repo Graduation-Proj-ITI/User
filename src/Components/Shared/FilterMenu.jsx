@@ -24,7 +24,7 @@ const FilterMenu = ({
           {categories.data?.map((category) => {
             return (
               <h1
-                key={category.id}
+                key={category._id}
                 className={
                   "text-primary text-lg py-1 cursor-pointer capitalize font-medium hover:text-secondary " +
                   (category.id === currentCategory ? "text-secondary" : "")

@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import "normalize.css";
-import Contact from "./pages/contact"
+import Contact from "./pages/contact";
 import Home from "./pages/Home";
 import Community from "./pages/Community";
 import About from "./pages/About";
@@ -18,13 +18,11 @@ import Product from "./pages/Product/Product";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
+import Cart from "./pages/Cart";
 
 export default function App() {
-  
-
   return (
     <>
-    
       <BrowserRouter>
         <Drawer>
           <NavBar />
@@ -34,6 +32,7 @@ export default function App() {
             <Route path="/community" element={<Community />} />
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<User />} />
+            <Route path="/cart" element={<Cart />} />
             {/* <Route path="/contact" element={<Contact />} /> */}
 
             <Route path="/login" element={<Login />} />

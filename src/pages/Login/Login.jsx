@@ -2,9 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { useState } from "react";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 function Login() {
-  const navigate =useNavigate()
+  const navigate = useNavigate();
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -13,20 +13,37 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("true");
-    await axios.post("https://furnival.onrender.com/auth/login",login)
-    .then((res)=>{
-      toast("Login Succesufully");
-      navigate("/")
-    }).catch((e)=>{
-      console.log(e);
-      toast("Try Again")
-    });
+    await axios
+      .post("https://furnival.onrender.com/auth/login", login)
+      .then((res) => {
+        toast.success("Login Succesufully", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+        navigate("/", { replace: true });
+        console.log(res.data.token);
+        localStorage.setItem("token", res.data.token);
+        console.log(res.data.token);
+      })
+      .catch((e) => {
+        console.log(e);
+
+        toast.error("Try Again", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      });
   };
 
-const handleChange=(e)=>{
-  setLogin({...login,[e.target.name]:e.target.value});
-};
-
+  const handleChange = (e) => {
+    setLogin({ ...login, [e.target.name]: e.target.value });
+  };
 
   return (
     <>
@@ -44,16 +61,14 @@ const handleChange=(e)=>{
             </div>
             <div className="forminput text-center">
               <form onSubmit={handleSubmit}>
-               
-               
                 <div className="form-control m-auto max-w-xs">
                   <label className="label" htmlFor="username">
                     <span className="label-text">User name *</span>
                   </label>
                   <input
-                  name="email"
-                  onChange={handleChange}
-                  value={login.email}
+                    name="email"
+                    onChange={handleChange}
+                    value={login.email}
                     id="username"
                     type="text"
                     placeholder="Type here"
@@ -69,9 +84,9 @@ const handleChange=(e)=>{
                     <span className="label-text">Password *</span>
                   </label>
                   <input
-                  name="password"
-                  onChange={handleChange}
-                  value={login.password}
+                    name="password"
+                    onChange={handleChange}
+                    value={login.password}
                     id="password"
                     type="password"
                     placeholder="Type here"
@@ -84,11 +99,10 @@ const handleChange=(e)=>{
                 <button className="btn mt-7 subbutton w-80">sign in</button>
                 <br />
                 <button className="btn mt-7 googlebtn w-80">
-                  <i class="fa-brands fa-google me-4 text-lg"></i>Continue with
-                  Google
+                  <i className="fa-brands fa-google me-4 text-lg"></i>Continue
+                  with Google
                 </button>
               </form>
-
 
               <p className="toregister mt-3 text-lg">
                 Don’t have account,{" "}

@@ -78,10 +78,10 @@ const Team = () => {
             </div>
 
             <div className="px-3 pb-5">
-              <h1 className=" text-lg font group-hover:text-secondary ease-in duration-200">
+              <h1 className=" text-lg font text-center group-hover:text-secondary ease-in duration-200">
                 {name.name}
               </h1>
-              <p className="text-stone-500 text-base font-normal">
+              <p className="text-stone-500 text-center text-base font-normal">
                 {name.role}
               </p>
             </div>

@@ -13,6 +13,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("true");
+
     await axios
       .post("https://furnival.onrender.com/auth/login", login)
       .then((res) => {
@@ -30,7 +31,6 @@ function Login() {
       })
       .catch((e) => {
         console.log(e);
-
         toast.error("Try Again", {
           position: "top-right",
           autoClose: 5000,
@@ -63,7 +63,7 @@ function Login() {
               <form onSubmit={handleSubmit}>
                 <div className="form-control m-auto max-w-xs">
                   <label className="label" htmlFor="username">
-                    <span className="label-text">User name *</span>
+                    <span className="label-text">Email *</span>
                   </label>
                   <input
                     name="email"

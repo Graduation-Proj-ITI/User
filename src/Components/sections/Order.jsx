@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-
+import React, { useState,useEffect } from "react";
+import axios from "axios";
+import Loader from "../Shared/Loader";
 function Orders() {
   const Orders = [
     {
@@ -109,10 +110,32 @@ function Orders() {
       ],
     },
   ];
-  const [allOrders, setAllOrders] = useState(Orders);
+  const [allOrders, setAllOrders] = useState([]);
   const [id, setId] = useState("");
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const getOrders =  () => {
+     axios
+       .get("https://furnival.onrender.com/orders", {
+         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+       })
+       .then((response) => {
+         setLoading(false);
+         console.log(response.data.data);
+         setAllOrders(response.data.data);
+       })
+       .catch((error) => {
+         console.log(error);
+       });
+     };
+     getOrders();
+   }, []);
+  
+  
   return (
     <div className="flex flex-col gap-5 content-center">
+    {loading && <Loader/>}
       <div className="">
         <h2 className="text-primary my-2">Orders</h2>
         <p className="text-dark">
@@ -128,18 +151,18 @@ function Orders() {
           <div className="w-full">
             <div className="flex flex-col gap-4">
               <div className="w-full flex flex-row items-center gap-2">
-                <p className="text-primary font-bold "> {order.id} </p>
+                <p className="text-primary font-bold "> {order._id} </p>
                 <p
                   className={`${
-                    order.status === "Delivered"
+                    order.isDelivered && order.isPaid 
                       ? "bg-green-600/60 "
-                      : order.status === "Pending"
+                      : !order.isDelivered && !order.isPaid
                       ? "bg-secondary"
                       : "bg-error"
                   } text-sm text-white text-bold px-4 py-1 rounded-[6px]`}
                 >
                   {" "}
-                  {order.status}{" "}
+                  {order.isDelivered?"Delivered":"Pending"}
                 </p>
               </div>
 
@@ -151,11 +174,11 @@ function Orders() {
                     alt="date"
                     className="mr-1 invert-[0.4] inline-block"
                   />{" "}
-                  placed on {new Date(order.date).toUTCString().slice(0, 17)}{" "}
+                  placed on {new Date(order.createdAt).toUTCString().slice(0, 17)}{" "}
                 </p>
               </div>
               <div className="w-full flex flex-col lg:flex-row gap-6 divide-y-2 lg:divide-x-2 lg:divide-y-0 divide-gray-300 ">
-                {order.items.map(
+                {order.cartItems.map(
                   (item, ind) =>
                     ind < 3 && (
                       <div
@@ -163,12 +186,12 @@ function Orders() {
                         key={ind}
                       >
                         <img
-                          src={`${item.image}`}
+                          src={`${item['product'].imageCover}`}
                           alt="product"
                           className="w-20 h-20 rounded-[8px]"
                         />
                         <div className="flex flex-col gap-1 text-[14px]">
-                          <p className="text-black font-light"> {item.name} </p>
+                          <p className="text-black font-light"> {item['product'].title} </p>
                           <p className="text-dark">
                             {" "}
                             Quantity:{" "}
@@ -176,7 +199,7 @@ function Orders() {
                               {item.quantity}
                             </span>{" "}
                           </p>
-                          <button className="text-primary font-semibold lg:hidden xl:flex  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
+                          <button className="text-primary font-semibold lg:hidden xl:flex   w-[130px]  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
                             {" "}
                             Review Product{" "}
                           </button>
@@ -190,16 +213,16 @@ function Orders() {
                 )}
               </div>
 
-              {order.items.length > 3 && (
+              {order.cartItems.length > 3 && (
                 <p className="text-black font-semibold text-md">
                   <label
                     htmlFor="my-modal-3"
                     onClick={() => {
-                      setId(order.id);
+                      setId(order._id);
                     }}
                     className="text-black font-semibold text-md cursor-pointer hover:text-primary "
                   >
-                    +{order.items.length - 3} more items
+                    +{order.cartItems.length - 3} more items
                   </label>
                 </p>
               )}
@@ -220,21 +243,21 @@ function Orders() {
 
           {allOrders.map(
             (order, ind) =>
-              order.id === id && (
+              order._id === id && (
                 <div key={ind}>
                   <div className="w-full flex flex-row items-center  gap-4 pb-4 ">
-                    <p className="text-primary font-bold "> {order.id} </p>
+                    <p className="text-primary font-bold "> {order._id} </p>
                     <p
                       className={`${
-                        order.status === "Delivered"
-                          ? "bg-green-600/60 "
-                          : order.status === "Pending"
-                          ? "bg-secondary"
-                          : "bg-error"
+                        order.isDelivered && order.isPaid 
+                      ? "bg-green-600/60 "
+                      : !order.isDelivered && !order.isPaid
+                      ? "bg-secondary"
+                      : "bg-error"
                       } text-sm text-white text-bold px-4 py-1 rounded-[6px]`}
                     >
-                      {" "}
-                      {order.status}{" "}
+                
+                      {order.isDelivered?"Delivered":"Pending"}
                     </p>
                   </div>
 
@@ -250,17 +273,17 @@ function Orders() {
                               className="mr-1 invert-[0.4] inline-block"
                             />{" "}
                             placed on{" "}
-                            {new Date(order.date).toUTCString().slice(0, 17)}{" "}
+                            {new Date(order.createdAt).toUTCString().slice(0, 17)}{" "}
                           </p>
                         </div>
                         <div className="w-full flex flex-col lg:flex-row gap-6 divide-y-2 lg:divide-x-2 lg:divide-y-0 divide-gray-300 ">
-                          {order.items.map((item, ind) => (
+                          {order.cartItems.map((item, ind) => (
                             <div
                               className="flex  first:pt-0 pt-7 lg:pt-0 lg:first:ps-0 lg:ps-8 flex-row gap-2 flex-wrap"
                               key={ind}
                             >
                               <img
-                                src={`${item.image}`}
+                                src={`${item['product'].imageCover}`}
                                 alt="product"
                                 className="w-20 h-20 rounded-[8px]"
                               />
@@ -276,7 +299,7 @@ function Orders() {
                                     {item.quantity}
                                   </span>{" "}
                                 </p>
-                                <button className="text-primary font-semibold lg:hidden xl:flex  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
+                                <button className="text-primary font-semibold lg:hidden w-[130px] xl:flex  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
                                   {" "}
                                   Review Product{" "}
                                 </button>
@@ -296,9 +319,7 @@ function Orders() {
                     <p className="text-primary font-bold "> Total: </p>
 
                     <p className="text-secondary font-bold ">
-                      {order.items.reduce((acc, item) => {
-                        return acc + Number(item.total);
-                      }, 0) + "$"}
+                      {order.totalOrderPrice + "$"}
                     </p>
                   </div>
                 </div>

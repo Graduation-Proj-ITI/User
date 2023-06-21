@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Loader from "../Shared/Loader";
 const Wishlist = () => {
    const token = localStorage.getItem("token");
   const [wishlist, setWishlist] = useState([]);
@@ -22,11 +23,13 @@ const Wishlist = () => {
   }, []);
 
   const handleDelete = (id) => {
+    setLoading(true);
     axios
       .delete(`https://furnival.onrender.com/wishlist/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
+        setLoading(false);
         setWishlist(wishlist.filter((item) => item._id !== id));
         console.log("Item deleted successfully");
       })
@@ -38,11 +41,11 @@ const Wishlist = () => {
   console.log(wishlist);
 
   return (
-    loading ? (
-      <div className="loader">Loading...</div>
-    ) : (
+
     <div className="flex flex-col gap-9 content-center">
-   
+      { loading &&
+      <Loader/>
+   }
       <div className="flex flex-col gap-4 md:flex-row items-center justify-between">
         <div>
           <h2 className="text-primary my-2">Wishlist</h2>
@@ -94,7 +97,7 @@ const Wishlist = () => {
       </div>
     </div>
     )
-  );
+  
 };
 
 export default Wishlist;

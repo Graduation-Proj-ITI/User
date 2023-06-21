@@ -20,7 +20,8 @@ function Register() {
     await axios
       .post("https://furnival.onrender.com/auth/signup", regiester)
       .then((res) => {
-        localStorage.setItem("access_token", res.data.data.access_token);
+        localStorage.setItem("token", res.data.token);
+        // localStorage.setItem("token", res.data.data.token);
         console.log(res.data.data);
 
         toast.success(`Welcome ${regiester.name}`, {

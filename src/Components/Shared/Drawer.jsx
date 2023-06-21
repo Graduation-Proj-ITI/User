@@ -8,7 +8,7 @@ const Drawer = ({ children }) => {
   const [search, setsearch] = useState([]);
   return (
     <>
-      <div className="drawer  h-full  ">
+      <div className="drawer  h-full  overflow-y-hidden ">
         <input id="sidemenu" type="checkbox" className="drawer-toggle " />
         <div className="drawer-content flex flex-col ">{children}</div>
 

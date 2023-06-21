@@ -75,7 +75,7 @@ const Testimonials = () => {
         {steps.map((step) => (
           <SwiperSlide key={step.id}>
             <div className="w-full p-5 mb-12">
-              <div className="relative border-8 rounded-3xl border-dark-gray p-8 mb-5 max-sm:h-64 sm:h-72 md:h-56">
+              <div className="relative border-2 border-opacity-50  rounded-3xl border-dark-gray p-8 mb-5 max-sm:h-64 sm:h-72 md:h-56">
                 <figure className="bg-bgColor absolute right-8 max-sm:bottom-56 max-sm:w-1/6 sm:bottom-60 sm:w-1/5 md:bottom-48 md:p-1 md:w-1/12">
                   <img src={quote} />
                 </figure>

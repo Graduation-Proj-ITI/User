@@ -20,16 +20,32 @@ function Register() {
     await axios
       .post("https://furnival.onrender.com/auth/signup", regiester)
       .then((res) => {
-        localStorage.setItem("access_token", res.data.data.access_token);
+        localStorage.setItem("token", res.data.token);
+        // localStorage.setItem("token", res.data.data.token);
         console.log(res.data.data);
-        toast(`Create Account succsefully ${regiester.name} `);
 
-        navigate("/");
+        toast.success(`Welcome ${regiester.name}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+
+        navigate("/", { replace: true });
       })
       .catch((e) => {
         console.log(e);
+
+        toast.error("please Try again", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
         // setLoading(true);
-        toast("please Try again");
+
         console.log(regiester);
       });
     // .finally(() => setLoading(false));
@@ -91,7 +107,6 @@ function Register() {
                     required
                     className="input input-bordered w-full max-w-xs px-3"
                   />
-                 
                 </div>
                 <div className="form-control m-auto max-w-xs">
                   <label className="label pb-0" htmlFor="Phone">
@@ -110,7 +125,6 @@ function Register() {
                 <div className="form-control m-auto max-w-xs">
                   <label className="label pb-0" htmlFor="password">
                     <span className="label-text">password *</span>
-
                   </label>
                   <input
                     name="password"
@@ -153,9 +167,7 @@ function Register() {
                   <i class="fa-brands fa-google me-4 text-lg"></i>Continue with
                   Google
                 </button>
-
               </form>
-              
 
               <p className="toregister  text-lg">
                 Already have account,

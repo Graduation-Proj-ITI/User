@@ -8,7 +8,7 @@ export default function Footer() {
     <>
       <footer
         className={
-          location.pathname === "/login" || location.pathname === "/Register"
+          location.pathname === "/Login" || location.pathname === "/Register"
             ? "hidden"
             : ""
         }

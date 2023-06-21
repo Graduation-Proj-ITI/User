@@ -36,6 +36,7 @@ function Product() {
         "https://furnival.onrender.com/categories"
       );
       setCategory(data);
+      console.log(data.data);
     } catch {
       console.log("error");
     }
@@ -117,7 +118,6 @@ function Product() {
   }, []);
   /*---------html and css--------*/
   return (
-
     <div className="pb-20">
       {/* <Navbar /> */}
       <div className="bg-shop w-full max-sm:h-[30vh] sm:h-[30vh] md:h-[40vh] xl:h-[45vh] bg-no-repeat bg-cover ">

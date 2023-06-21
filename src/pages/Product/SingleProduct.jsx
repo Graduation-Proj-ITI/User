@@ -1,8 +1,37 @@
 /* eslint-disable react/prop-types */
 
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function SingleProduct({ product }) {
+  const AddToCart = async (e, productId) => {
+    e.preventDefault();
+
+    console.log(localStorage.getItem("token"), productId);
+    try {
+      const { data } = await axios.post(
+        "https://furnival.onrender.com/cart",
+        { productId },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(data);
+      toast.success("Product added to cart successfully", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   // const { product } = props;
   return (
     <>
@@ -22,7 +51,12 @@ function SingleProduct({ product }) {
             {product.title}
           </Link>
           <div className="flex flex-row items-center max-sm:flex-col gap-2 ">
-            <button className="btn text-base w-1/2 max-sm:w-full bg-primary p-0 max-sm:order-2 max-sm:btn-sm md:w-2/3 lg:w-2/3 2xl:w-2/3 hover:bg-primary ">
+            <button
+              className="btn text-base w-1/2 max-sm:w-full bg-primary p-0 max-sm:order-2 max-sm:btn-sm md:w-2/3 lg:w-2/3 2xl:w-2/3 hover:bg-primary "
+              onClick={(e) => {
+                AddToCart(e, product._id);
+              }}
+            >
               Add to cart
             </button>
             <p className="text-end font-bold max-sm:order-1">

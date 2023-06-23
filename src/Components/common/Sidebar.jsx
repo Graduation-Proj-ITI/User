@@ -44,12 +44,12 @@ const Sidebar = () => {
       icon: "./icons/address.svg",
       component: <Address />,
     },
-    {
-      title: "Payment",
-      path: "#payment",
-      icon: "./icons/payment.svg",
-      component: <Payment />,
-    },
+    // {
+    //   title: "Payment",
+    //   path: "#payment",
+    //   icon: "./icons/payment.svg",
+    //   component: <Payment />,
+    // },
   ];
   
   const [selectedImage, setSelectedImage] = useState(null);
@@ -278,7 +278,7 @@ const handleFetchImg=(e)=>{
               type="submit"
               className="btn btn-primary w-[200px] py-0 mx-auto mt-5  rounded-[8px]"
             >
-              upload
+              confirm
             </button>
           </form>
         </div>

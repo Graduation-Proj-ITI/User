@@ -31,6 +31,7 @@ export default function App() {
             <Route path="/Product" element={<Product />} />
             <Route path="/community" element={<Community />} />
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/profile" element={<User />} />
             <Route path="/cart" element={<Cart />} />
             {/* <Route path="/contact" element={<Contact />} /> */}

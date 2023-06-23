@@ -1,10 +1,38 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "../Shared/Loader";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import empwishlist from "../../../public/wishlist.svg";
 const Wishlist = () => {
    const token = localStorage.getItem("token");
   const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  const handleAddToCart = (id) => {
+  setLoading(true);
+    axios
+    .post("https://furnival.onrender.com/cart",{'productId':id} ,{
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => {
+      setLoading(false);
+      // console.log(id)
+      toast.success("Your product added to cart successfully!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        color: "green",
+      });
+    })
+    .catch((error) => {
+      // console.log(error);
+    });
+  };
+  
+  
   useEffect(() => {
    const getWishlist =  () => {
     axios
@@ -16,7 +44,7 @@ const Wishlist = () => {
         setWishlist(response.data.data);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
     };
     getWishlist();
@@ -31,14 +59,21 @@ const Wishlist = () => {
       .then((response) => {
         setLoading(false);
         setWishlist(wishlist.filter((item) => item._id !== id));
-        console.log("Item deleted successfully");
+        toast.success("Your product deleted from wishlist successfully!", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          color: "green",
+        });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
 
-  console.log(wishlist);
+  // console.log(wishlist);
 
   return (
 
@@ -46,13 +81,18 @@ const Wishlist = () => {
       { loading &&
       <Loader/>
    }
-      <div className="flex flex-col gap-4 md:flex-row items-center justify-between">
+      <div className="flex flex-col gap-4 md:flex-row justify-between mt-5">
         <div>
           <h2 className="text-primary my-2">Wishlist</h2>
           <p className="text-dark">{wishlist.length} items in your wishlist</p>
         </div>
       </div>
 
+      {wishlist.length === 0 ? (
+      <img src={empwishlist} alt="wishlist" className="w-1/2 mx-auto mt-[-30px]" />
+      )
+      :
+      
       <div className="flex  flex-col lg:flex-row gap-4 bg-bgColor px-5 w-full lg:px-10 py-10 rounded-[16px] shadow-gray ">
         <div className="w-full">
           <div className="flex flex-row gap-3 flex-wrap justify-start">
@@ -65,11 +105,12 @@ const Wishlist = () => {
                   <figure className="relative h-[90%]">
                     <img
                       src={item.imageCover}
+                      // src="./images/products/product1.jpg"
                       alt=""
                       className="w-full h-full object-cover rounded-[8px]"
                     />
 
-                    <div className="absolute bg-secondary items-center justify-center rounded-[50px] top-2 right-2 flex flex-col gap-2 p-3">
+                    <div className="absolute bg-secondary items-center justify-center rounded-[50px] top-2 right-2 flex flex-col gap-2 p-3 hover:opacity-[.7] transition duration-300">
                       <button
                         className="btn-icon"
                         onClick={() => handleDelete(item._id)}
@@ -81,7 +122,7 @@ const Wishlist = () => {
                   <div className="flex flex-col absolute -bottom-3 w-[90%] mx-auto self-center bg-white px-4 py-4 rounded-[8px] h-auto gap-2 ">
                     <p className="text-black truncate">{item.title}</p>
                     <div className="flex flex-row justify-between items-center content-center gap-2">
-                      <button className="btn-primary text-sm">
+                      <button className="btn-primary text-sm" onClick={()=>{handleAddToCart(item._id)}}>
                         Add to cart
                       </button>
                       <p className="text-black text-sm font-bold self-end">
@@ -95,6 +136,7 @@ const Wishlist = () => {
           </div>
         </div>
       </div>
+}
     </div>
     )
   

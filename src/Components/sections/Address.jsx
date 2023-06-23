@@ -4,13 +4,45 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Loader from "../Shared/Loader";
+import add from "../../../public/address.svg";
 
 const Address = () => {
+  document.addEventListener('DOMContentLoaded', function () {window.setTimeout(document.querySelector('svg').classList.add('animated'),2000);});
   const [allAdresses, setAllAdresses] = useState([]);
   const [isDefault, setIsDefault] = useState(false);
-  const [loading,setLoading]=useState(true)
-  const toggleDefault = () => setIsDefault(!isDefault);
-
+  const [check,setChecked] = useState(false);
+  const [loading,setLoading]=useState(true);
+  const[rerend,setRerend] = useState(false);
+  
+ const [cities,setCities] = useState([
+  {"id":"1","governorate_name_ar":"القاهرة","governorate_name_en":"Cairo"},
+  {"id":"2","governorate_name_ar":"الجيزة","governorate_name_en":"Giza"},
+  {"id":"3","governorate_name_ar":"الأسكندرية","governorate_name_en":"Alexandria"},
+  {"id":"4","governorate_name_ar":"الدقهلية","governorate_name_en":"Dakahlia"},
+  {"id":"5","governorate_name_ar":"البحر الأحمر","governorate_name_en":"Red Sea"},
+  {"id":"6","governorate_name_ar":"البحيرة","governorate_name_en":"Beheira"},
+  {"id":"7","governorate_name_ar":"الفيوم","governorate_name_en":"Fayoum"},
+  {"id":"8","governorate_name_ar":"الغربية","governorate_name_en":"Gharbiya"},
+  {"id":"9","governorate_name_ar":"الإسماعلية","governorate_name_en":"Ismailia"},
+  {"id":"10","governorate_name_ar":"المنوفية","governorate_name_en":"Menofia"},
+  {"id":"11","governorate_name_ar":"المنيا","governorate_name_en":"Minya"},
+  {"id":"12","governorate_name_ar":"القليوبية","governorate_name_en":"Qaliubiya"},
+  {"id":"13","governorate_name_ar":"الوادي الجديد","governorate_name_en":"New Valley"},
+  {"id":"14","governorate_name_ar":"السويس","governorate_name_en":"Suez"},
+  {"id":"15","governorate_name_ar":"اسوان","governorate_name_en":"Aswan"},
+  {"id":"16","governorate_name_ar":"اسيوط","governorate_name_en":"Assiut"},
+  {"id":"17","governorate_name_ar":"بني سويف","governorate_name_en":"Beni Suef"},
+  {"id":"18","governorate_name_ar":"بورسعيد","governorate_name_en":"Port Said"},
+  {"id":"19","governorate_name_ar":"دمياط","governorate_name_en":"Damietta"},
+  {"id":"20","governorate_name_ar":"الشرقية","governorate_name_en":"Sharkia"},
+  {"id":"21","governorate_name_ar":"جنوب سيناء","governorate_name_en":"South Sinai"},
+  {"id":"22","governorate_name_ar":"كفر الشيخ","governorate_name_en":"Kafr Al sheikh"},
+  {"id":"23","governorate_name_ar":"مطروح","governorate_name_en":"Matrouh"},
+  {"id":"24","governorate_name_ar":"الأقصر","governorate_name_en":"Luxor"},
+  {"id":"25","governorate_name_ar":"قنا","governorate_name_en":"Qena"},
+  {"id":"26","governorate_name_ar":"شمال سيناء","governorate_name_en":"North Sinai"},
+  {"id":"27","governorate_name_ar":"سوهاج","governorate_name_en":"Sohag"}
+  ]);
   // form state inputs value
   const [formState, setFormState] = useState({
     name: "",
@@ -19,7 +51,7 @@ const Address = () => {
     zip: "",
     phone: "",
     // country: "",
-    isDefault: false,
+    default: false,
   });
 
   //error messages
@@ -29,7 +61,7 @@ const Address = () => {
     // city: "",
     zip: "",
     phone: "",
-    isDefault: false,
+    default: false,
     // country: "",
   });
 
@@ -55,11 +87,11 @@ const Address = () => {
     setFormErrors({
       name: "",
       address: "",
-      // city: "",
+      city: "",
       zip: "",
       phone: "",
       // country: "",
-      isDefault: "",
+      default: false
     });
 
     let isValid = true;
@@ -103,13 +135,13 @@ const Address = () => {
     //   isValid = false;
     // }
 
-    // if (formState.country.trim() === "") {
-    //   setFormErrors((prevErrors) => ({
-    //     ...prevErrors,
-    //     country: "country is required ex. USA",
-    //   }));
-    //   isValid = false;
-    // }
+    if (formState.city.trim() === "") {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        city: "city is required ex. cairo",
+      }));
+      isValid = false;
+    }
 
     if (formState.zip.trim() === "") {
       setFormErrors((prevErrors) => ({
@@ -140,7 +172,7 @@ const Address = () => {
       } else {
         label.innerHTML = label.innerHTML.replace(
           "*",
-          "<span style='color:green'>*</span>"
+          "<span style='color:red'>*</span>"
         );
       }
     });
@@ -158,35 +190,44 @@ const Address = () => {
   };
 
   const submitForm = () => {
+    setChecked(true);
+
     if (isDefault) {
-      allAdresses.forEach((address) => {
-        address.isDefault = false;
+    
+    const newAddress = [];
+   allAdresses.forEach( address => {
+      address.default=false
+        axios
+       .put(`https://furnival.onrender.com/addresses/${address._id}`, address, {
+         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+       }).then(res=>{console.log(res.data.data);newAddress.push(res.data.data); return res.data.data;}).catch(err=>{return err.data})
       });
+    // formState.default = isDefault;
+  setAllAdresses([...newAddress,formState]);
 
       setFormState({
         name: "",
         address: "",
         zip: "",
         phone: "",
-        isDefault: false,
+        default: false,
         // country: "",
-        // city: "",
+        city: "",
       });
-
-
-      setAllAdresses([...allAdresses]);
     }
-
-    formState.isDefault = isDefault;
+    
     setLoading(true);
     setIsEdit(false);
-
-    axios.post("https://furnival.onrender.com/addresses",  {'alias':formState.name,'details':formState.address,'phone':formState.phone,'postalCode':formState.zip},{
+    setIsDefault(fasle)
+    axios.post("https://furnival.onrender.com/addresses",  {'alias':formState.name,'details':formState.address,'phone':formState.phone,'postalCode':formState.zip,    "city": formState.city,
+    'default':formState.default},{
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
     .then((res) => {
     setLoading(false);
     setAllAdresses(res.data.data);
+    setChecked(false);
+    setRerend(true);
     toast.success("Your address added successfully!", {
       position: "bottom-right",
       autoClose: 5000,
@@ -194,9 +235,10 @@ const Address = () => {
       closeOnClick: true,
       pauseOnHover: true,
     });
-  console.log(res.data)
+  setIsDefault(fasle);
     })
     .catch((err) => {
+      setChecked(false);
       setLoading(false);
     console.log(err.data)
     });
@@ -219,9 +261,8 @@ const Address = () => {
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
-          color: "red",
+          color: "green",
         });
-        console.log("address deleted successfully");
       })
       .catch((error) => {
         console.log(error);
@@ -230,6 +271,8 @@ const Address = () => {
   };
 
 const [editId,setEditId]=useState('');
+const [currentAddress,setCurrentAddress]=useState(null);
+const [isE,setE]=useState(false);
   const handleEdit = (id) => {
     const address = allAdresses.find((address) => address._id === id);
     setFormState({
@@ -237,23 +280,48 @@ const [editId,setEditId]=useState('');
     address: address.details,
     phone: address.phone,
     zip: address.postalCode,
+    default: address.default,
+    city: address.city,
     
     });
     setEditId(id);
+    console.log(id);
+    console.log(address)
+    setCurrentAddress(address);
+    setIsDefault(address.default);
+    // console.log(currentAddress[currentAddress.length-1])
+
     setIsEdit(true);
+    setChecked(true)
   };
 
   const editForm = () => {
     setLoading(true);
+    const newAddress = [];
+    if(isDefault){
+    allAdresses.forEach( address => {
+       address.default=false
+         axios
+        .put(`https://furnival.onrender.com/addresses/${address._id}`, address, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        }).then(res=>{newAddress.push(res.data.data); return res.data.data;}).catch(err=>{return err.data})
+       });
+       setChecked(true);
+     formState.default = isDefault;
+   setAllAdresses([...newAddress]);
+      }
     const newAddresses = allAdresses.filter(address=>address._id!==editId);
-    axios.put(`https://furnival.onrender.com/addresses/${editId}`,  {'alias':formState.name,'details':formState.address,'phone':formState.phone,'postalCode':formState.zip},{
+    axios.put(`https://furnival.onrender.com/addresses/${editId}`,  {'alias':formState.name,'details':formState.address,'phone':formState.phone,'postalCode':formState.zip,    'city': formState.city,
+    'default':formState.default},{
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
     .then((res) => {
-    formState.isDefault = isDefault;
+    formState.default = isDefault;
     setAllAdresses([...newAddresses,res.data.data]);
     setIsEdit(true);
     setLoading(false);
+    setChecked(false);
+
     toast.success("Your address updated successfully!", {
       position: "bottom-right",
       autoClose: 5000,
@@ -264,6 +332,7 @@ const [editId,setEditId]=useState('');
     console.log(res.data);
     })
     .catch((err) => {
+      setChecked(false);
       setLoading(false);
       setIsEdit(true);
 
@@ -271,8 +340,8 @@ const [editId,setEditId]=useState('');
     });
  
   };
+  
   useEffect(() => {
- 
       const  getAdresses=()=>{
         axios
         .get("https://furnival.onrender.com/addresses", {
@@ -288,12 +357,17 @@ const [editId,setEditId]=useState('');
       }
     getAdresses();
     colorAstrisk();
-  }, [ isDefault]);
-
+  }, [isDefault,rerend]);
+  
+  // const handleCheckboxChange = (event) => {
+  //   setIsDefault(event.target.checked);
+  // };
+  
   return (
     <div className="flex flex-col gap-5 content-center">
     {loading && <Loader/>}
-      <div className="flex flex-col gap-4 md:flex-row items-center justify-between">
+    
+       <div className="flex flex-col gap-4 md:flex-row items-center justify-between my-4">
         <div>
           <h2 className="text-primary my-2">Address</h2>
           <p className="text-dark">
@@ -304,15 +378,17 @@ const [editId,setEditId]=useState('');
         <label
           className="btn-primary py-2 px-10 text-[16px] text-white rounded-[26px] self-end cursor-pointer transition duration-500"
           onClick={() => {
+          setIsDefault(false)
             setFormState({
               name: "",
               address: "",
-              // city: "",
+              city: "",
               zip: "",
               phone: "",
               // country: "",
-              isDefault: false,
+              default: false,
             });
+            setChecked(true);
             setIsEdit(false);
           }}
           htmlFor="my-modal-3"
@@ -320,7 +396,11 @@ const [editId,setEditId]=useState('');
           Add New Address
         </label>
       </div>
-
+      {allAdresses.length === 0 && (
+      <img src={add} alt="addresses" className="w-1/2 mx-auto my-6" />
+      )
+      }
+     
       {allAdresses
         .map((address, ind) => (
           <div
@@ -367,12 +447,13 @@ const [editId,setEditId]=useState('');
                   <p className="text-dark">Name: </p>
                   <p className="text-primary ">
                     {address.alias}
-                    {formState.isDefault && "(Default)"}
+                    {address.default && "(Default)"}
                   </p>
                 </div>
                 <div className="w-full flex flex-col md:flex-row  gap-1 ">
                   <p className="text-dark"> Address: </p>
                   <p className="text-primary ">
+                    {address.city} {" "}
                     {address.details} {" "}
                     {address.postalCode}
                   </p>
@@ -386,12 +467,13 @@ const [editId,setEditId]=useState('');
           </div>
         ))
         .reverse()}
-
-      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+      
+      <input type="checkbox" id="my-modal-3" className="modal-toggle" checked={check} onChange={(e)=>setChecked(check)}/>
       <div className="modal ">
         <div className="modal-box relative z-50">
           <label
             htmlFor="my-modal-3"
+            onClick={()=>{setChecked(false)}}
             className="btn text-error px-4 rounded-full  btn-sm  border-error btn-outline btn-circle absolute right-4 top-2 hover:bg-error hover:text-white hover:border-error"
           >
             ✕
@@ -463,19 +545,24 @@ const [editId,setEditId]=useState('');
                 <span className="text-error order-2">{formErrors.address}</span>
               )}
             </div>
-{/* 
+
             <div className="flex flex-col gap-1">
-              <input
-                type="text"
-                name="city"
-                placeholder="ex. Boston"
-                id="city"
-                className={`${getInputColor(
-                  "city"
-                )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
-                value={formState.city}
-                onChange={handleChange}
-              />
+            
+        <select name="city"
+              id="city"    
+              className={`${getInputColor(
+                "city"
+            
+              )} text-primary order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+              value={formState.city}
+              onChange={handleChange}>
+{
+cities.map((city,ind) => 
+
+  <option key={ind} className="text-primary hover:text-white" value={city.governorate_name_en}>{city.governorate_name_en}</option>
+)
+}                    
+  </select>
               <label htmlFor="city" className="text-primary order-1">
                 City*
               </label>
@@ -483,7 +570,7 @@ const [editId,setEditId]=useState('');
               {formErrors.city && (
                 <span className="text-error order-2">{formErrors.city}</span>
               )}
-            </div> */}
+            </div>
 
             {/* <div className="flex flex-col gap-1">
               <input
@@ -504,7 +591,8 @@ const [editId,setEditId]=useState('');
               {formErrors.country && (
                 <span className="text-error order-2">{formErrors.country}</span>
               )}
-            </div> */}
+            </div>*/
+            }
 
             <div className="flex flex-col gap-1">
               <input
@@ -523,7 +611,7 @@ const [editId,setEditId]=useState('');
               </label>
 
               {formErrors.zip && (
-                <span className="text-error order-2">{formErrors.country}</span>
+                <span className="text-error order-2">{formErrors.zip}</span>
               )}
             </div>
 
@@ -534,7 +622,7 @@ const [editId,setEditId]=useState('');
                 id="isDefault"
                 className="checkbox checkbox-primaryC text-white order-1"
                 checked={isDefault}
-                onChange={toggleDefault}
+                onChange={(e)=>{(setIsDefault(e.target.checked));}}
               />
               <label htmlFor="isDefault" className="text-primary order-2">
                 is Default

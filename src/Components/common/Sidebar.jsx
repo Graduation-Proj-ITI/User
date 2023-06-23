@@ -60,11 +60,12 @@ const [isChecked,setChecked]=useState(false);
 // {
 // setChecked(true);
 // }
-const handleFetchImg=()=>{
+const handleFetchImg=(e)=>{
+  e.preventDefault();
   const userImg = {
     profileImg:selectedImage,
   };
-  console.log(userImg);
+  // console.log(userImg);
    const formData = new FormData();
      formData.append(
         "profileImg",
@@ -87,7 +88,7 @@ const handleFetchImg=()=>{
         closeOnClick: true,
         pauseOnHover: true,
       });
-      console.log('post image',res.data);
+      // console.log('post image',res.data);
     })
     .catch((err) => {
       setLoading(false);
@@ -99,7 +100,7 @@ const handleFetchImg=()=>{
         closeOnClick: true,
         pauseOnHover: true,
       });
-      console.log(err);
+      // console.log(err);
     });
   };
   
@@ -114,11 +115,11 @@ const handleFetchImg=()=>{
       setLoading(false)
       setUserImage(res?.data.data.profileImg);
       setUser(res?.data.data);
-      console.log('get data',res.data);
+      // console.log('get data',res.data);
     })
     .catch((err) => {
       setLoading(false)
-      console.log(err.response.data.message);
+      // console.log(err.response.data.message);
     });
   }, [userImage]);
 
@@ -186,8 +187,8 @@ const handleFetchImg=()=>{
                           const file = e.target.files[0];
                           setSelectedImage(file);
                           setChecked(true)
-                          console.log(isChecked)
-                          console.log('image',selectedImage)
+                          // console.log(isChecked)
+                          // console.log('image',selectedImage)
                         }}
                       />
       
@@ -258,7 +259,7 @@ const handleFetchImg=()=>{
         </div>
       </div>
       
-      <input type="checkbox" id="my-modal-4" className="modal-toggle" checked={isChecked}/>
+      <input type="checkbox" id="my-modal-4" className="modal-toggle" checked={isChecked} onChange={(e)=>{setChecked(isChecked)}} />
       <div className="modal">
         <div className="modal-box relative z-50">
           <label
@@ -272,7 +273,7 @@ const handleFetchImg=()=>{
             confirm upload image
           </h3>
 
-          <form onSubmit={handleFetchImg} className="form flex flex-col gap-4">
+          <form onSubmit={(e)=>{handleFetchImg(e)}} className="form flex flex-col gap-4">
             <button
               type="submit"
               className="btn btn-primary w-[200px] py-0 mx-auto mt-5  rounded-[8px]"

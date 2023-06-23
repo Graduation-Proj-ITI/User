@@ -10,6 +10,8 @@ const Profile = () => {
   //test data
   const [userData, setUserData] = useState({ name: "", email: "" });
   const [loading, setLoading] = useState(true);
+  const [user,setUser] = useState({});
+  const [check,setCheck] = useState(false);
 
   // {
   //   userName: "John Doe",
@@ -211,7 +213,7 @@ const Profile = () => {
       } else {
         label.innerHTML = label.innerHTML.replace(
           "*",
-          "<span style='color:green'>*</span>"
+          "<span style='color:red'>*</span>"
         );
       }
     });
@@ -228,7 +230,7 @@ const Profile = () => {
       } else {
         label.innerHTML = label.innerHTML.replace(
           "*",
-          "<span style='color:green'>*</span>"
+          "<span style='color:red'>*</span>"
         );
       }
     });
@@ -242,6 +244,7 @@ const Profile = () => {
     }
   };
   const handlePasswordSubmit = (event) => {
+   setCheck(true);
     event.preventDefault();
     if (validationPasswordForm()) {
       setLoading(true);
@@ -265,6 +268,10 @@ const Profile = () => {
             pauseOnHover: true,
           });
           localStorage.setItem('token', response.data.token);
+          setCheck(false);
+          passwordChange.oldPassword = "";
+          passwordChange.newPassword = "";
+          passwordChange.confirmPassword = "";
         })
         .catch((error) => {
           error.response.data.errors.forEach((err) => {
@@ -277,24 +284,34 @@ const Profile = () => {
             });
           });
           setLoading(false);
-          console.log(error.response.data.errors);
+          // console.log(error.response.data.errors);
         });
     }
   };
 
   const submitForm = () => {
     setLoading(true);
+    let formData = {};
+    if (formState.email.trim() == user.email.trim())
+    {
+    formData = {
+    name: formState.userName
+    }}else 
+    { 
+    formData = {
+      name: formState.userName,
+      email: formState.email,
+    }
+    }
     axios
       .put(
         "https://furnival.onrender.com/users/updateMe",
-        {
-          name: formState.userName,
-          // email: formState.email,
-        },
+        formData,
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       )
       .then((response) => {
         setLoading(false);
+        setUser(response.data.data)
         toast.success("Your profile updated successfully!", {
           position: "bottom-right",
           autoClose: 5000,
@@ -302,7 +319,7 @@ const Profile = () => {
           closeOnClick: true,
           pauseOnHover: true,
         });
-        console.log("User updated successfully");
+        // console.log("User updated successfully");
       })
       .catch((error) => {
         toast.error(`${error.response.data.errors[0].msg}!`, {
@@ -317,6 +334,8 @@ const Profile = () => {
       });
   };
   
+  // console.log('user',user.email)
+  // console.log('formState',formState.email)
 
   useEffect(() => {
     const getUser = () => {
@@ -326,6 +345,7 @@ const Profile = () => {
         })
         .then((response) => {
           setLoading(false);
+          setUser(response.data.data)
           //  console.log(response.data.data);
           setFormState({
             userName: response.data.data.name,
@@ -334,7 +354,7 @@ const Profile = () => {
           setUserData(response.data.data);
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
         });
     };
     getUser();
@@ -358,7 +378,7 @@ const Profile = () => {
         <div className="w-full form">
           <h4 className="text-primary mb-2">General Info</h4>
           <form onSubmit={handleSubmit}>
-            <div className="flex flex-col lg:flex-row gap-10 ">
+            <div className="flex flex-col lg:flex-row gap-3 md:gap-10 ">
               <div className="flex flex-col gap-1 flex-auto">
                 <input
                   type="text"
@@ -423,13 +443,14 @@ const Profile = () => {
               </div> */}
             </div>
 
-            <div className="btns flex flex-col md:flex-row gap-3 ">
+            <div className="btns flex flex-col md:flex-row gap-1 md:gap-3 ">
               <button className="btn btn-primary md:w-[200px] py-0 mt-5 rounded-[8px] ">
                 Update Info
               </button>
               <label
                 htmlFor="my-modal-3"
-                className="btn btn-primary-outline mt-5 block  py-4 px-6 cursor-pointer "
+                onClick={() =>setCheck(true)}
+                className="btn btn-primary-outline  mt-1 md:mt-5 block  py-4 px-6 cursor-pointer text-capitalize "
               >
                 Change password
               </label>
@@ -437,11 +458,12 @@ const Profile = () => {
           </form>
         </div>
 
-        <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+        <input type="checkbox" id="my-modal-3" className="modal-toggle" onChange={(e)=>{setCheck(check)}}  checked={check} />
         <div className="modal z-100">
           <div className="modal-box relative">
             <label
               htmlFor="my-modal-3"
+              onClick={()=>{setCheck(false)}}
               className="btn text-error px-4 rounded-[6px] btn-sm btn-circle absolute right-2 top-2 hover:bg-error hover:text-white hover:border-error"
             >
               ✕

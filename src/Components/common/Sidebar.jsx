@@ -15,6 +15,11 @@ const Sidebar = () => {
   };
 
   const [activeLink, setActiveLink] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [userImage, setUserImage] = useState(null);
+  const [loading, setLoading] = useState(null);
+  const [isChecked, setChecked] = useState(false);
+  const [user, setUser] = useState({});
 
   const handleClickedLink = (index) => {
     setActiveLink(index);
@@ -24,7 +29,7 @@ const Sidebar = () => {
       title: "Profile",
       path: "#profile",
       icon: "./icons/user.svg",
-      component: <Profile />,
+      component: <Profile setUser={setUser} user={user}/>,
     },
     {
       title: "Wishlist",
@@ -52,10 +57,12 @@ const Sidebar = () => {
     // },
   ];
 
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [userImage, setUserImage] = useState(null);
   const [loading, setLoading] = useState(null);
   const [isChecked, setChecked] = useState(false);
+
   // if (selectedImage != null)
   // {
   // setChecked(true);
@@ -65,7 +72,8 @@ const Sidebar = () => {
     const userImg = {
       profileImg: selectedImage,
     };
-    console.log(userImg);
+    // console.log(userImg);
+
     const formData = new FormData();
     formData.append("profileImg", userImg.profileImg, userImg.profileImg.name);
     setLoading(true);
@@ -84,7 +92,9 @@ const Sidebar = () => {
           closeOnClick: true,
           pauseOnHover: true,
         });
-        console.log("post image", res.data);
+
+        // console.log('post image',res.data);
+
       })
       .catch((err) => {
         setLoading(false);
@@ -96,11 +106,13 @@ const Sidebar = () => {
           closeOnClick: true,
           pauseOnHover: true,
         });
+
         console.log(err);
       });
   };
 
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     setLoading(true);
     axios
@@ -111,11 +123,13 @@ const Sidebar = () => {
         setLoading(false);
         setUserImage(res?.data.data.profileImg);
         setUser(res?.data.data);
-        console.log("get data", res.data);
+
+        // console.log('get data',res.data);
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err.response.data.message);
+        // console.log(err.response.data.message);
+
       });
   }, [userImage]);
 
@@ -183,8 +197,6 @@ const Sidebar = () => {
                           const file = e.target.files[0];
                           setSelectedImage(file);
                           setChecked(true);
-                          console.log(isChecked);
-                          console.log("image", selectedImage);
                         }}
                       />
                     </label>
@@ -258,7 +270,12 @@ const Sidebar = () => {
         type="checkbox"
         id="my-modal-4"
         className="modal-toggle"
-        defaultChecked={isChecked}
+
+        checked={isChecked}
+        onChange={(e) => {
+          setChecked(isChecked);
+        }}
+
       />
       <div className="modal">
         <div className="modal-box relative z-50">
@@ -283,7 +300,7 @@ const Sidebar = () => {
               type="submit"
               className="btn btn-primary w-[200px] py-0 mx-auto mt-5  rounded-[8px]"
             >
-              upload
+              confirm
             </button>
           </form>
         </div>

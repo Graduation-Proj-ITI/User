@@ -12,8 +12,9 @@ const Team = () => {
     },
     {
       id: 2,
-      img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      name: "Zeinab Mohamed",
+      // img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      // img:"./images/About/zien.jpg",
+img:"https://img.freepik.com/free-photo/modern-muslim-woman-hijab-office-room_285396-11089.jpg?w=826&t=st=1687214513~exp=1687215113~hmac=37ee5fbf041cf71f7c2d69fe44070f1874dc5116f2024480383f110d8bdce1f6",      name: "Zeinab Mohamed",
       role: "Frontend developer",
       github: "",
       linkedin: "",

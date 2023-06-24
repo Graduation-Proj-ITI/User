@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 // import "../../form.css";
 
 const Contact = () => {
@@ -190,10 +191,10 @@ const Contact = () => {
         <div className="container relative z-10 index top-0 left-0 text-light w-full h-full text-white flex flex-col items-center justify-center">
           <h1 className="m-0 mb-2 text-white ">Contact Us</h1>
 
-          <div className="text-sm breadcrumbs">
+          <div className="text-md breadcrumbs">
             <ul>
               <li className="underline">
-                <a>Home</a>
+              <Link to="/">Home</Link>
               </li>
              
               <li className="font-bold">Contact us</li>

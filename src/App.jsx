@@ -42,6 +42,7 @@ export default function App() {
             <Route path="/community" element={<Community />} />
             <Route path="/blog" element={<Blogs />} />
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/profile" element={<User />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route

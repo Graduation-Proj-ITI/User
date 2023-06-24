@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import logo from "../../../public/images/logo.png";
 
 const Drawer = ({ children }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   // console.log(location.pathname);
 
   const [search, setsearch] = useState([]);
@@ -15,8 +17,12 @@ const Drawer = ({ children }) => {
         <div className="drawer-side  h-screen overflow-scroll   ">
           <label htmlFor="sidemenu" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 h-full bg-primary ">
-            <li>
-              <div className=" bg-gray-100 flex items-center rounded-2xl justify-around w-full">
+            <li className="mx-auto">
+              <Link to="/" className="flex gap-1">
+                <img src={logo} className="w-9" />
+                <h3 className=" text-white">Furnival</h3>
+              </Link>
+              {/* <div className=" bg-gray-100 flex items-center rounded-2xl justify-around w-full">
                 <input
                   type="text"
                   placeholder="Search"
@@ -44,9 +50,9 @@ const Drawer = ({ children }) => {
                     />
                   </svg>
                 </button>
-              </div>
+              </div> */}
             </li>
-            <li>
+            <li className=" text-lg">
               {" "}
               <NavLink
                 to="/profile"
@@ -129,6 +135,32 @@ const Drawer = ({ children }) => {
               >
                 Contact
               </NavLink>
+            </li>
+
+            <li>
+              <button
+                className="text-white text-start mt-40"
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  navigate("/Login", { replace: true });
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                  />
+                </svg>
+                Logout
+              </button>
             </li>
           </ul>
         </div>

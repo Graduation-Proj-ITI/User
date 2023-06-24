@@ -5,10 +5,13 @@ import "./Product.css";
 import Navbar from "../../Components/navbar/Navbar";
 import SingleProduct from "./SingleProduct";
 import FilterMenu from "../../Components/Shared/FilterMenu";
+import { useParams } from "react-router-dom";
 
 const pageSize = 9;
 
 function Product({ setItemsInCart }) {
+  const { categoryId } = useParams();
+  console.log(categoryId);
   const [products, setProducts] = useState([]);
   const [categories, setCategory] = useState([]);
   const [colors, setColors] = useState([]);
@@ -22,6 +25,18 @@ function Product({ setItemsInCart }) {
     try {
       const { data } = await axios.get(
         "https://furnival.onrender.com/products"
+      );
+      setProducts(data.data);
+      console.log(data.data);
+    } catch {
+      console.log("error");
+    }
+  };
+
+  const getProductsByCategoryId = async (categoryId) => {
+    try {
+      const { data } = await axios.get(
+        `https://furnival.onrender.com/products?category=${categoryId}`
       );
       setProducts(data.data);
       console.log(data.data);
@@ -112,8 +127,17 @@ function Product({ setItemsInCart }) {
   itemsToRender = itemsToRender.slice(start, end);
 
   useEffect(() => {
-    getProducts();
+    if (!categoryId) {
+      getProducts();
+    } else {
+      getProductsByCategoryId(categoryId);
+    }
+
     getCategory();
+
+    return () => {
+      console.log("clean useEffect shop ");
+    };
     // getColors();
   }, []);
   /*---------html and css--------*/

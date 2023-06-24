@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import logo from "../../../public/images/logo.png";
 // import logo from "../../../public/images/logo/furnivalLogo.png";
 
-const NavBar = () => {
+const NavBar = ({ itemInCart }) => {
   const [visible, setVisible] = React.useState(false);
 
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
 
   const navigate = useNavigate();
 
@@ -28,7 +29,9 @@ const NavBar = () => {
           "navbar fixed z-50 px-[1rem] sm:px-[2.5rem] md:px-[3rem] lg:px-[4rem] xl:px-[12rem] w-full py-2 justify-between " +
           (visible ||
           location.pathname === "/profile" ||
-          location.pathname === "/cart"
+          location.pathname === "/cart" ||
+          location.pathname === "/checkout" ||
+          location.pathname === "/successOrder"
             ? " animate-wiggle bg-primary "
             : " bg-transparent ") +
           (location.pathname === "/Register" || location.pathname === "/Login"
@@ -45,9 +48,12 @@ const NavBar = () => {
           </label>
         </div>
 
-        <h3 className=" text-white">Furnival</h3>
+        <Link to="/" className="flex gap-1">
+          <img src={logo} className="w-9" />
+          <h3 className=" text-white">Furnival</h3>
+        </Link>
 
-        <div className="max-sm:hidden sm:hidden bg-gray-100 lg:flex md:hidden items-center rounded-3xl justify-around w-1/4 sm:w-1/5 py-1">
+        {/* <div className="max-sm:hidden sm:hidden bg-gray-100 lg:flex md:hidden items-center rounded-3xl justify-around w-1/4 sm:w-1/5 py-1">
           <input
             type="text"
             placeholder="Search"
@@ -70,7 +76,7 @@ const NavBar = () => {
               />
             </svg>
           </button>
-        </div>
+        </div> */}
 
         <ul className="max-sm:hidden sm:hidden lg:flex md:hidden justify-center gap-5 items-center">
           <li className=" text-lg">
@@ -97,7 +103,7 @@ const NavBar = () => {
               Shop
             </NavLink>
           </li>
-          <li className=" text-lg">
+          {/* <li className=" text-lg">
             <NavLink
               to="/community"
               className={({ isActive }) =>
@@ -107,10 +113,10 @@ const NavBar = () => {
             >
               Community
             </NavLink>
-          </li>
-          {/* <li className=" text-lg">
+          </li> */}
+          <li className=" text-lg">
             <NavLink
-              to=""
+              to="/blog"
               className={({ isActive }) =>
                 isActive
                   ? "text-secondary font-bold"
@@ -119,7 +125,7 @@ const NavBar = () => {
             >
               Blog
             </NavLink>
-          </li> */}
+          </li>
           <li className=" text-lg">
             <NavLink
               to="/about"
@@ -173,15 +179,20 @@ const NavBar = () => {
                     />
                   </svg>
 
-                  <span className="badge badge-sm badge-white  bg-secondary text-primary border-0 indicator-item">
-                    1
+                  <span
+                    className={
+                      "badge badge-sm badge-white  bg-secondary text-primary border-0 indicator-item " +
+                      (!itemInCart ? " hidden" : "")
+                    }
+                  >
+                    {itemInCart}
                   </span>
                 </div>
               </NavLink>
             </li>
             <li className="max-sm:hidden sm:hidden lg:inline md:hidden">
               <NavLink
-                to="/contact"
+                to="/wishlist"
                 className={({ isActive }) =>
                   isActive
                     ? "text-secondary font-bold"
@@ -204,9 +215,9 @@ const NavBar = () => {
                     />
                   </svg>
 
-                  <span className="badge badge-sm badge-white bg-secondary text-primary border-0 indicator-item">
+                  {/* <span className="badge badge-sm badge-white bg-secondary text-primary border-0 indicator-item">
                     0
-                  </span>
+                  </span> */}
                 </div>
               </NavLink>
             </li>

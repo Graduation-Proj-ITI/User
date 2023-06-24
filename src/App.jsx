@@ -19,21 +19,41 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import { useState } from "react";
+import SuccessOrder from "./pages/SuccessOrder";
+import CurrentOrder from "./pages/CurrentOrder";
+import Blogs from "./pages/Blogs";
+import Wishlist from "./Components/sections/Wishlist";
 
 export default function App() {
+  const [itemInCart, setItemsInCart] = useState(0);
   return (
     <>
       <BrowserRouter>
         <Drawer>
-          <NavBar />
+          <NavBar itemInCart={itemInCart} />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Product" element={<Product />} />
+            <Route
+              path="/Product"
+              element={<Product setItemsInCart={setItemsInCart} />}
+            />
             <Route path="/community" element={<Community />} />
+            <Route path="/blog" element={<Blogs />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/profile" element={<User />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route
+              path="/cart"
+              element={<CurrentOrder setItemsInCart={setItemsInCart} />}
+            />
+            <Route
+              path="/checkout"
+              element={<Checkout setItemsInCart={setItemsInCart} />}
+            />
+            <Route path="/successOrder" element={<SuccessOrder />} />
             {/* <Route path="/contact" element={<Contact />} /> */}
 
             <Route path="/login" element={<Login />} />

@@ -8,7 +8,7 @@ import FilterMenu from "../../Components/Shared/FilterMenu";
 
 const pageSize = 9;
 
-function Product() {
+function Product({ setItemsInCart }) {
   const [products, setProducts] = useState([]);
   const [categories, setCategory] = useState([]);
   const [colors, setColors] = useState([]);
@@ -340,7 +340,11 @@ function Product() {
                   })
                   .map((product) => {
                     return (
-                      <SingleProduct product={product} key={product._id} />
+                      <SingleProduct
+                        product={product}
+                        setItemsInCart={setItemsInCart}
+                        key={product._id}
+                      />
                     );
                   })}
               </div>

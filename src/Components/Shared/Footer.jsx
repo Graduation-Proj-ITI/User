@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import logo from "../../../public/images/logo.png";
 
 export default function Footer() {
   const location = useLocation();
@@ -21,7 +22,10 @@ export default function Footer() {
                 className="h-10 mr-3"
                 alt="Flowbite Logo"
               /> */}
-              <h1 className="text-white">Furnival</h1>
+              {/* <Link to="/">
+                <img src={logo} className="w-20" /> */}
+              <h1 className=" text-white">Furnival</h1>
+              {/* </Link> */}
               <p className=" text-gray-300 text-base ">
                 Lorem sit adipisicing elit. facere magni possimus molestiae,
                 voluptas magnam. Minus dolorem quisquam!

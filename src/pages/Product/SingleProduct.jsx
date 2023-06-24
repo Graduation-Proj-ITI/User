@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-function SingleProduct({ product }) {
+function SingleProduct({ product, setItemsInCart }) {
+  const navigate = useNavigate();
   const AddToCart = async (e, productId) => {
     e.preventDefault();
 
@@ -21,12 +22,13 @@ function SingleProduct({ product }) {
       );
       console.log(data);
       toast.success("Product added to cart successfully", {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
       });
+      setItemsInCart(data.numberOfCartItems);
     } catch (e) {
       console.log(e);
     }
@@ -40,7 +42,7 @@ function SingleProduct({ product }) {
           <img
             src={product.imageCover}
             alt="product-img"
-            className="rounded-lg object-cover"
+            className="rounded-lg object-cover h-full"
           />
         </div>
         <div className="card-body absolute bg-white shadow-lg rounded-xl -bottom-9 left-3 right-3 2xl:left-3 2xl:right-3 max-sm:left-2 max-sm:right-2 max-sm:-bottom-10 xl:left-4 xl:right-4 ">
@@ -54,7 +56,11 @@ function SingleProduct({ product }) {
             <button
               className="btn text-base w-1/2 max-sm:w-full bg-primary p-0 max-sm:order-2 max-sm:btn-sm md:w-2/3 lg:w-2/3 2xl:w-2/3 hover:bg-primary "
               onClick={(e) => {
-                AddToCart(e, product._id);
+                if (localStorage.getItem("token")) {
+                  AddToCart(e, product._id);
+                } else {
+                  navigate("/Login");
+                }
               }}
             >
               Add to cart

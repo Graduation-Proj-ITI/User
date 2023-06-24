@@ -5,8 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Loader from "../Shared/Loader";
 
-const Profile = ({user,setUser}) => {
 
+const Profile = ({user,setUser}) => {
   //test data
   const [userData, setUserData] = useState({ name: "", email: "" });
   const [loading, setLoading] = useState(true);
@@ -249,7 +249,6 @@ const Profile = ({user,setUser}) => {
     event.preventDefault();
     if (validateForm()) {
       submitForm();
-
     }
   };
   const handlePasswordSubmit = (event) => {
@@ -265,7 +264,11 @@ const Profile = ({user,setUser}) => {
             password: passwordChange.newPassword,
             passwordConfirm: passwordChange.confirmPassword,
           },
-          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         )
         .then((response) => {
           setLoading(false);
@@ -276,11 +279,13 @@ const Profile = ({user,setUser}) => {
             closeOnClick: true,
             pauseOnHover: true,
           });
+
           localStorage.setItem('token', response.data.token);
           setCheck(false);
           passwordChange.oldPassword = "";
           passwordChange.newPassword = "";
           passwordChange.confirmPassword = "";
+
         })
         .catch((error) => {
           error.response.data.errors.forEach((err) => {
@@ -315,8 +320,10 @@ const Profile = ({user,setUser}) => {
     axios
       .put(
         "https://furnival.onrender.com/users/updateMe",
+
         formData,
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+
       )
       .then((response) => {
         setLoading(false);
@@ -339,18 +346,18 @@ const Profile = ({user,setUser}) => {
           pauseOnHover: true,
         });
         setLoading(false);
-
       });
   };
   
   // console.log('user',user.email)
   // console.log('formState',formState.email)
 
+
   useEffect(() => {
     const getUser = () => {
       axios
         .get("https://furnival.onrender.com/users/getMe", {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
         .then((response) => {
           setLoading(false);
@@ -372,10 +379,8 @@ const Profile = ({user,setUser}) => {
   }, []);
 
   return (
-    
-            
     <div className="flex flex-col gap-5 content-center">
-    {loading && <Loader/>}
+      {loading && <Loader />}
       <div>
         <h2 className="text-primary my-2 ">Profile</h2>
         <p className="text-dark">
@@ -564,7 +569,7 @@ const Profile = ({user,setUser}) => {
                 type="submit"
                 className="btn btn-primary w-[200px] py-0 mt-5 rounded-[8px] "
               >
-              Change Password
+                Change Password
               </button>
             </form>
           </div>

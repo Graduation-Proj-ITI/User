@@ -66,7 +66,7 @@ const Sidebar = () => {
     const userImg = {
       profileImg: selectedImage,
     };
-    // console.log(userImg);
+    console.log(userImg);
     const formData = new FormData();
     formData.append("profileImg", userImg.profileImg, userImg.profileImg.name);
     setLoading(true);

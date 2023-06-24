@@ -38,26 +38,31 @@ function SingleProduct({ product, setItemsInCart }) {
   return (
     <>
       <div className="relative w-full shadow-lg mb-10 max-sm:h-60 sm:h-56 md:h-56 lg:h-60 xl:h-64 2xl:h-72 rounded-lg">
-        <div className="w-full h-full rounded-lg">
-          <img
-            src={product.imageCover}
-            alt="product-img"
-            className="rounded-lg object-cover h-full"
-          />
-        </div>
+        <Link
+          to={`/product/details/${product?._id}`}
+          className="title leading-tight h-9 overflow-hidden text-ellipsis"
+        >
+          <div className="w-full h-full rounded-lg">
+            <img
+              src={product?.imageCover}
+              alt="product-img"
+              className="rounded-lg object-cover h-full"
+            />
+          </div>
+        </Link>
         <div className="card-body absolute bg-white shadow-lg rounded-xl -bottom-9 left-3 right-3 2xl:left-3 2xl:right-3 max-sm:left-2 max-sm:right-2 max-sm:-bottom-10 xl:left-4 xl:right-4 ">
           <Link
-            to={`/product/${product._id}}`}
+            to={`/product/details/${product?._id}`}
             className="title leading-tight h-9 overflow-hidden text-ellipsis"
           >
-            {product.title}
+            {product?.title}
           </Link>
           <div className="flex flex-row items-center max-sm:flex-col gap-2 ">
             <button
-              className="btn text-base w-1/2 max-sm:w-full bg-primary p-0 max-sm:order-2 max-sm:btn-sm md:w-2/3 lg:w-2/3 2xl:w-2/3 hover:bg-primary "
+              className="btn text-sm py-0 w-1/2 max-sm:w-full bg-primary p-0 max-sm:order-2 max-sm:btn-sm md:w-2/3 lg:w-2/3 2xl:w-2/3 hover:bg-primary "
               onClick={(e) => {
                 if (localStorage.getItem("token")) {
-                  AddToCart(e, product._id);
+                  AddToCart(e, product?._id);
                 } else {
                   navigate("/Login");
                 }
@@ -66,7 +71,7 @@ function SingleProduct({ product, setItemsInCart }) {
               Add to cart
             </button>
             <p className="text-end font-bold max-sm:order-1">
-              ${product.price}
+              ${product?.price}
             </p>
           </div>
         </div>

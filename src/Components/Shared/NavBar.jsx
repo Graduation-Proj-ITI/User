@@ -7,7 +7,7 @@ const NavBar = ({ itemInCart }) => {
   const [visible, setVisible] = React.useState(false);
 
   const location = useLocation();
-  // console.log(location.pathname);
+  console.log(location.pathname);
 
   const navigate = useNavigate();
 
@@ -32,10 +32,13 @@ const NavBar = ({ itemInCart }) => {
           location.pathname === "/cart" ||
           location.pathname === "/checkout" ||
           location.pathname === "/successOrder" ||
-          location.pathname === "/wishlist"
+          location.pathname === "/wishlist" ||
+          location.pathname === "/product/details/:productId"
             ? " animate-wiggle bg-primary "
             : " bg-transparent ") +
-          (location.pathname === "/Register" || location.pathname === "/Login"
+          (location.pathname === "/Register" ||
+          location.pathname === "/Login" ||
+          location.pathname === "/forget-password"
             ? " hidden"
             : " ")
         }
@@ -80,7 +83,7 @@ const NavBar = ({ itemInCart }) => {
         </div> */}
 
         <ul className="max-sm:hidden sm:hidden lg:flex md:hidden justify-center gap-5 items-center">
-          <li className=" text-lg">
+          <li className=" text-lg p-2">
             <NavLink
               to="/"
               className={({ isActive }) =>
@@ -92,7 +95,7 @@ const NavBar = ({ itemInCart }) => {
               Home
             </NavLink>
           </li>
-          <li className=" text-lg">
+          <li className=" text-lg p-2">
             <NavLink
               to="/Product"
               className={({ isActive }) =>
@@ -104,7 +107,7 @@ const NavBar = ({ itemInCart }) => {
               Shop
             </NavLink>
           </li>
-          {/* <li className=" text-lg">
+          {/* <li className=" text-lg p-2">
             <NavLink
               to="/community"
               className={({ isActive }) =>
@@ -115,7 +118,7 @@ const NavBar = ({ itemInCart }) => {
               Community
             </NavLink>
           </li> */}
-          <li className=" text-lg">
+          <li className=" text-lg p-2">
             <NavLink
               to="/blog"
               className={({ isActive }) =>
@@ -127,7 +130,7 @@ const NavBar = ({ itemInCart }) => {
               Blog
             </NavLink>
           </li>
-          <li className=" text-lg">
+          <li className=" text-lg p-2">
             <NavLink
               to="/about"
               className={({ isActive }) =>
@@ -139,7 +142,7 @@ const NavBar = ({ itemInCart }) => {
               About
             </NavLink>
           </li>
-          <li className=" text-lg">
+          <li className=" text-lg p-2">
             <NavLink
               to="/contact"
               className={({ isActive }) =>

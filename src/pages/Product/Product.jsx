@@ -6,19 +6,29 @@ import Navbar from "../../Components/navbar/Navbar";
 import SingleProduct from "./SingleProduct";
 import FilterMenu from "../../Components/Shared/FilterMenu";
 import { useParams } from "react-router-dom";
+// import sorryImg from "../../../public/images/community/Feeling sorry-cuate.jpg";
 
 const pageSize = 9;
 
 function Product({ setItemsInCart }) {
   const { categoryId } = useParams();
   console.log(categoryId);
+
   const [products, setProducts] = useState([]);
+  let [itemsToRender, setItemsToRender] = useState([]);
   const [categories, setCategory] = useState([]);
-  const [colors, setColors] = useState([]);
+  const [colors, setColors] = useState([
+    { name: "red", id: 1 },
+    { name: "yellow", id: 2 },
+    { name: "blue", id: 3 },
+    { name: "green", id: 4 },
+    { name: "brown", id: 5 },
+  ]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentCategory, setCurrentCategory] = useState(0);
-  const [currentColor, setCurrentColor] = useState(0);
+  const [currentCategory, setCurrentCategory] = useState("");
   const [search, setSearch] = useState("");
+  const [price, setPrice] = useState(10000);
+  const [rate, setRate] = useState(3);
   let noOfPages = 1;
   /*--------------productd-------------*/
   const getProducts = async () => {
@@ -27,6 +37,7 @@ function Product({ setItemsInCart }) {
         "https://furnival.onrender.com/products"
       );
       setProducts(data.data);
+      setItemsToRender(data.data);
       console.log(data.data);
     } catch {
       console.log("error");
@@ -39,6 +50,8 @@ function Product({ setItemsInCart }) {
         `https://furnival.onrender.com/products?category=${categoryId}`
       );
       setProducts(data.data);
+
+      setItemsToRender(data.data);
       console.log(data.data);
     } catch {
       console.log("error");
@@ -50,7 +63,7 @@ function Product({ setItemsInCart }) {
       const { data } = await axios.get(
         "https://furnival.onrender.com/categories"
       );
-      setCategory(data);
+      setCategory(data.data);
       console.log(data.data);
     } catch {
       console.log("error");
@@ -68,52 +81,64 @@ function Product({ setItemsInCart }) {
     }
   };
   /*-------------Color---------------------*/
-  // const getColors = async () => {
-  //   try {
-  //     const { data } = await axios.get("http://localhost:4000/colors");
-  //     setColors(data);
-  //   } catch {
-  //     console.log("error");
-  //   }
-  // };
+  const getProductWirhColor = async (colorName) => {
+    try {
+      const { data } = await axios.get(
+        ` https://furnival.onrender.com/products?colors=${colorName}`
+      );
+      setItemsToRender(data.data);
+      console.log(itemsToRender);
+    } catch {
+      console.log("error");
+    }
+  };
+  /*--------------price-------------------------*/
+  const getProductWirhPrice = async (price) => {
+    try {
+      const { data } = await axios.get(
+        ` https://furnival.onrender.com/products?price[lte]=${price}`
+      );
+      setItemsToRender(data.data);
+      console.log(itemsToRender);
+    } catch {
+      console.log("error");
+    }
+  };
+  /*--------------------product-with-rate----------*/
+  const getProductWithRate = async (rate) => {
+    try {
+      const { data } = await axios.get(
+        ` https://furnival.onrender.com/products?rate[lte]=${rate}`
+      );
+      setItemsToRender(data.data);
+      console.log(itemsToRender);
+    } catch {
+      console.log("error");
+    }
+  };
   /*----------------------------------------*/
-  const changeCurrentCateegory = (id) => {
-    setCurrentCategory(id);
+  const changeCurrentCateegory = (name) => {
+    setCurrentCategory(name);
     setCurrentPage(1);
   };
-  const changeCurrentColor = (id) => {
-    setCurrentColor(id);
-    setCurrentPage(1);
-  };
+
   const changeCurrentPage = (page) => {
     setCurrentPage(page);
   };
 
-  // let itemsToRender = products;
-  // const filteration = (currentCategory, currentColor) => {
-  //   if (currentCategory) {
-  //     itemsToRender =
-  //       currentCategory === 0
-  //         ? products
-  //         : products.filter((product) => product.category === currentCategory);
-  //   } else if (currentColor) {
-  //     itemsToRender =
-  //       currentColor === 0
-  //         ? products
-  //         : products.filter((product) => product.color === currentColor);
-  //   } else {
-  //   }
-  // };
-
-  let itemsToRender =
-    currentCategory === 0
-      ? products
-      : products.filter((product) => product.category === currentCategory);
-
-  // itemsToRender=
-  // currentColor===0
-  // ?products
-  // :products.filter((product)=>product.color=== currentColor);
+  useEffect(() => {
+    console.log(products);
+    if (!currentCategory) {
+      setItemsToRender(products);
+      console.log(itemsToRender);
+    } else {
+      const filtersProduct = products.filter(
+        (product) => product.category.name === currentCategory
+      );
+      setItemsToRender(filtersProduct);
+      console.log(itemsToRender);
+    }
+  }, [currentCategory]);
 
   //pagination
 
@@ -138,7 +163,7 @@ function Product({ setItemsInCart }) {
     return () => {
       console.log("clean useEffect shop ");
     };
-    // getColors();
+    window.scrollTo(0, 0);
   }, []);
   /*---------html and css--------*/
   return (
@@ -168,123 +193,6 @@ function Product({ setItemsInCart }) {
         </div>
 
         <div className="AllProducts mt-16 max-sm:mx-[1rem] sm:mx-[1rem] md:mx-[2rem] lg:mx-[2rem] xl:mx-[6rem] 2xl:mx-[9rem]">
-          {/* <div className="grid grid-cols-4 gap-4">
-            <div className=" lg:col-span-1 md:col-span-2">
-              <div className="sidebar shadow-xl rounded-tr-2xl rounded-br-2xl  h-auto p-5">
-                <div className="inputeSearch mb-5 mt-5">
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="input input-bordered w-full max-w-xs"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                  />
-                </div>
-                <div className="filterby ps-4 mb-4">
-                  <h1 className="font-bold text-xl">Filter By</h1>
-                </div>
-
-                <div className="filterPrice  ps-4 mb-8">
-                  <h1 className="text-lg mb-4">Price</h1>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value="40"
-                    className="range range-xs"
-                  />
-                </div>
-                <div className="filtercategory mb-4 ps-4">
-                  <h1 className="text-xl mb-4 font-bold">Categories</h1>
-                  <div className=" flex justify-center flex-col ms-5">
-                    {categories.data?.map((category) => {
-                      return (
-                        <h1
-                          key={category.id}
-                          className={
-                            "text-primary text-lg py-1 cursor-pointer capitalize font-medium hover:text-secondary " +
-                            (category.id === currentCategory
-                              ? "text-secondary"
-                              : "")
-                          }
-                          // onClick={() => changeCurrentCateegory(category.id)}
-                          onClick={() => {
-                            getProductInCategory(category);
-                            // changeCurrentCateegory(category.id);
-                            console.log(currentCategory, category.id);
-                          }}
-                        >
-                          {category.name}
-                        </h1>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div className="filtercolor mb-4 ps-4">
-                  <h1 className="text-xl mb-4 font-bold">Colors</h1>
-                  <div className=" flex justify-center flex-col ms-5">
-                    {colors?.map((color) => {
-                      return (
-                        <div
-                          style={{ display: "flex", gap: "8px" }}
-                          key={color.id}
-                        >
-                          <span
-                            style={{
-                              width: "20px",
-                              height: "20px",
-                              borderRadius: "50%",
-                              backgroundColor: color.name,
-                            }}
-                          ></span>
-                          <h1
-                            className={`categorylink mb-4 ${
-                              color.id === currentColor ? "categoryactive" : ""
-                            }`}
-                            onClick={() => changeCurrentColor(color.id)}
-                          >
-                            {color.name}
-                          </h1>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className=" lg:col-span-3 md:col-span-2 ">
-              <div className="cards  flex flex-wrap gap-5 justify-evenly">
-                {itemsToRender
-                  .filter((product) => {
-                    return product.title
-                      .toLowerCase()
-                      .includes(search.toLowerCase());
-                  })
-                  .map((product) => {
-                    return (
-                      <SingleProduct product={product} key={product._id} />
-                    );
-                  })}
-              </div>
-              <div className=" flex w-full justify-center items-center mt-5 gap-1 ">
-                {pages?.map((page) => (
-                  <button
-                    onClick={() => changeCurrentPage(page)}
-                    key={page}
-                    className={
-                      "btn btn-circle p-0  btn-outline  hover:bg-secondary hover:border-secondary hover:text-primary " +
-                      (currentPage === page
-                        ? "bg-primary border-primary text-white"
-                        : "text-primary border-primary")
-                    }
-                  >
-                    {page}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div> */}
           <div className=" justify-center hidden max-sm:flex max-sm:mb-10 ">
             <label
               htmlFor="filterMenu"
@@ -320,14 +228,22 @@ function Product({ setItemsInCart }) {
                 currentCategory={currentCategory}
                 getProductInCategory={getProductInCategory}
                 colors={colors}
-                currentColor={currentColor}
-                changeCurrentColor={changeCurrentColor}
+                getProductWirhColor={getProductWirhColor}
+                getProducts={getProducts}
+                getProductWithRate={getProductWithRate}
+                setRate={setRate}
+                getProductWirhPrice={getProductWirhPrice}
+                setPrice={setPrice}
+                price={price}
+                rate={rate}
+                changeCurrentCateegory={changeCurrentCateegory}
               />
               <label htmlFor="filterMenu" className="btn bg-primary border-0  ">
                 Apply
               </label>
             </div>
           </div>
+
           <div className="flex gap-16 sm:gap-4 md:gap-8 lg:gap-4 max-sm:gap-0 justify-evenly ">
             <div className="2xl:w-1/4 xl:w-1/5 lg:w-1/4 md:w-1/3  max-sm:hidden ">
               <div className="sidebar shadow-xl rounded-tr-2xl rounded-br-2xl  h-auto p-5">
@@ -349,14 +265,43 @@ function Product({ setItemsInCart }) {
                   currentCategory={currentCategory}
                   getProductInCategory={getProductInCategory}
                   colors={colors}
-                  currentColor={currentColor}
-                  changeCurrentColor={changeCurrentColor}
+                  getProductWirhColor={getProductWirhColor}
+                  getProducts={getProducts}
+                  getProductWithRate={getProductWithRate}
+                  setRate={setRate}
+                  getProductWirhPrice={getProductWirhPrice}
+                  setPrice={setPrice}
+                  price={price}
+                  rate={rate}
+                  changeCurrentCateegory={changeCurrentCateegory}
                 />
               </div>
             </div>
             <div className="2xl:w-3/4 xl:w-3/4 lg:w-3/4 md:w-2/3 sm:w-full max-sm:w-full ">
               <div className="grid max-sm:grid-cols-2 max-sm:gap-4 sm:grid-cols-2 sm:gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3 lg:gap-5 xl:gap-12 2xl:grid-cols-3 2xl:gap-8 ">
-                {itemsToRender
+                {itemsToRender.length ? (
+                  itemsToRender
+                    .filter((product) => {
+                      return product.title
+                        .toLowerCase()
+                        .includes(search.toLowerCase());
+                    })
+                    .map((product) => {
+                      return (
+                        <SingleProduct
+                          product={product}
+                          key={product._id}
+                          setItemsInCart={setItemsInCart}
+                        />
+                      );
+                    })
+                ) : (
+                  <div>
+                    <h2 className="text-black">No Products Match</h2>
+                    {/* <img src={sorryImg} alt="sorry" /> */}
+                  </div>
+                )}
+                {/* {itemsToRender
                   .filter((product) => {
                     return product.title
                       .toLowerCase()
@@ -370,7 +315,7 @@ function Product({ setItemsInCart }) {
                         key={product._id}
                       />
                     );
-                  })}
+                  })} */}
               </div>
               <div className=" flex w-full justify-center items-center mt-5 gap-1 ">
                 {pages?.map((page) => (

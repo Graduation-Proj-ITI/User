@@ -76,7 +76,7 @@
   }
 
   .btn-error-outline {
-    @apply bg-transparent  border-error text-error;
+    @apply bg-transparent border-error text-error;
   }
   .btn-error-outline:hover {
     @apply bg-error text-white border-error;

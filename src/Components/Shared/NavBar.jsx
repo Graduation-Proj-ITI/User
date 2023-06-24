@@ -31,7 +31,8 @@ const NavBar = ({ itemInCart }) => {
           location.pathname === "/profile" ||
           location.pathname === "/cart" ||
           location.pathname === "/checkout" ||
-          location.pathname === "/successOrder"
+          location.pathname === "/successOrder" ||
+          location.pathname === "/wishlist"
             ? " animate-wiggle bg-primary "
             : " bg-transparent ") +
           (location.pathname === "/Register" || location.pathname === "/Login"

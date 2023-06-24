@@ -29,7 +29,7 @@ const Sidebar = () => {
       title: "Profile",
       path: "#profile",
       icon: "./icons/user.svg",
-      component: <Profile setUser={setUser} user={user}/>,
+      component: <Profile setUser={setUser} user={user} />,
     },
     {
       title: "Wishlist",
@@ -57,11 +57,10 @@ const Sidebar = () => {
     // },
   ];
 
-
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [userImage, setUserImage] = useState(null);
-  const [loading, setLoading] = useState(null);
-  const [isChecked, setChecked] = useState(false);
+  // const [selectedImage, setSelectedImage] = useState(null);
+  // const [userImage, setUserImage] = useState(null);
+  // const [loading, setLoading] = useState(null);
+  // const [isChecked, setChecked] = useState(false);
 
   // if (selectedImage != null)
   // {
@@ -94,7 +93,6 @@ const Sidebar = () => {
         });
 
         // console.log('post image',res.data);
-
       })
       .catch((err) => {
         setLoading(false);
@@ -111,7 +109,7 @@ const Sidebar = () => {
       });
   };
 
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -129,7 +127,6 @@ const Sidebar = () => {
       .catch((err) => {
         setLoading(false);
         // console.log(err.response.data.message);
-
       });
   }, [userImage]);
 
@@ -270,12 +267,10 @@ const Sidebar = () => {
         type="checkbox"
         id="my-modal-4"
         className="modal-toggle"
-
         checked={isChecked}
         onChange={(e) => {
           setChecked(isChecked);
         }}
-
       />
       <div className="modal">
         <div className="modal-box relative z-50">

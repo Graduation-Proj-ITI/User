@@ -684,7 +684,7 @@ const Checkout = ({
                       methodP.id === currPaymentMethod ? (
                         <Link
                           to={sessionLink}
-                          target="_blank"
+                          // target="_blank"
                           onClick={() => {
                             setCurrPaymentMethod(methodP.id);
                           }}
@@ -734,7 +734,7 @@ const Checkout = ({
             <button
               className={
                 "  w-full py-2 rounded-xl " +
-                (currPaymentMethod === "" ? "btn-disabled" : "btn-primary")
+                (currPaymentMethod === "1" ? "btn-primary" : "btn-disabled")
               }
               onClick={() => {
                 createOrder(defaultAddress, cartId);

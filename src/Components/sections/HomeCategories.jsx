@@ -8,6 +8,7 @@ import table from "../../../public/images/categories/table.svg";
 import storage from "../../../public/images/categories/storage.svg";
 import decoration from "../../../public/images/categories/Decoration.svg";
 import axios from "axios";
+import { Link } from "react-router-dom";
 // const categories = [
 //   {
 //     id: 1,
@@ -120,27 +121,30 @@ const Categories = () => {
         ref={ref}
       >
         {categories.map((category) => (
-          <div
-            className={
-              "max-sm:w-36 max-sm:h-56 w-56 h-72 carousel-item flex flex-col cursor-pointer group bg-cover rounded-xl  relative"
-            }
-            key={category._id}
-          >
-            <img
-              src={category.image}
-              className=" absolute w-full h-full rounded-xl object-cover"
-            />
-            <div className="w-full h-full hidden group-hover:flex group-hover:flex-col group-hover:items-center group-hover:justify-center group-hover:animate-wiggle group-hover:bg-primary group-hover:bg-opacity-50 rounded-xl">
+          <Link to={`/Product/${category._id}`}>
+            {" "}
+            <div
+              className={
+                "max-sm:w-36 max-sm:h-56 w-56 h-72 carousel-item flex flex-col cursor-pointer group bg-cover rounded-xl  relative"
+              }
+              key={category._id}
+            >
               <img
-                src={category?.icon}
-                alt={category.name}
-                className="w-3/12 object-cover "
+                src={category.image}
+                className=" absolute w-full h-full rounded-xl object-cover"
               />
-              <h6 className="max-sm:mt-3 mt-6  text-center text-lg  capitalize text-white font-medium  ">
-                {category.name}
-              </h6>
+              <div className="w-full h-full hidden group-hover:flex group-hover:flex-col group-hover:items-center group-hover:justify-center group-hover:animate-wiggle group-hover:bg-primary group-hover:bg-opacity-50 rounded-xl">
+                <img
+                  src={category?.icon}
+                  alt={category.name}
+                  className="w-3/12 object-cover "
+                />
+                <h6 className="max-sm:mt-3 mt-6  text-center text-lg  capitalize text-white font-medium  ">
+                  {category.name}
+                </h6>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       {/* <div

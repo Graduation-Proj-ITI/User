@@ -104,6 +104,39 @@
   background-color: #133a5e;
 }
 
+.radio-primary {
+  color: #133a5e;
+}
+
+.radio-primary:checked,
+.radio-primary[aria-checked="true"] {
+  --tw-bg-opacity: 1;
+  border: 2px solid #133a5e;
+  background-color: #133a5e;
+  color: #133a5e;
+}
+
+.radio-primary:focus-visible {
+  outline: 2px solid #abadae;
+}
+
+.radio:focus-visible {
+  outline: 2px solid #133a5e;
+  outline-offset: 2px;
+}
+
+.radio {
+  border-color: #abadae;
+}
+
+.steps .step-primary + .step-primary:before,
+.steps .step-primary:after {
+  --tw-bg-opacity: 1;
+  background-color: #133a5e;
+  --tw-text-opacity: 1;
+  color: white;
+}
+
 /* .swiper-container {
   width: 480px;
 }

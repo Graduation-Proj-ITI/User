@@ -66,7 +66,7 @@ const Slider = () => {
         }}
         pagination={{ clickable: true }}
         navigation={true}
-        onSwiper={(swiper) => console.log(swiper)}
+        // onSwiper={(swiper) => console.log(swiper)}
       >
         {sliders.map((slider) => (
           <SwiperSlide key={slider.id}>

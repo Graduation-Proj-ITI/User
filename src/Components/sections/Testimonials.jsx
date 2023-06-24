@@ -70,7 +70,7 @@ const Testimonials = () => {
           disableOnInteraction: false,
         }}
         pagination={{ clickable: true }}
-        onSwiper={(swiper) => console.log(swiper)}
+        // onSwiper={(swiper) => console.log(swiper)}
       >
         {steps.map((step) => (
           <SwiperSlide key={step.id}>

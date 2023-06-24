@@ -14,24 +14,49 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const Services = () => {
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState([
+    {
+      id: "1",
+      icon: "<Shop />",
+      title: "Fast Shipping",
+      details: "Free delivery for order over $100.00",
+    },
+    {
+      id: "2",
+      icon: "<Support />",
+      title: "Online Support",
+      details: "Feel Free to call us & get best support.",
+    },
+    {
+      id: "3",
+      icon: "<Gift />",
+      title: "gift voucher",
+      details: "Refer a friend & get a surprise gifts.",
+    },
+    {
+      id: "4",
+      icon: "<Payment />",
+      title: "Secure payment",
+      details: "Safe & more secure way to pay online.",
+    },
+  ]);
   const icons = [<Shop />, <Support />, <Gift />, <Payment />];
   const size = useWindowSize();
 
-  useEffect(() => {
-    try {
-      const getService = async () => {
-        // let i = 0;
-        const res = await axios.get("http://localhost:3000/services");
-        const data = res.data;
-        setServices(data);
-        console.log(services);
-      };
-      getService();
-    } catch (error) {
-      console.error("Error", err);
-    }
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     const getService = async () => {
+  //       // let i = 0;
+  //       const res = await axios.get("http://localhost:3000/services");
+  //       const data = res.data;
+  //       setServices(data);
+  //       console.log(services);
+  //     };
+  //     getService();
+  //   } catch (error) {
+  //     console.error("Error", err);
+  //   }
+  // }, []);
 
   // const Service = services.map((item) => (
   //   <div key={item.id}>
@@ -79,7 +104,7 @@ const Services = () => {
             slidesPerView={1}
             // pagination={{ clickable: true }}
             navigation={true}
-            onSwiper={(swiper) => console.log(swiper)}
+            // onSwiper={(swiper) => console.log(swiper)}
           >
             {services.map((item) => (
               <SwiperSlide key={item.id} className="">

@@ -6,7 +6,6 @@ import axios from "axios";
 import Loader from "../Shared/Loader";
 
 const Profile = () => {
-
   //test data
   const [userData, setUserData] = useState({ name: "", email: "" });
   const [loading, setLoading] = useState(true);
@@ -238,7 +237,6 @@ const Profile = () => {
     event.preventDefault();
     if (validateForm()) {
       submitForm();
-
     }
   };
   const handlePasswordSubmit = (event) => {
@@ -253,7 +251,11 @@ const Profile = () => {
             password: passwordChange.newPassword,
             passwordConfirm: passwordChange.confirmPassword,
           },
-          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         )
         .then((response) => {
           setLoading(false);
@@ -264,7 +266,7 @@ const Profile = () => {
             closeOnClick: true,
             pauseOnHover: true,
           });
-          localStorage.setItem('token', response.data.token);
+          localStorage.setItem("token", response.data.token);
         })
         .catch((error) => {
           error.response.data.errors.forEach((err) => {
@@ -291,7 +293,9 @@ const Profile = () => {
           name: formState.userName,
           // email: formState.email,
         },
-        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
       )
       .then((response) => {
         setLoading(false);
@@ -313,16 +317,14 @@ const Profile = () => {
           pauseOnHover: true,
         });
         setLoading(false);
-
       });
   };
-  
 
   useEffect(() => {
     const getUser = () => {
       axios
         .get("https://furnival.onrender.com/users/getMe", {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
         .then((response) => {
           setLoading(false);
@@ -343,10 +345,8 @@ const Profile = () => {
   }, []);
 
   return (
-    
-            
     <div className="flex flex-col gap-5 content-center">
-    {loading && <Loader/>}
+      {loading && <Loader />}
       <div>
         <h2 className="text-primary my-2 ">Profile</h2>
         <p className="text-dark">
@@ -521,7 +521,7 @@ const Profile = () => {
                 type="submit"
                 className="btn btn-primary w-[200px] py-0 mt-5 rounded-[8px] "
               >
-              Change Password
+                Change Password
               </button>
             </form>
           </div>

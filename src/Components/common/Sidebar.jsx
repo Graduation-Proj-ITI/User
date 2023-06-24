@@ -4,7 +4,7 @@ import Orders from "../sections/Order";
 import Address from "../sections/Address";
 import Payment from "../sections/Payment";
 import Wishlist from "../sections/Wishlist";
-import axios from 'axios';
+import axios from "axios";
 import Loader from "../Shared/Loader";
 import { toast } from "react-toastify";
 
@@ -15,6 +15,11 @@ const Sidebar = () => {
   };
 
   const [activeLink, setActiveLink] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [userImage, setUserImage] = useState(null);
+  const [loading, setLoading] = useState(null);
+  const [isChecked, setChecked] = useState(false);
+  const [user, setUser] = useState({});
 
   const handleClickedLink = (index) => {
     setActiveLink(index);
@@ -24,7 +29,7 @@ const Sidebar = () => {
       title: "Profile",
       path: "#profile",
       icon: "./icons/user.svg",
-      component: <Profile />,
+      component: <Profile setUser={setUser} user={user}/>,
     },
     {
       title: "Wishlist",
@@ -51,81 +56,72 @@ const Sidebar = () => {
     //   component: <Payment />,
     // },
   ];
-  
-  const [selectedImage, setSelectedImage] = useState(null);
-const [userImage,setUserImage] = useState(null);
-const [loading,setLoading]=useState(null);
-const [isChecked,setChecked]=useState(false);
-// if (selectedImage != null) 
-// {
-// setChecked(true);
-// }
-const handleFetchImg=(e)=>{
-  e.preventDefault();
-  const userImg = {
-    profileImg:selectedImage,
-  };
-  // console.log(userImg);
-   const formData = new FormData();
-     formData.append(
-        "profileImg",
-        userImg.profileImg,
-        userImg.profileImg.name
-    ); 
-    setLoading(true)
-  axios
-    .put("https://furnival.onrender.com/users/updateMe", formData, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-    })
-    .then((res) => {
-    setLoading(false)
-      setUserImage(res?.data.data.profileImg);
-      setChecked(false);
-      toast.success("Your Picture updated successfully!", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
-      // console.log('post image',res.data);
-    })
-    .catch((err) => {
-      setLoading(false);
-      setChecked(false);
-      toast.error("there is an error please,try again!", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
-      // console.log(err);
-    });
-  };
-  
-  const [user,setUser]=useState(null);
-  useEffect(() => {
-    setLoading(true)
+
+  // if (selectedImage != null)
+  // {
+  // setChecked(true);
+  // }
+  const handleFetchImg = (e) => {
+    e.preventDefault();
+    const userImg = {
+      profileImg: selectedImage,
+    };
+    // console.log(userImg);
+    const formData = new FormData();
+    formData.append("profileImg", userImg.profileImg, userImg.profileImg.name);
+    setLoading(true);
     axios
-    .get("https://furnival.onrender.com/users/getMe", {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-    })
-    .then((res) => {
-      setLoading(false)
-      setUserImage(res?.data.data.profileImg);
-      setUser(res?.data.data);
-      // console.log('get data',res.data);
-    })
-    .catch((err) => {
-      setLoading(false)
-      // console.log(err.response.data.message);
-    });
+      .put("https://furnival.onrender.com/users/updateMe", formData, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((res) => {
+        setLoading(false);
+        setUserImage(res?.data.data.profileImg);
+        setChecked(false);
+        toast.success("Your Picture updated successfully!", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+        // console.log('post image',res.data);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setChecked(false);
+        toast.error("there is an error please,try again!", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+        // console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get("https://furnival.onrender.com/users/getMe", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((res) => {
+        setLoading(false);
+        setUserImage(res?.data.data.profileImg);
+        setUser(res?.data.data);
+        // console.log('get data',res.data);
+      })
+      .catch((err) => {
+        setLoading(false);
+        // console.log(err.response.data.message);
+      });
   }, [userImage]);
 
   return (
     <div className=" h-screen overflow-x-hidden ">
-    {loading && <Loader/>}
+      {loading && <Loader />}
       <div className="flex w-full ">
         {/* Burger Menu */}
         {/* Left Menu */}
@@ -169,7 +165,7 @@ const handleFetchImg=(e)=>{
                 >
                   <figure className="relative w-[150px] h-[150px] rounded">
                     <img
-                      src={userImage??"./profile/profile.jpg"}
+                      src={userImage ?? "./profile/profile.jpg"}
                       alt="profile.jpg"
                       className="w-full h-full max-w-[100%] rounded-full object-cover "
                     />
@@ -186,12 +182,11 @@ const handleFetchImg=(e)=>{
                         onChange={(e) => {
                           const file = e.target.files[0];
                           setSelectedImage(file);
-                          setChecked(true)
+                          setChecked(true);
                           // console.log(isChecked)
                           // console.log('image',selectedImage)
                         }}
                       />
-      
                     </label>
                   </figure>
 
@@ -258,22 +253,35 @@ const handleFetchImg=(e)=>{
           {navLinks[activeLink].component}
         </div>
       </div>
-      
-      <input type="checkbox" id="my-modal-4" className="modal-toggle" checked={isChecked} onChange={(e)=>{setChecked(isChecked)}} />
+
+      <input
+        type="checkbox"
+        id="my-modal-4"
+        className="modal-toggle"
+        checked={isChecked}
+        onChange={(e) => {
+          setChecked(isChecked);
+        }}
+      />
       <div className="modal">
         <div className="modal-box relative z-50">
           <label
-            onClick={() => {setChecked(false)}}
+            onClick={() => {
+              setChecked(false);
+            }}
             htmlFor="my-modal-4"
             className="btn text-error px-4 rounded-full  btn-sm  border-error btn-outline btn-circle absolute right-4 top-2 hover:bg-error hover:text-white hover:border-error"
           >
             ✕
           </label>
-          <h3 className="text-lg font-bold pb-4">
-            confirm upload image
-          </h3>
+          <h3 className="text-lg font-bold pb-4">confirm upload image</h3>
 
-          <form onSubmit={(e)=>{handleFetchImg(e)}} className="form flex flex-col gap-4">
+          <form
+            onSubmit={(e) => {
+              handleFetchImg(e);
+            }}
+            className="form flex flex-col gap-4"
+          >
             <button
               type="submit"
               className="btn btn-primary w-[200px] py-0 mx-auto mt-5  rounded-[8px]"
@@ -284,8 +292,6 @@ const handleFetchImg=(e)=>{
         </div>
       </div>
     </div>
-    
-    
   );
 };
 

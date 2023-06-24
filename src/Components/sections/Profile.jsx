@@ -5,14 +5,23 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Loader from "../Shared/Loader";
 
-const Profile = () => {
+const Profile = ({user,setUser}) => {
 
   //test data
   const [userData, setUserData] = useState({ name: "", email: "" });
   const [loading, setLoading] = useState(true);
-  const [user,setUser] = useState({});
+  // const [user,setUser] = useState({});
   const [check,setCheck] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
 
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+  
+  const handleTogglePassword2 = () => {
+  setShowPassword2(!showPassword2);
+  }
   // {
   //   userName: "John Doe",
   //   email: " john@gmail.com ",
@@ -286,7 +295,7 @@ const Profile = () => {
           setLoading(false);
           // console.log(error.response.data.errors);
         });
-    }
+    } 
   };
 
   const submitForm = () => {
@@ -496,18 +505,24 @@ const Profile = () => {
                 )}
               </div>
 
-              <div className="flex flex-col gap-1">
-                <input
-                  type="password"
+              <div className=" flex flex-col gap-1">
+              <div className="relative w-full min-h-[40px] order-2">
+              <input
+                  type={showPassword ? 'text' : 'password'}
                   name="newPassword"
                   id="newPassword"
                   className={`${getPasswordInput(
                     "newPassword"
-                  )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+                  )} order-2 border border-[rgba(0,0,0,.1)] w-full rounded px-4 py-2 absolute z-10 top-0 left-0`}
                   value={passwordChange.newPassword}
                   onChange={handlePasswordChange}
                 />
-                <label htmlFor="newPasssword" className="text-primary order-1">
+                 <span onClick={handleTogglePassword} className="cursor-pointer absolute top-2 right-3 z-20">
+        {showPassword ? <img src="./eye-hide.png" alt="hide password" />: <img src="./eye-show.png" alt="show password" />} 
+      </span>  
+              </div>
+            
+                <label htmlFor="newPasssword" className="relative text-primary order-1">
                   New Password*
                 </label>
                 {passwordChangeErrors.newPassword !== "" && (
@@ -517,16 +532,22 @@ const Profile = () => {
                 )}
               </div>
               <div className="flex flex-col gap-1">
-                <input
-                  type="password"
+              <div className="relative w-full min-h-[40px] order-2">
+              <input
+                  type={showPassword2 ? 'text' : 'password'}
                   name="confirmPassword"
                   id="confirmPassword"
                   className={`${getPasswordInput(
                     "confirmPassword"
-                  )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+                  )} order-2 border border-[rgba(0,0,0,.1)]  w-full rounded px-4 py-2`}
                   value={passwordChange.confirmPassword}
                   onChange={handlePasswordChange}
                 />
+                 <span onClick={handleTogglePassword2} className="cursor-pointer absolute top-2 right-3 z-20">
+                 {showPassword2 ? <img src="./eye-hide.png" alt="hide password" />: <img src="./eye-show.png" alt="show password" />} 
+      </span>  
+              </div>
+              
                 <label
                   htmlFor="confirmPassword"
                   className="text-primary order-1"

@@ -25,7 +25,7 @@ import SuccessOrder from "./pages/SuccessOrder";
 import CurrentOrder from "./pages/CurrentOrder";
 import Blogs from "./pages/Blogs";
 import Wishlist from "./Components/sections/Wishlist";
-
+import ErrorPage from "./pages/error";
 export default function App() {
   const [itemInCart, setItemsInCart] = useState(0);
   return (
@@ -45,6 +45,8 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/profile" element={<User />} />
             <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/**" element={<ErrorPage />} />
+
             <Route
               path="/cart"
               element={<CurrentOrder setItemsInCart={setItemsInCart} />}

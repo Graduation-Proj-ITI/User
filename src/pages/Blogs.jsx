@@ -3,6 +3,7 @@ import community from "../../public/images/community/community.png";
 import "../App.css";
 import axios from "axios";
 import ReadMore from "../../src/Components/Shared/Readmore";
+import { Link } from "react-router-dom";
 // import Footer from "../Components/Shared/Footer";
 
 const Blogs = () => {
@@ -46,14 +47,38 @@ const Blogs = () => {
     <div className="">
       <div className="w-full max-sm:h-[30vh] sm:h-[30vh] md:h-[40vh] xl:h-[45vh] bg-community bg-no-repeat bg-cover ">
         <div className="w-full h-full bg-gray-600/30 backdrop-brightness-75 flex flex-col justify-center items-center">
-          <h4 className="text-white font-bold text-3xl font-poppins text-center ">
+          <h4 className="text-white font-semibold text-xl md:text-4xl mb-4 md:mb-6 ">
             Blogs
           </h4>
-          <div className="text-white font-medium text-lg font-poppins text-center flex justify-center">
-            <p className="text-gray-300">
-              Home <i className="fa-solid fa-angle-right pe-3 ps-1"></i>
-            </p>
-            Blogs
+          <div className="text-white font-inter text-sm md:text-lg">
+            <ol className="list-none p-0 inline-flex">
+              <li className="flex items-center">
+                <Link
+                  href="/"
+                  className="text-white hover:text-white flex items-start gap-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                    />
+                  </svg>
+                  Home
+                </Link>
+              </li>
+              <li className="flex items-center">
+                <span className="mx-2">/</span>
+                <span>Blogs</span>
+              </li>
+            </ol>
           </div>
         </div>
       </div>
@@ -93,7 +118,7 @@ const Blogs = () => {
             >
               <figure className="overflow-hidden rounded-t-lg">
                 <img
-                  src={blog.images[0]}
+                  src={blog.image}
                   alt={blog.title}
                   className="object-cover w-full h-60 shadow-sm scale-100 group-hover:scale-110 ease-in duration-300"
                 />
@@ -107,7 +132,7 @@ const Blogs = () => {
                   By: {blog.username}
                 </h6> */}
 
-                <div className="text-[0.9rem] text-gray-600 pt-3">
+                <div className="text-md text-gray-600 pt-3">
                   {blog.content.length > 160 ? (
                     <ReadMore>{blog.content}</ReadMore>
                   ) : (

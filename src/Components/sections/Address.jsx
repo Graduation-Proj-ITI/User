@@ -407,7 +407,7 @@ const [isE,setE]=useState(false);
       {allAdresses
         .map((address, ind) => (
           <div
-            className={`flex  flex-col lg:flex-row gap-1 bg-bgColor px-5 w-full lg:px-10 py-7 rounded-[16px] shadow-gray order-2 ${address.default && "order-1"}`}
+            className={`flex  flex-col lg:flex-row gap-1 bg-bgColor px-5 w-full lg:px-10 py-7 rounded-[16px] shadow-gray ${address.default?"order-1":"order-2"}`}
             key={ind}
           >
             <div className="w-full">

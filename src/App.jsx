@@ -45,7 +45,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/profile" element={<User />} />
             <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/**" element={<ErrorPage />} />
+            <Route path="*" element={<ErrorPage />} />
 
             <Route
               path="/cart"

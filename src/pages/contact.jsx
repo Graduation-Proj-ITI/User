@@ -16,7 +16,7 @@ const Contact = () => {
     },
     {
       icon: "email.svg",
-      desc: "Example@gmail.com",
+      desc: "Furnival@gmail.com",
     },
     {
       icon: "location.svg",

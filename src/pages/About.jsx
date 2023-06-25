@@ -34,7 +34,7 @@ const About = () => {
               <li className="flex items-center">
                 <a
                   href="/"
-                  className="text-white hover:text-white flex items-center gap-2"
+                  className="text-white hover:text-white flex items-start gap-2"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ const About = () => {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6"
+                    className="w-5 h-5"
                   >
                     <path
                       strokeLinecap="round"

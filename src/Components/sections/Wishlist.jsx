@@ -106,7 +106,7 @@ const Wishlist = () => {
                   >
                     <figure className="relative h-[90%]">
                       <img
-                        src={item.imageCover}
+                        src={item?.imageCover}
                         // src="./images/products/product1.jpg"
                         alt=""
                         className="w-full h-full object-cover rounded-[8px]"

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import SingleProduct from "../Product/SingleProduct";
 import moment from "moment/moment";
+import { toast } from "react-toastify";
 
 function ProductDetails() {
   const { productId } = useParams();
@@ -29,6 +30,24 @@ function ProductDetails() {
       // setImgArr(oneProduct?.images[0]);
     } catch {
       console.log("error");
+    }
+  };
+
+  const addToWishList = async () => {
+    try {
+      const { data } = await axios.post(
+        "https://furnival.onrender.com/wishlist",
+        { productId: oneProduct?._id },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      toast("Add to wish succesfully");
+    } catch (e) {
+      console.error(e);
+      toast("error");
     }
   };
 
@@ -117,7 +136,7 @@ function ProductDetails() {
                         {oneProduct?.colors[0]}
                       </span>
                     </li>
-                    <li className="text-blue-950">
+                    {/* <li className="text-blue-950">
                       Height in cm : <span className="text-black">50</span>
                     </li>
                     <li className="text-blue-950">
@@ -125,10 +144,10 @@ function ProductDetails() {
                     </li>
                     <li className="text-blue-950">
                       Depth in cm:<span className="text-black">170</span>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
-                <div className="listDetails2">
+                {/* <div className="listDetails2">
                   <ul>
                     <li className="text-blue-950">
                       Base Material :<span className="text-black"> MDF</span>
@@ -146,8 +165,11 @@ function ProductDetails() {
                       <span className="text-black">Egypt</span>
                     </li>
                   </ul>
-                </div>
+                </div> */}
                 <button className="btn addToCart mt-6">Add to cart</button>
+                <button onClick={addToWishList} className="btn addToCart mt-3">
+                  Add To Favourite
+                </button>
               </div>
             </div>
           </div>

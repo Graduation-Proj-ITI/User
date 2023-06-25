@@ -29,7 +29,7 @@ const Sidebar = () => {
       title: "Profile",
       path: "#profile",
       icon: "./icons/user.svg",
-      component: <Profile setUser={setUser} user={user}/>,
+      component: <Profile setUser={setUser} user={user} />,
     },
     {
       title: "Wishlist",
@@ -57,10 +57,6 @@ const Sidebar = () => {
     // },
   ];
 
-  // if (selectedImage != null)
-  // {
-  // setChecked(true);
-  // }
   const handleFetchImg = (e) => {
     e.preventDefault();
     const userImg = {

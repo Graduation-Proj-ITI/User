@@ -1,13 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
-.parentform {
-  width: 80% !important;
-  background-image: url(../../../public/images/backgtound.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  position: relative;
-  height: 100vh;
-}
 .logo img {
   width: 147px;
   height: 122px;
@@ -20,26 +11,6 @@
   font-family: "Lobster" !important;
 }
 
-.parentform::before {
-  content: "";
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  background-color: #d9d9d9;
-  clip-path: circle(50% at 100% 50%);
-  top: 100px;
-  left: 488px;
-}
-.parentform::after {
-  content: "";
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  background-color: #d9d9d9;
-  clip-path: circle(50% at 0 50%);
-  top: 440px;
-  left: 10px;
-}
 form .subbutton {
   background-color: #133a5e !important;
 }
@@ -56,10 +27,4 @@ form input {
 }
 .toregister a {
   color: orange;
-}
-@media screen and (max-width: 1320px) {
-  .parentform::after,
-  .parentform::before {
-    display: none;
-  }
 }

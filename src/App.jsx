@@ -25,7 +25,7 @@ import SuccessOrder from "./pages/SuccessOrder";
 import CurrentOrder from "./pages/CurrentOrder";
 import Blogs from "./pages/Blogs";
 import Wishlist from "./Components/sections/Wishlist";
-import ErrorPage from "./pages/error";
+import ForgetPassword from "./pages/ForgetPassword";
 export default function App() {
   const [itemInCart, setItemsInCart] = useState(0);
   return (
@@ -36,7 +36,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
-              path="/Product"
+              path="/Product/:categoryId?"
               element={<Product setItemsInCart={setItemsInCart} />}
             />
             <Route path="/community" element={<Community />} />
@@ -57,11 +57,13 @@ export default function App() {
             />
             <Route path="/successOrder" element={<SuccessOrder />} />
             {/* <Route path="/contact" element={<Contact />} /> */}
-
             <Route path="/login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
-
-            <Route path="product/:productId" element={<ProductDetails />} />
+            <Route
+              path="/product/details/:productId"
+              element={<ProductDetails />}
+            />
+            <Route path="/forget-password" element={<ForgetPassword />} />
           </Routes>
           <ToastContainer />
           <Footer />

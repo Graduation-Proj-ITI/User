@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 const ErrorPage = () => {
 
   const handleGoHomeClick = () => {
@@ -14,7 +14,7 @@ const ErrorPage = () => {
           <button className="btn-primary py-4 w-[300px] text-2xl px-10 flex justify-center items-center gap-[25px]" onClick={handleGoHomeClick}>
           <img src="./icons/Home.svg" className="w-[25px]" alt="home icon"/>
           <span>
-          Go Home
+          <Link to="/" className="text-white">    Go Home</Link>
           </span></button>
         </div>
         </div>

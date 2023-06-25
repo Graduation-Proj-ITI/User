@@ -33,7 +33,7 @@ const NavBar = ({ itemInCart }) => {
           location.pathname === "/checkout" ||
           location.pathname === "/successOrder" ||
           location.pathname === "/wishlist" ||
-          location.pathname === "/product/details/:productId"
+          location.pathname.includes("/product/details/")
             ? " animate-wiggle bg-primary "
             : " bg-transparent ") +
           (location.pathname === "/Register" ||

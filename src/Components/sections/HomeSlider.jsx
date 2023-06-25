@@ -2,6 +2,9 @@ import React from "react";
 
 import { Pagination, A11y, Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+// import { useNavigate } from "react-router-dom";
+
+
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -15,6 +18,7 @@ import img1Slide2 from "../../../public/images/slider/img2-1.jpg";
 import img2Slide2 from "../../../public/images/slider/img2-2.jpg";
 import img1Slide4 from "../../../public/images/slider/img4-1.jpg";
 import img2Slide4 from "../../../public/images/slider/img4-2.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Slider = () => {
   const sliders = [
@@ -85,6 +89,7 @@ const Slider = () => {
                     {slider.description}
                   </p>
                   <button className="btn bg-white border-0 text-primary hover:bg-primary hover:text-white rounded-3xl flex max-sm:text-sm max-sm:mx-auto sm:mx-auto md:mx-0 lg:mx-0 ">
+                    
                     view more
                   </button>
                 </div>

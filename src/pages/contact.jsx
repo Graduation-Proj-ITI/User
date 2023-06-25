@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // import "../../form.css";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Contact = () => {
   const handleClick = (event) => {
     // handle the logic for clicking the link
@@ -15,7 +16,7 @@ const Contact = () => {
     },
     {
       icon: "email.svg",
-      desc: "Example@gmail.com",
+      desc: "Furnival@gmail.com",
     },
     {
       icon: "location.svg",
@@ -142,6 +143,23 @@ const Contact = () => {
     event.preventDefault();
     if (validateForm()) {
       submitForm(event);
+      toast.success("Your message sent successfully!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      setFormState
+      ({
+        fName: "",
+        lName: "",
+        email: "",
+        phone: "",
+        message: "",
+        
+        
+      })
       // console.log(formState)
     }
   };
@@ -245,14 +263,14 @@ const Contact = () => {
                   }}
                 >
                   <div className="w-full">
-                    <div className="w-[50px] p-2 flex items-center justify-center bg-bgColor rounded-full m-auto relative top-[-60px]  transform translate-x-[-40%] left-[7%]">
+                    <div className="w-[55px] p-2 flex items-center justify-center bg-bgColor rounded-full m-auto relative top-[-60px]  transform translate-x-[-40%] left-[7%]">
                       <img
                         src={`./icons/${card.icon}`}
                         alt="card icon"
                         className="max-w-full w-full"
                       />
                     </div>
-                    <div className="text-center text-primary font-bold mt-[-2] mb-[2]">
+                    <div className="text-center text-primary font-bold mt-[-5] mb-[2]">
                       {card.desc}
                     </div>
                   </div>

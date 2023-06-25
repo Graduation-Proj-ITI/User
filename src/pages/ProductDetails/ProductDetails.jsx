@@ -61,6 +61,24 @@ function ProductDetails() {
     }
   };
 
+  const addToWishList = async () => {
+    try {
+      const { data } = await axios.post(
+        "https://furnival.onrender.com/wishlist",
+        { productId: oneProduct?._id },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      toast("Add to wish succesfully");
+    } catch (e) {
+      console.error(e);
+      toast("error");
+    }
+  };
+
   const ShowImg = (srcimg) => {
     setImgArr(srcimg);
   };
@@ -127,7 +145,7 @@ function ProductDetails() {
             <div className="shoeimf ms-3 lg:w-3/4 md:w-full h-[515px]">
               <img
                 className="mt-5 object-fit-cover w-full h-full"
-                src={imgarr ? imgarr : oneProduct?.images[0]}
+                src={imgarr ? imgarr : oneProduct?.imageCover}
               />
             </div>
           </div>
@@ -146,7 +164,7 @@ function ProductDetails() {
                         {oneProduct?.colors[0]}
                       </span>
                     </li>
-                    <li className="text-blue-950">
+                    {/* <li className="text-blue-950">
                       Height in cm : <span className="text-black">50</span>
                     </li>
                     <li className="text-blue-950">
@@ -154,10 +172,10 @@ function ProductDetails() {
                     </li>
                     <li className="text-blue-950">
                       Depth in cm:<span className="text-black">170</span>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
-                <div className="listDetails2">
+                {/* <div className="listDetails2">
                   <ul>
                     <li className="text-blue-950">
                       Base Material :<span className="text-black"> MDF</span>
@@ -175,7 +193,9 @@ function ProductDetails() {
                       <span className="text-black">Egypt</span>
                     </li>
                   </ul>
+
                 </div>
+                */}
                 <button
                   className="btn addToCart mt-6"
                   onClick={(e) => {
@@ -187,6 +207,12 @@ function ProductDetails() {
                   }}
                 >
                   Add to cart
+
+               </button>
+               
+                <button onClick={addToWishList} className="btn addToCart mt-3">
+                  Add To Favourite
+
                 </button>
               </div>
             </div>

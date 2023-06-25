@@ -35,8 +35,15 @@ const Wishlist = () => {
         // console.log(error);
       });
   };
+  const [wishPage, setWishPage] = useState(false);
 
   useEffect(() => {
+    if(window.location.pathname === "/wishlist"){
+        setWishPage(true)
+    }else 
+    {
+    setWishPage(false)
+    }
     const getWishlist = () => {
       axios
         .get("https://furnival.onrender.com/wishlist", {
@@ -79,7 +86,7 @@ const Wishlist = () => {
   // console.log(wishlist);
 
   return (
-    <div className="flex flex-col gap-9 content-center">
+    <div className={`flex flex-col gap-9 content-center ${wishPage?'w-[90%] m-auto mt-[80px]':''}`}>
       {loading && <Loader />}
       <div className="flex flex-col gap-4 md:flex-row justify-between mt-5">
         <div>
@@ -106,7 +113,7 @@ const Wishlist = () => {
                   >
                     <figure className="relative h-[90%]">
                       <img
-                        src={item.imageCover}
+                        src={item?.imageCover}
                         // src="./images/products/product1.jpg"
                         alt=""
                         className="w-full h-full object-cover rounded-[8px]"

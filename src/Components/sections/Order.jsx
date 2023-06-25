@@ -15,7 +15,8 @@ function Orders() {
   const [isChecked,setChecked]=useState(false);
   const [cancel, setCancel] = useState(false);
   const [restItems, setRestItems] = useState(false)
-  const handleRate = (value) => {
+  const handleRate = (e,value) => {
+  e.preventDefault();
     setRating(value);
     // console.log(rating)
   };
@@ -145,7 +146,7 @@ function Orders() {
               <div className="flex justify-between md:items-center flex-col md:flex-row gap-1">
               
               <div className="w-full flex flex-row items-center gap-2">
-                <p className="text-primary font-bold text-sm md:text-md"> {order._id} </p>
+                <p className="text-primary font-bold text-sm md:text-md"><span className="text-green-700 text-[15px]">orderId: </span>{order._id} </p>
                 <p
                   className={`${
                     order.status === "delivered"
@@ -161,7 +162,7 @@ function Orders() {
               </div>
               
               {order.status == 'pending' &&
-              <button className="btn btn-error-outline my-0 py-0 text-sm " onClick={()=>{handleCancel(order._id)}} > Cancle Order </button>
+              <button className={`btn btn-error-outline my-2 md:my-0 py-0 text-sm min-h-[40px] h-[40px]`} onClick={()=>{handleCancel(order._id)}} > Cancle Order </button>
               }
               </div>
 
@@ -206,7 +207,7 @@ function Orders() {
                           </p>
                           <label
                             htmlFor="my-modal-5"
-                            className="text-primary font-semibold lg:hidden xl:flex w-[130px]  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
+                            className="cursor-pointer text-primary font-semibold lg:hidden xl:flex w-[130px]  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
                             onClick={(e) => {
                               handleReview([
                                 item["product"]._id,
@@ -222,7 +223,7 @@ function Orders() {
                         </div>
                         <label
                           htmlFor="my-modal-5"
-                          className="text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary"
+                          className="cursor-pointer text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary cursor-pointer"
                           onClick={(e) => {
                             handleReview([
                               item["product"]._id,
@@ -271,7 +272,7 @@ function Orders() {
                     </p>
                     <label
                       htmlFor="my-modal-5"
-                      className="text-primary font-semibold lg:hidden xl:flex w-[130px]  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
+                      className="cursor-pointer text-primary font-semibold lg:hidden xl:flex w-[130px]  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
                       onClick={(e) => {
                         handleReview([
                           item["product"]._id,
@@ -287,7 +288,7 @@ function Orders() {
                   </div>
                   <label
                     htmlFor="my-modal-5"
-                    className="text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary"
+                    className="cursor-pointer text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary"
                     onClick={(e) => {
                       handleReview([
                         item["product"]._id,
@@ -312,7 +313,7 @@ function Orders() {
                     onClick={() => {
                       setId(order._id);
                       setRestItems(!restItems);
-                      console.log(restItems);
+                      // console.log(restItems);
 
                     }}
                     className="text-black font-semibold text-md cursor-pointer hover:text-primary transition duration-400 "
@@ -518,7 +519,7 @@ function Orders() {
                                 item["product"].imageCover,
                                 item.price / item.quantity,
                               ]);
-                            }} className="text-primary font-semibold lg:hidden w-[130px] xl:flex  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
+                            }} className=" cursor-pointer text-primary font-semibold lg:hidden w-[130px] xl:flex  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
                                   {" "}
                                   Review Product{" "}
                                 </button>
@@ -530,7 +531,7 @@ function Orders() {
                                 item["product"].imageCover,
                                 item.price / item.quantity,
                               ]);
-                            }} className="text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
+                            }} className="cursor-pointer text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
                                 {" "}
                                 Review Product{" "}
                               </button>
@@ -566,7 +567,7 @@ function Orders() {
           <label
             htmlFor="my-modal-5"
             onClick={()=>{setChecked(false)}}
-            className="btn text-error px-4 rounded-[6px] btn-sm btn-circle absolute right-3 top-3 hover:bg-error hover:text-white hover:border-error"
+            className="btn btn-error-outline px-4 rounded-[6px] btn-sm btn-circle absolute right-3 top-3 hover:bg-error hover:text-white hover:border-error"
           >
             ✕
           </label>
@@ -600,7 +601,7 @@ function Orders() {
                             className={`text-3xl ${
                               rating >= 1 ? "text-yellow-400" : "text-gray-400"
                             } hover:text-yellow-400 transition duration-500  `}
-                            onClick={() => handleRate(1)}
+                            onClick={(e) => handleRate(e,1)}
                           >
                             ★
                           </button>
@@ -608,7 +609,7 @@ function Orders() {
                             className={`text-3xl ${
                               rating >= 2 ? "text-yellow-400" : "text-gray-400"
                             } hover:text-yellow-400 transition duration-500 `}
-                            onClick={() => handleRate(2)}
+                            onClick={(e) => handleRate(e,2)}
                           >
                             ★
                           </button>
@@ -616,7 +617,7 @@ function Orders() {
                             className={`text-3xl ${
                               rating >= 3 ? "text-yellow-400" : "text-gray-400"
                             } hover:text-yellow-400 transition duration-500  `}
-                            onClick={() => handleRate(3)}
+                            onClick={(e) => handleRate(e,3)}
                           >
                             ★
                           </button>
@@ -624,7 +625,7 @@ function Orders() {
                             className={`text-3xl ${
                               rating >= 4 ? "text-yellow-400" : "text-gray-400"
                             } hover:text-yellow-400 transition duration-500 `}
-                            onClick={() => handleRate(4)}
+                            onClick={(e) => handleRate(e,4)}
                           >
                             ★
                           </button>
@@ -632,7 +633,7 @@ function Orders() {
                             className={`text-3xl ${
                               rating >= 5 ? "text-yellow-400" : "text-gray-400"
                             } hover:text-yellow-400 transition duration-500 `}
-                            onClick={() => handleRate(5)}
+                            onClick={(e) => handleRate(e,5)}
                           >
                             ★
                           </button>

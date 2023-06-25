@@ -57,22 +57,12 @@ const Sidebar = () => {
     // },
   ];
 
-  // const [selectedImage, setSelectedImage] = useState(null);
-  // const [userImage, setUserImage] = useState(null);
-  // const [loading, setLoading] = useState(null);
-  // const [isChecked, setChecked] = useState(false);
-
-  // if (selectedImage != null)
-  // {
-  // setChecked(true);
-  // }
   const handleFetchImg = (e) => {
     e.preventDefault();
     const userImg = {
       profileImg: selectedImage,
     };
-    // console.log(userImg);
-
+    console.log(userImg);
     const formData = new FormData();
     formData.append("profileImg", userImg.profileImg, userImg.profileImg.name);
     setLoading(true);
@@ -91,7 +81,6 @@ const Sidebar = () => {
           closeOnClick: true,
           pauseOnHover: true,
         });
-
         // console.log('post image',res.data);
       })
       .catch((err) => {
@@ -104,12 +93,9 @@ const Sidebar = () => {
           closeOnClick: true,
           pauseOnHover: true,
         });
-
-        console.log(err);
+        // console.log(err);
       });
   };
-
-  // const [user, setUser] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -121,7 +107,6 @@ const Sidebar = () => {
         setLoading(false);
         setUserImage(res?.data.data.profileImg);
         setUser(res?.data.data);
-
         // console.log('get data',res.data);
       })
       .catch((err) => {
@@ -180,7 +165,7 @@ const Sidebar = () => {
                       alt="profile.jpg"
                       className="w-full h-full max-w-[100%] rounded-full object-cover "
                     />
-                    <label className="icon  w-[40px] h-[40px] absolute -bottom-0 right-1 text-white bg-secondary flex items-center content-center py-2 px-2 rounded-[50%] -pointer">
+                    <label className="icon w-[40px] h-[40px] absolute -bottom-0 right-1 text-white bg-secondary flex items-center content-center py-2 px-2 rounded-[50%] -pointer">
                       <img
                         src={"./icons/camera.svg"}
                         className="max-w-[100%] absolute z-[10] rounded-[50%] cursor-pointer"
@@ -194,6 +179,8 @@ const Sidebar = () => {
                           const file = e.target.files[0];
                           setSelectedImage(file);
                           setChecked(true);
+                          // console.log(isChecked)
+                          // console.log('image',selectedImage)
                         }}
                       />
                     </label>

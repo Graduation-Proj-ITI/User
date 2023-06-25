@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import SingleProduct from "../Product/SingleProduct";
 import moment from "moment/moment";
@@ -21,6 +21,34 @@ function ProductDetails() {
   //   "/images/grid/3.png",
   // ]);
 
+  const navigate = useNavigate();
+  const AddToCart = async (e, productId) => {
+    e.preventDefault();
+
+    console.log(localStorage.getItem("token"), productId);
+    try {
+      const { data } = await axios.post(
+        "https://furnival.onrender.com/cart",
+        { productId },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(data);
+      toast.success("Product added to cart successfully", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      setItemsInCart(data.numberOfCartItems);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const getProducts = async () => {
     try {
       const { data } = await axios.get(
@@ -165,10 +193,26 @@ function ProductDetails() {
                       <span className="text-black">Egypt</span>
                     </li>
                   </ul>
-                </div> */}
-                <button className="btn addToCart mt-6">Add to cart</button>
+
+                </div>
+                */}
+                <button
+                  className="btn addToCart mt-6"
+                  onClick={(e) => {
+                    if (localStorage.getItem("token")) {
+                      AddToCart(e, productId);
+                    } else {
+                      navigate("/Login");
+                    }
+                  }}
+                >
+                  Add to cart
+
+               </button>
+               
                 <button onClick={addToWishList} className="btn addToCart mt-3">
                   Add To Favourite
+
                 </button>
               </div>
             </div>

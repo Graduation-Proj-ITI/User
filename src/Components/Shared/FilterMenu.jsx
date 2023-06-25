@@ -40,7 +40,7 @@ const FilterMenu = ({
           <span className="text-black">15000</span>
           <span className="text-black">20000</span>
           <span className="text-black">25000</span>
-          <span className="text-black">3000</span>
+          <span className="text-black">30000</span>
         </div>
       </div>
       <div className="filterRate  ps-4 mb-8">

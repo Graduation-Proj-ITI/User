@@ -121,13 +121,12 @@ const Categories = () => {
         ref={ref}
       >
         {categories.map((category) => (
-          <Link to={`/Product/${category._id}`}>
+          <Link to={`/Product/${category._id}`} key={category._id}>
             {" "}
             <div
               className={
                 "max-sm:w-36 max-sm:h-56 w-56 h-72 carousel-item flex flex-col cursor-pointer group bg-cover rounded-xl  relative"
               }
-              key={category._id}
             >
               <img
                 src={category.image}

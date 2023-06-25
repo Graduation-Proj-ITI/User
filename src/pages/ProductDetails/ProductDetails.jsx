@@ -117,7 +117,7 @@ function ProductDetails() {
             <div className="shoeimf ms-3 lg:w-3/4 md:w-full h-[515px]">
               <img
                 className="mt-5 object-fit-cover w-full h-full"
-                src={imgarr ? imgarr : oneProduct?.images[0]}
+                src={imgarr ? imgarr : oneProduct?.imageCover}
               />
             </div>
           </div>

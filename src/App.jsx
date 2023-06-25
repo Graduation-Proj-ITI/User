@@ -26,6 +26,7 @@ import CurrentOrder from "./pages/CurrentOrder";
 import Blogs from "./pages/Blogs";
 import Wishlist from "./Components/sections/Wishlist";
 import ForgetPassword from "./pages/ForgetPassword";
+import ErrorPage from "./pages/error";
 export default function App() {
   const [itemInCart, setItemsInCart] = useState(0);
   return (

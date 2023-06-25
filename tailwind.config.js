@@ -12,7 +12,7 @@ export default {
       colors: {
         primary: "#133A5E",
         secondary: "#FFB921",
-        bgColor: "#EEEEEE",
+        bgColor: "#f1f0f6a1",
         transparent: "transparent",
         current: "currentColor",
         black: "#000",

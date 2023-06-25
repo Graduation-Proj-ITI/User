@@ -478,7 +478,7 @@ const Profile = ({user,setUser}) => {
             <label
               htmlFor="my-modal-3"
               onClick={()=>{setCheck(false)}}
-              className="btn text-error px-4 rounded-[6px] btn-sm btn-circle absolute right-2 top-2 hover:bg-error hover:text-white hover:border-error"
+              className="btn btn-error-outline px-4 rounded-[6px] btn-sm btn-circle absolute right-2 top-2 hover:bg-error hover:text-white hover:border-error"
             >
               ✕
             </label>

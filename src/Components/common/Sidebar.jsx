@@ -169,7 +169,7 @@ const Sidebar = () => {
                       alt="profile.jpg"
                       className="w-full h-full max-w-[100%] rounded-full object-cover "
                     />
-                    <label className="icon  w-[40px] h-[40px] absolute -bottom-0 right-1 text-white bg-secondary flex items-center content-center py-2 px-2 rounded-[50%] -pointer">
+                    <label className="icon w-[40px] h-[40px] absolute -bottom-0 right-1 text-white bg-secondary flex items-center content-center py-2 px-2 rounded-[50%] -pointer">
                       <img
                         src={"./icons/camera.svg"}
                         className="max-w-[100%] absolute z-[10] rounded-[50%] cursor-pointer"

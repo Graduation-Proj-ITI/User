@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 
 const Drawer = ({ children }) => {
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
 
   const [search, setsearch] = useState([]);
   return (
@@ -85,13 +85,13 @@ const Drawer = ({ children }) => {
             </li>
             <li className=" text-lg">
               <NavLink
-                to="/community"
+                to="/blog"
                 className={({ isActive }) =>
                   (isActive ? "text-secondary font-bold" : "text-white") +
                   " text-lg hover:text-secondary  cursor-pointer"
                 }
               >
-                Community
+                Blog
               </NavLink>
             </li>
             {/* <li className=" text-lg">

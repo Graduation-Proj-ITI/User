@@ -15,6 +15,7 @@ const Address = () => {
   const[rerend,setRerend] = useState(false);
   
  const [cities,setCities] = useState([
+ {"id":"0","governorate_name_ar":"null","governorate_name_en":"Select City"},
   {"id":"1","governorate_name_ar":"القاهرة","governorate_name_en":"Cairo"},
   {"id":"2","governorate_name_ar":"الجيزة","governorate_name_en":"Giza"},
   {"id":"3","governorate_name_ar":"الأسكندرية","governorate_name_en":"Alexandria"},
@@ -193,14 +194,14 @@ const Address = () => {
     setChecked(true);
 
     if (isDefault) {
-    
+    // console.log(isDefault,'from submit')
     const newAddress = [];
    allAdresses.forEach( address => {
       address.default=false
         axios
        .put(`https://furnival.onrender.com/addresses/${address._id}`, address, {
          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-       }).then(res=>{console.log(res.data.data);newAddress.push(res.data.data); return res.data.data;}).catch(err=>{return err.data})
+       }).then(res=>{newAddress.push(res.data.data); return res.data.data;}).catch(err=>{return err.data})
       });
     // formState.default = isDefault;
   setAllAdresses([...newAddress,formState]);
@@ -210,7 +211,7 @@ const Address = () => {
         address: "",
         zip: "",
         phone: "",
-        default: false,
+        default: isDefault,
         // country: "",
         city: "",
       });
@@ -218,9 +219,9 @@ const Address = () => {
     
     setLoading(true);
     setIsEdit(false);
-    setIsDefault(fasle)
+    setIsDefault(formState.default);
     axios.post("https://furnival.onrender.com/addresses",  {'alias':formState.name,'details':formState.address,'phone':formState.phone,'postalCode':formState.zip,    "city": formState.city,
-    'default':formState.default},{
+    'default':isDefault},{
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
     .then((res) => {
@@ -228,6 +229,8 @@ const Address = () => {
     setAllAdresses(res.data.data);
     setChecked(false);
     setRerend(true);
+    // console.log(formState.default);
+    // console.log(res.data.data);
     toast.success("Your address added successfully!", {
       position: "bottom-right",
       autoClose: 5000,
@@ -235,12 +238,12 @@ const Address = () => {
       closeOnClick: true,
       pauseOnHover: true,
     });
-  setIsDefault(fasle);
+  // setIsDefault(false);
     })
     .catch((err) => {
       setChecked(false);
       setLoading(false);
-    console.log(err.data)
+    // console.log(err.data)
     });
     
    
@@ -265,7 +268,7 @@ const Address = () => {
         });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
       
   };
@@ -285,8 +288,8 @@ const [isE,setE]=useState(false);
     
     });
     setEditId(id);
-    console.log(id);
-    console.log(address)
+    // console.log(id);
+    // console.log(address)
     setCurrentAddress(address);
     setIsDefault(address.default);
     // console.log(currentAddress[currentAddress.length-1])
@@ -329,14 +332,14 @@ const [isE,setE]=useState(false);
       closeOnClick: true,
       pauseOnHover: true,
     });
-    console.log(res.data);
+    // console.log(res.data);
     })
     .catch((err) => {
       setChecked(false);
       setLoading(false);
       setIsEdit(true);
 
-    console.log(err.data)
+    // console.log(err.data)
     });
  
   };
@@ -352,7 +355,7 @@ const [isE,setE]=useState(false);
           setAllAdresses(response.data.data);
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
         });
       }
     getAdresses();
@@ -367,7 +370,7 @@ const [isE,setE]=useState(false);
     <div className="flex flex-col gap-5 content-center">
     {loading && <Loader/>}
     
-       <div className="flex flex-col gap-4 md:flex-row items-center justify-between my-4">
+       <div className="flex flex-col gap-4 md:flex-row items-center justify-between my-4 order-first">
         <div>
           <h2 className="text-primary my-2">Address</h2>
           <p className="text-dark">
@@ -404,7 +407,7 @@ const [isE,setE]=useState(false);
       {allAdresses
         .map((address, ind) => (
           <div
-            className="flex  flex-col lg:flex-row gap-1 bg-bgColor px-5 w-full lg:px-10 py-7 rounded-[16px] shadow-gray "
+            className={`flex  flex-col lg:flex-row gap-1 bg-bgColor px-5 w-full lg:px-10 py-7 rounded-[16px] shadow-gray order-2 ${address.default && "order-1"}`}
             key={ind}
           >
             <div className="w-full">
@@ -444,14 +447,14 @@ const [isE,setE]=useState(false);
               </div>
               <div className="flex flex-col gap-4">
                 <div className="w-full flex flex-col md:flex-row  gap-1 ">
-                  <p className="text-dark">Name: </p>
-                  <p className="text-primary ">
+                  <p className="text-dark flex gap-[8px] text-[16px] items-center"><img src="./icons8-details-48.png" className="w-[25px] h-[25px]" /> <span className="font-medium text-primary">Name: </span></p>
+                  <p className={`${address.default?'font-bold':''} text-primary `}>
                     {address.alias}
-                    {address.default && "(Default)"}
+                    <span className="font-bold text-green-800"> {address.default && " (Default)"}</span>
                   </p>
                 </div>
                 <div className="w-full flex flex-col md:flex-row  gap-1 ">
-                  <p className="text-dark"> Address: </p>
+                <p className="text-dark flex gap-[8px] text-[16px] items-center"><img src="./icons8-address-50.png" className="w-[25px] h-[25px]" /> <span className="font-medium text-primary">Address: </span></p>
                   <p className="text-primary ">
                     {address.city} {" "}
                     {address.details} {" "}
@@ -459,7 +462,7 @@ const [isE,setE]=useState(false);
                   </p>
                 </div>
                 <div className="w-full flex flex-col md:flex-row  gap-1">
-                  <p className="text-dark">Phone Number: </p>
+                <p className="text-dark flex gap-[8px] text-[16px] items-center"><img src="./icons8-phone-50.png" className="w-[25px] h-[25px]" /> <span className="font-medium text-primary">Phone Number: </span></p>
                   <p className="text-primary ">{address.phone} </p>
                 </div>
               </div>
@@ -474,7 +477,7 @@ const [isE,setE]=useState(false);
           <label
             htmlFor="my-modal-3"
             onClick={()=>{setChecked(false)}}
-            className="btn text-error px-4 rounded-full  btn-sm  border-error btn-outline btn-circle absolute right-4 top-2 hover:bg-error hover:text-white hover:border-error"
+            className="btn text-error px-4  btn-sm  border-error btn-outline rounded-[6px] absolute right-4 top-2 hover:bg-error hover:text-white hover:border-error"
           >
             ✕
           </label>

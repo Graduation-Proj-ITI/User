@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Shape from "../../../public/images/categories/shape.png";
 import lamp from "../../../public/images/categories/lamp.svg";
 import bed from "../../../public/images/categories/bed.svg";
@@ -7,107 +7,61 @@ import sofa from "../../../public/images/categories/sofa.svg";
 import table from "../../../public/images/categories/table.svg";
 import storage from "../../../public/images/categories/storage.svg";
 import decoration from "../../../public/images/categories/Decoration.svg";
-const categories = [
-  {
-    id: 1,
-    name: "Chair",
-    img: chair,
-    bgImg: "bg-bgChair",
-  },
-  {
-    id: 2,
-    name: "Sofa",
-    img: sofa,
-    bgImg: "bg-bgSofa",
-  },
-  {
-    id: 3,
-    name: "Table",
-    img: table,
-    bgImg: "bg-bgTable",
-  },
-  {
-    id: 4,
-    name: "Bed",
-    img: bed,
-    bgImg: "bg-bgBed",
-  },
-  {
-    id: 5,
-    name: "Lamp",
-    img: lamp,
-    bgImg: "bg-bgLamp",
-  },
-  {
-    id: 6,
-    name: "storage",
-    img: storage,
-    bgImg: "bg-bgStorage",
-  },
-  {
-    id: 7,
-    name: "decoration",
-    img: decoration,
-    bgImg: "bg-bgDecoration",
-  },
-  {
-    id: 8,
-    name: "Lamp",
-    img: lamp,
-    bgImg: "bg-bgSofa",
-  },
-  {
-    id: 9,
-    name: "Lamp",
-    img: lamp,
-    bgImg: "bg-bgSofa",
-  },
-];
+import axios from "axios";
 // const categories = [
 //   {
 //     id: 1,
-//     name: "Sofas",
-//     img: Sofa,
+//     name: "Chair",
+//     img: chair,
+//     bgImg: "bg-bgChair",
 //   },
 //   {
 //     id: 2,
-//     name: "Chairs",
-//     img: Chair,
+//     name: "Sofa",
+//     img: sofa,
+//     bgImg: "bg-bgSofa",
 //   },
 //   {
 //     id: 3,
-//     name: "Storage",
-//     img: Storage,
+//     name: "Table",
+//     img: table,
+//     bgImg: "bg-bgTable",
 //   },
 //   {
 //     id: 4,
-//     name: "Tables",
-//     img: Table,
+//     name: "Bed",
+//     img: bed,
+//     bgImg: "bg-bgBed",
 //   },
 //   {
 //     id: 5,
-//     name: "Decoration",
-//     img: Decoration,
+//     name: "Lamp",
+//     img: lamp,
+//     bgImg: "bg-bgLamp",
 //   },
 //   {
 //     id: 6,
-//     name: "Sofas",
-//     img: Sofa,
+//     name: "storage",
+//     img: storage,
+//     bgImg: "bg-bgStorage",
 //   },
 //   {
 //     id: 7,
-//     name: "Chairs",
-//     img: Chair,
+//     name: "decoration",
+//     img: decoration,
+//     bgImg: "bg-bgDecoration",
 //   },
 //   {
 //     id: 8,
-//     name: "Storage",
-//     img: Storage,
+//     name: "Lamp",
+//     img: lamp,
+//     bgImg: "bg-bgSofa",
 //   },
 //   {
 //     id: 9,
-//     name: "Tables",
-//     img: Table,
+//     name: "Lamp",
+//     img: lamp,
+//     bgImg: "bg-bgSofa",
 //   },
 // ];
 
@@ -115,8 +69,30 @@ const Categories = () => {
   const ref = useRef(null);
   const scroll = (scrollOffset) => {
     ref.current.scrollLeft += scrollOffset;
-    console.log(ref.current.scrollLeft);
+    // console.log(ref.current.scrollLeft);
   };
+
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    async function getCategory() {
+      try {
+        const { data } = await axios.get(
+          "https://furnival.onrender.com/categories"
+        );
+        setCategories(data.data);
+        console.log(data.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    getCategory();
+
+    return () => {
+      // console.log("effect clean cart");
+    };
+  }, []);
+
   return (
     <section className="my-28 max-sm:my-12 sm:my-12 xl:my-28">
       <div className="flex justify-between lg:mb-10 ">
@@ -146,14 +122,17 @@ const Categories = () => {
         {categories.map((category) => (
           <div
             className={
-              "max-sm:w-36 max-sm:h-56 w-56 h-72 carousel-item flex flex-col cursor-pointer group bg-cover rounded-xl " +
-              category.bgImg
+              "max-sm:w-36 max-sm:h-56 w-56 h-72 carousel-item flex flex-col cursor-pointer group bg-cover rounded-xl  relative"
             }
-            key={category.id}
+            key={category._id}
           >
+            <img
+              src={category.image}
+              className=" absolute w-full h-full rounded-xl object-cover"
+            />
             <div className="w-full h-full hidden group-hover:flex group-hover:flex-col group-hover:items-center group-hover:justify-center group-hover:animate-wiggle group-hover:bg-primary group-hover:bg-opacity-50 rounded-xl">
               <img
-                src={category.img}
+                src={category?.icon}
                 alt={category.name}
                 className="w-3/12 object-cover "
               />

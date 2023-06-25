@@ -14,7 +14,7 @@ const FilterMenu = ({
           type="range"
           min="0"
           max="100"
-          value="40"
+          defaultValue="40"
           className="range range-xs"
         />
       </div>

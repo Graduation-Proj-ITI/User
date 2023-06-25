@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 export default function Loader() {
   return (
-  <div className="fixed z-[1000] top-0 left-0 b-0 w-full h-full flex justify-center items-center bg-[rgba(20,58,94,.4)]">  
+  <div className="fixed z-[1000] top-0 left-0 b-0 w-full h-full flex justify-center items-center bg-[rgba(20,58,94,.4)]">
 <span className="absolute w-[50px] h-[50px] z-[2000]">
 <div role="status">
     <svg aria-hidden="true" className="inline w-full h-full mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-yellow-400" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,9 +11,7 @@ export default function Loader() {
     </svg>
     <span className="sr-only">Loading...</span>
 </div>
-
-
   </span>
-  </div>
-  );
+  </div>
+  );
 }

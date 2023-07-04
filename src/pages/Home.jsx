@@ -10,6 +10,7 @@ import GridProducts from "../Components/sections/HomeGridProducts";
 import ScrollButton from "../Components/Shared/ScrollToTopButton";
 
 const Home = () => {
+  window.scrollTo(0, 0);
   return (
     <div>
       <Slider />

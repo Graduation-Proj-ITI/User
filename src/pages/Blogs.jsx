@@ -17,11 +17,7 @@ const Blogs = () => {
   useEffect(() => {
     async function getAllblogs() {
       setLoading(true);
-      const { data } = await axios.get("https://furnival.onrender.com/blogs", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const { data } = await axios.get("https://furnival.onrender.com/blogs");
       console.log(data.data);
 
       blogsRef.current = data.data

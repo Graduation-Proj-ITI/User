@@ -17,12 +17,7 @@ const Blog = () => {
     async function getBlogById() {
       setLoading(true);
       const { data } = await axios.get(
-        `https://furnival.onrender.com/blogs/${blogId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
+        `https://furnival.onrender.com/blogs/${blogId}`
       );
       console.log(data.data);
 

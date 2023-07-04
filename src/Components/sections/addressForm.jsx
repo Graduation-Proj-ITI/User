@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 const AddressForm = ()=>{
+    document.addEventListener('DOMContentLoaded', function () {window.setTimeout(document.querySelector('svg').classList.add('animated'),2000);});
     const [allAdresses, setAllAdresses] = useState([]);
     const [isDefault, setIsDefault] = useState(false);
     const [check,setChecked] = useState(false);
@@ -45,7 +46,7 @@ const AddressForm = ()=>{
     const [formState, setFormState] = useState({
       name: "",
       address: "",
-      // city: "",
+      city: "",
       zip: "",
       phone: "",
       // country: "",
@@ -56,7 +57,7 @@ const AddressForm = ()=>{
     const [formErrors, setFormErrors] = useState({
       name: "",
       address: "",
-      // city: "",
+      city: "",
       zip: "",
       phone: "",
       default: false,
@@ -124,6 +125,14 @@ const AddressForm = ()=>{
         }));
         isValid = false;
       }
+  
+      // if (formState.city.trim() === "") {
+      //   setFormErrors((prevErrors) => ({
+      //     ...prevErrors,
+      //     city: "city is required ex. Boston",
+      //   }));
+      //   isValid = false;
+      // }
   
       if (formState.city.trim() === "") {
         setFormErrors((prevErrors) => ({
@@ -352,140 +361,161 @@ const AddressForm = ()=>{
     }, [isDefault,rerend]);
     
     return (
-        <div className="flex flex-col gap-5 content-center">
-              <form onSubmit={handleSubmit} className="form flex flex-col gap-4">
-                <div className="flex flex-col gap-1">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="ex. Office"
-                    id="name"
-                    className={`${getInputColor(
-                      "name"
-                    )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
-                    value={formState.name}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="phone" className="text-primary order-1">
-                    name*
-                  </label>
     
-                  {formErrors.name && (
-                    <span className="text-error order-2">{formErrors.name}</span>
-                  )}
-                </div>
-    
-                <div className="flex flex-col gap-1">
-                  <input
-                    type="text"
-                    name="phone"
-                    placeholder="ex. 01087654321"
-                    id="phone"
-                    className={`${getInputColor(
-                      "phone"
-                    )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
-                    value={formState.phone}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="phone" className="text-primary order-1">
-                    Phone Number*
-                  </label>
-    
-                  {formErrors.phone && (
-                    <span className="text-error order-2">{formErrors.phone}</span>
-                  )}
-                </div>
-    
-                <div className="flex flex-col gap-1">
-                  <input
-                    type="text"
-                    name="address"
-                    placeholder="ex. 123 st. Mt"
-                    id="address"
-                    className={`${getInputColor(
-                      "address"
-                    )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
-                    value={formState.address}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="address" className="text-primary order-1">
-                    Address*
-                  </label>
-    
-                  {formErrors.address && (
-                    <span className="text-error order-2">{formErrors.address}</span>
-                  )}
-                </div>
-    
-                <div className="flex flex-col gap-1">
-                
-            <select name="city"
-                  id="city"    
-                  className={`${getInputColor(
-                    "city"
-                
-                  )} text-primary order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
-                  value={formState.city}
-                  onChange={handleChange}>
-    {
-    cities.map((city,ind) => 
-    
-      <option key={ind} className="text-primary hover:text-white" value={city.governorate_name_en}>{city.governorate_name_en}</option>
-    )
-    }                    
-      </select>
-                  <label htmlFor="city" className="text-primary order-1">
-                    City*
-                  </label>
-    
-                  {formErrors.city && (
-                    <span className="text-error order-2">{formErrors.city}</span>
-                  )}
-                </div>
-    
-                <div className="flex flex-col gap-1">
-                  <input
-                    type="text"
-                    name="zip"
-                    placeholder="ex. 029876"
-                    id="zip"
-                    className={`${getInputColor(
-                      "zip"
-                    )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
-                    value={formState.zip}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="zip" className="text-primary order-1">
-                    Zip*
-                  </label>
-    
-                  {formErrors.zip && (
-                    <span className="text-error order-2">{formErrors.zip}</span>
-                  )}
-                </div>
-    
-                <div className="flex flex-row gap-2">
-                  <input
-                    type="checkbox"
-                    name="isDefault"
-                    id="isDefault"
-                    className="checkbox checkbox-primaryC text-white order-1"
-                    checked={isDefault}
-                    onChange={(e)=>{(setIsDefault(e.target.checked));}}
-                  />
-                  <label htmlFor="isDefault" className="text-primary order-2">
-                    is Default
-                  </label>
-                </div>
-    
-                <button
-                  type="submit"
-                  className="btn btn-primary w-[200px] py-0 mt-5 rounded-[8px]"
-                >
-                  {isEdit ? "Edit Address" : "Add Address"}
-                </button>
-              </form>
-            </div>
+        <form onSubmit={handleSubmit} className="form flex flex-col gap-4">
+        <div className="flex flex-col gap-1">
+          <input
+            type="text"
+            name="name"
+            placeholder="ex. Office"
+            id="name"
+            className={`${getInputColor(
+              "name"
+            )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+            value={formState.name}
+            onChange={handleChange}
+          />
+          <label htmlFor="phone" className="text-primary order-1">
+            name*
+          </label>
+
+          {formErrors.name && (
+            <span className="text-error order-2">{formErrors.name}</span>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <input
+            type="text"
+            name="phone"
+            placeholder="ex. 01087654321"
+            id="phone"
+            className={`${getInputColor(
+              "phone"
+            )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+            value={formState.phone}
+            onChange={handleChange}
+          />
+          <label htmlFor="phone" className="text-primary order-1">
+            Phone Number*
+          </label>
+
+          {formErrors.phone && (
+            <span className="text-error order-2">{formErrors.phone}</span>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <input
+            type="text"
+            name="address"
+            placeholder="ex. 123 st. Mt"
+            id="address"
+            className={`${getInputColor(
+              "address"
+            )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+            value={formState.address}
+            onChange={handleChange}
+          />
+          <label htmlFor="address" className="text-primary order-1">
+            Address*
+          </label>
+
+          {formErrors.address && (
+            <span className="text-error order-2">{formErrors.address}</span>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-1">
+        
+    <select name="city"
+          id="city"    
+          className={`${getInputColor(
+            "city"
+        
+          )} text-primary order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+          value={formState.city}
+          onChange={handleChange}>
+{
+cities.map((city,ind) => 
+
+<option key={ind} className="text-primary hover:text-white" value={city.governorate_name_en}>{city.governorate_name_en}</option>
+)
+}                    
+</select>
+          <label htmlFor="city" className="text-primary order-1">
+            City*
+          </label>
+
+          {formErrors.city && (
+            <span className="text-error order-2">{formErrors.city}</span>
+          )}
+        </div>
+
+        {/* <div className="flex flex-col gap-1">
+          <input
+            type="text"
+            name="country"
+            placeholder="ex. USA"
+            id="country"
+            className={`${getInputColor(
+              "country"
+            )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+            value={formState.country}
+            onChange={handleChange}
+          />
+          <label htmlFor="country" className="text-primary order-1">
+            Country*
+          </label>
+
+          {formErrors.country && (
+            <span className="text-error order-2">{formErrors.country}</span>
+          )}
+        </div>*/
+        }
+
+        <div className="flex flex-col gap-1">
+          <input
+            type="text"
+            name="zip"
+            placeholder="ex. 029876"
+            id="zip"
+            className={`${getInputColor(
+              "zip"
+            )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+            value={formState.zip}
+            onChange={handleChange}
+          />
+          <label htmlFor="zip" className="text-primary order-1">
+            Zip*
+          </label>
+
+          {formErrors.zip && (
+            <span className="text-error order-2">{formErrors.zip}</span>
+          )}
+        </div>
+
+        <div className="flex flex-row gap-2">
+          <input
+            type="checkbox"
+            name="isDefault"
+            id="isDefault"
+            className="checkbox checkbox-primaryC text-white order-1"
+            checked={isDefault}
+            onChange={(e)=>{(setIsDefault(e.target.checked));}}
+          />
+          <label htmlFor="isDefault" className="text-primary order-2">
+            is Default
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          className="btn btn-primary w-[200px] py-0 mt-5 rounded-[8px]"
+        >
+          {isEdit ? "Edit Address" : "Add Address"}
+        </button>
+      </form>
       );
 
 }

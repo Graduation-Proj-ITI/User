@@ -27,6 +27,8 @@ import Blogs from "./pages/Blogs";
 import Wishlist from "./Components/sections/Wishlist";
 import ForgetPassword from "./pages/ForgetPassword";
 import ErrorPage from "./pages/error";
+import Protected from "./Components/Shared/ProtectedRoute";
+import Blog from "./pages/Blog";
 export default function App() {
   const [itemInCart, setItemsInCart] = useState(0);
   return (
@@ -34,38 +36,69 @@ export default function App() {
       <BrowserRouter>
         <Drawer>
           <NavBar itemInCart={itemInCart} />
+
           <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
             <Route path="/" element={<Home />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/blog" element={<Blogs />} />
+            <Route path="/blog/:blogId" element={<Blog />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route
               path="/Product/:categoryId?"
               element={<Product setItemsInCart={setItemsInCart} />}
             />
-            <Route path="/community" element={<Community />} />
-            <Route path="/blog" element={<Blogs />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/profile" element={<User />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="*" element={<ErrorPage />} />
-
-            <Route
-              path="/cart"
-              element={<CurrentOrder setItemsInCart={setItemsInCart} />}
-            />
-            <Route
-              path="/checkout"
-              element={<Checkout setItemsInCart={setItemsInCart} />}
-            />
-            <Route path="/successOrder" element={<SuccessOrder />} />
-            {/* <Route path="/contact" element={<Contact />} /> */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/Register" element={<Register />} />
             <Route
               path="/product/details/:productId"
               element={<ProductDetails />}
             />
-            <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route
+              path="/successOrder"
+              element={
+                <Protected>
+                  <SuccessOrder />
+                </Protected>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <Protected>
+                  <User />
+                </Protected>
+              }
+            />
+            <Route
+              path="/wishlist"
+              element={
+                <Protected>
+                  <Wishlist />
+                </Protected>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <Protected>
+                  <CurrentOrder setItemsInCart={setItemsInCart} />
+                </Protected>
+              }
+            />
+            <Route
+              path="/checkout"
+              element={
+                <Protected>
+                  <Checkout setItemsInCart={setItemsInCart} />
+                </Protected>
+              }
+            />
+
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
+
           <ToastContainer />
           <Footer />
         </Drawer>

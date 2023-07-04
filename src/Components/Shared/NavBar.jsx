@@ -34,7 +34,8 @@ const NavBar = ({ itemInCart }) => {
           location.pathname === "/successOrder" ||
           location.pathname === "/wishlist" ||
           location.pathname.includes("/product/details/")
-            ? " animate-wiggle bg-primary "
+            ? // location.pathname.includes("/blog/")
+              " animate-wiggle bg-primary "
             : " bg-transparent ") +
           (location.pathname === "/Register" ||
           location.pathname === "/Login" ||
@@ -268,9 +269,11 @@ const NavBar = ({ itemInCart }) => {
             </li>
           </ul>
         ) : (
-          <button className=" text-primary btn  rounded-3xl btn-sm btn-secondary px-5  ">
-            <NavLink to="/Login">Login</NavLink>
-          </button>
+          <NavLink to="/Login">
+            <button className=" text-primary btn  rounded-3xl btn-sm btn-secondary px-5  ">
+              Login
+            </button>
+          </NavLink>
         )}
       </nav>
     </>

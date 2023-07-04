@@ -38,7 +38,9 @@ const NavBar = ({ itemInCart }) => {
             : " bg-transparent ") +
           (location.pathname === "/Register" ||
           location.pathname === "/Login" ||
-          location.pathname === "/forget-password"
+          location.pathname === "/forget-password"||
+          location.pathname === "/reset-password"||
+          location.pathname === "/*"
             ? " hidden"
             : " ")
         }

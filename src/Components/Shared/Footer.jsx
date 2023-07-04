@@ -11,7 +11,10 @@ export default function Footer() {
         className={
           location.pathname === "/Login" ||
           location.pathname === "/Register" ||
-          location.pathname === "/forget-password"
+          location.pathname === "/forget-password"||
+          location.pathname === "/reset-password"
+          ||          location.pathname === "/*"
+
             ? "hidden"
             : ""
         }

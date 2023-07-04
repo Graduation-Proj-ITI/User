@@ -4,7 +4,7 @@ const Team = () => {
   const names = [
     {
       id: 1,
-      img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60",
+      img: "./Mayar.jpg",
       name: "Mayar Mohamed",
       role: "Frontend developer",
       github: "",
@@ -13,15 +13,16 @@ const Team = () => {
     {
       id: 2,
       // img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      // img:"./images/About/zien.jpg",
-img:"https://img.freepik.com/free-photo/modern-muslim-woman-hijab-office-room_285396-11089.jpg?w=826&t=st=1687214513~exp=1687215113~hmac=37ee5fbf041cf71f7c2d69fe44070f1874dc5116f2024480383f110d8bdce1f6",      name: "Zeinab Mohamed",
+      img:"https://media.licdn.com/dms/image/D4D03AQGpOvLhmpfgsw/profile-displayphoto-shrink_800_800/0/1685561820388?e=1693440000&v=beta&t=jQFSopv-DF5_nMKH6U_8b-GVkzoAQSx2ZmPRbw1qQiQ",
+// img:"https://img.freepik.com/free-photo/modern-muslim-woman-hijab-office-room_285396-11089.jpg?w=826&t=st=1687214513~exp=1687215113~hmac=37ee5fbf041cf71f7c2d69fe44070f1874dc5116f2024480383f110d8bdce1f6",  
+name: "Zeinab Mohamed",
       role: "Frontend developer",
       github: "",
       linkedin: "",
     },
     {
       id: 3,
-      img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+      img: "./rahma.jpg",
       name: "Rahma Hanafi",
       role: "Frontend developer",
       github: "https://github.com/RahmaHanafi",
@@ -29,7 +30,7 @@ img:"https://img.freepik.com/free-photo/modern-muslim-woman-hijab-office-room_28
     },
     {
       id: 4,
-      img: "https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80",
+      img: "./Naiem.jpg",
       name: "Mohamed Naiem",
       role: "Frontend developer",
       github: "",
@@ -37,7 +38,7 @@ img:"https://img.freepik.com/free-photo/modern-muslim-woman-hijab-office-room_28
     },
     {
       id: 5,
-      img: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+      img: "./yahia.jpg",
       name: "Mohamed Yahia",
       role: "Fullstack developer",
       github: "",

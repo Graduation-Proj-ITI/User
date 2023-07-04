@@ -27,6 +27,7 @@ import Blogs from "./pages/Blogs";
 import Wishlist from "./Components/sections/Wishlist";
 import ForgetPassword from "./pages/ForgetPassword";
 import ErrorPage from "./pages/error";
+import AddressForm from "./Components/sections/AddressForm";
 export default function App() {
   const [itemInCart, setItemsInCart] = useState(0);
   return (
@@ -46,6 +47,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/profile" element={<User />} />
             <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/form" element={<AddressForm />} />
             <Route path="*" element={<ErrorPage />} />
 
             <Route

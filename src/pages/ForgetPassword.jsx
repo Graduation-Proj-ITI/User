@@ -24,13 +24,19 @@ function ForgetPassword() {
           email,
         }
       );
-      toast("please check your email");
+      toast.success(data.message);
 
       setStep(2);
     } catch (e) {
       setLoading(true);
-      console.log("Something went wrong! try again later");
-      toast("Email is not found");
+      console.log(e);
+      toast.error(e.response.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
     } finally {
       setLoading(false);
     }
@@ -46,13 +52,13 @@ function ForgetPassword() {
           resetCode: code,
         }
       );
-      toast("Code is True");
+      toast.success(data.status);
       console.log(data);
 
       setStep(3);
     } catch (e) {
       setLoading(true);
-      toast("Code is false");
+      toast.error(e.response.data.message);
       console.log("Wrong code! check the code in your gmail");
     } finally {
       setLoading(false);
@@ -70,15 +76,12 @@ function ForgetPassword() {
           newPassword,
         }
       );
-
-      console.log(data);
-      toast("update succsufully");
+      toast.success('password changed successfully');
       navigate("/Login");
     } catch (e) {
       setLoading(true);
-      console.error(e);
       console.log("Something went wrong! try again later");
-      toast(" try again");
+    toast.error(e.response.data.message);
     } finally {
       setLoading(false);
     }

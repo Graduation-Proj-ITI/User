@@ -2,6 +2,7 @@
 // import Home from "./pages/Home";
 // import Profile from "./Components/pages/profile";
 import { ToastContainer } from "react-toastify";
+import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import "normalize.css";
@@ -30,23 +31,31 @@ import ErrorPage from "./pages/error";
 import AddressForm from "./Components/sections/AddressForm";
 export default function App() {
   const [itemInCart, setItemsInCart] = useState(0);
+  const [itemsInWishlist, setItemsInWishlist] = useState(0);
+  const [isRemoved,setIsRemoved]=useState(false);
+
+
   return (
     <>
       <BrowserRouter>
         <Drawer>
-          <NavBar itemInCart={itemInCart} />
+          <NavBar itemInCart={itemInCart} setItemsInCart={setItemsInCart} itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist} isRemoved={isRemoved}/>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
               path="/Product/:categoryId?"
               element={<Product setItemsInCart={setItemsInCart} />}
             />
+            <Route
+              path="/product/details/:productId?"
+              element={<ProductDetails setItemsInCart={setItemsInCart} itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist} />}
+            />
             <Route path="/community" element={<Community />} />
             <Route path="/blog" element={<Blogs />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/profile" element={<User />} />
-            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/profile" element={<User itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist}  setItemsInCart={setItemsInCart} itemInCart={itemInCart} />} />
+            <Route path="/wishlist" element={<Wishlist setItemsInCart={setItemsInCart} itemInCart={itemInCart} setItemsInWishlist={setItemsInWishlist} itemsInWishlist={itemsInWishlist}/>} />
             <Route path="/form" element={<AddressForm />} />
             <Route path="*" element={<ErrorPage />} />
 

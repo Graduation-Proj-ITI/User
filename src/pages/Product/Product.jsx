@@ -10,7 +10,7 @@ import { Link, useParams } from "react-router-dom";
 
 const pageSize = 9;
 
-function Product({ setItemsInCart }) {
+function Product({ setItemsInCart ,setItemsInWishlist}) {
   const { categoryId } = useParams();
   console.log(categoryId);
 
@@ -321,6 +321,7 @@ function Product({ setItemsInCart }) {
                           product={product}
                           key={product._id}
                           setItemsInCart={setItemsInCart}
+                          setItemsInWishlist={setItemsInWishlist}
                         />
                       );
                     })

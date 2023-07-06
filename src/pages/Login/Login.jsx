@@ -12,20 +12,90 @@ function Login() {
   const navigate = useNavigate();
   const [emailError, setemailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [login, setLogin] = useState({
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState("");
+  const [iserr, setIsErr] = useState(false);
+  const [formState, setFormState] = useState({
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
+  const [formErrors, setFormErrors] = useState({
+    email: "",
+    password: "",
+  });
+
+  const isValidEmail = (email) => {
+    // Email validation logic (regex or other validation methods)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateEmail = () => {
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      email: "",
+    }));
+    let isValid = true;
+    if (formState.email.trim() === "") {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Email is required",
+      }));
+      isValid = false;
+    } else if (!isValidEmail(formState.email.trim())) {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Invalid email address",
+      }));
+      isValid = false;
+    }
+    return isValid;
+  };
+
+  const validatePassword = () => {
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      password: "",
+    }));
+    let isValid = false;
+    if (formState.password.trim() === "") {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password is required",
+      }));
+      isValid = false;
+    } else if (formState.password.trim().length <= 5) {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password must be at least 6 characters long",
+      }));
+      isValid = false;
+    } else if (formState.password.trim().length >= 20) {
+      setFormErrors({
+        ...prevErrors,
+        password: "Password must be less than 20 characters long",
+      });
+
+      isValid = false;
+    }
+    return isValid;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("true");
     setLoading(true);
-
+    validateEmail();
+    validatePassword();
     await axios
-      .post("https://furnival.onrender.com/auth/login", login)
+      .post("https://furnival.onrender.com/auth/login", formState)
       .then((res) => {
+        setFormErrors(
+        {
+        email:"",
+        password:""
+        }
+        );
         toast.success("Login Succesufully", {
           position: "top-right",
           autoClose: 5000,
@@ -33,28 +103,22 @@ function Login() {
           closeOnClick: true,
           pauseOnHover: true,
         });
-        navigate("/", { replace: true });
-        console.log(res.data.token);
+        setIsErr(false);
+        setTimeout(() => {          
+          navigate("/", { replace: true });
+        }, 350);
         localStorage.setItem("token", res.data.token);
-        console.log(res.data.token);
       })
       .catch((e) => {
-        console.log(e);
-        toast.error("Incorrect email or password", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-        });
-
+        setErr(e.response.data.message);
+        setIsErr(true);
         setLoading(true);
       })
       .finally(() => setLoading(false));
   };
 
   const handleChange = (e) => {
-    setLogin({ ...login, [e.target.name]: e.target.value });
+    setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
   return (
@@ -80,34 +144,31 @@ function Login() {
                 <div className="forminput text-center">
                   <form onSubmit={handleSubmit}>
                     <div className="form-control m-auto max-w-xs">
-                      <label className="label" htmlFor="username">
+                      <label className="label" htmlFor="email">
                         <span className="label-text text-black text-lg">
-                          Username <span className="text-red-800">*</span>
+                          Email <span className="text-red-800">*</span>
                         </span>
                       </label>
                       <input
                         name="email"
                         onChange={handleChange}
-                        value={login.email}
-                        id="username"
+                        value={formState.email}
+                        id="email"
                         type="text"
                         placeholder="Type here"
                         className="input input-bordered w-full px-3 text-black"
-                        onInput={(e) => {
-                          setemailError(
-                            e.target.value.length >= 6 ? false : true
-                          );
-                        }}
-                        onBlur={(e) => {
-                          setemailError(e.target.value.length ? false : true);
+                        onKeyUp={(e) => {
+                          validateEmail();
                         }}
                       />
 
-                      {emailError && (
-                        <p className="text-red-900 text-left" id="nameerror">
-                          invalid name
-                        </p>
+                      {formErrors.email && (
+                        <span className="text-red-800 text-left">
+                          {formErrors.email}
+                        </span>
                       )}
+
+                   
                     </div>
 
                     <div className="form-control m-auto max-w-xs">
@@ -119,29 +180,23 @@ function Login() {
                       <input
                         name="password"
                         onChange={handleChange}
-                        value={login.password}
+                        value={formState.password}
                         id="password"
                         type="password"
                         placeholder="Type here"
                         className="input input-bordered w-full  px-3 "
-                        onInput={(e) => {
-                          setPasswordError(
-                            e.target.value.length >= 8 ? false : true
-                          );
-                        }}
-                        onBlur={(e) => {
-                          setPasswordError(
-                            e.target.value.length >= 8 ? false : true
-                          );
+                        onKeyUp={(e) => {
+                          validatePassword();
                         }}
                       />
-                      {passwordError && (
-                        <p
-                          className=" text-red-900 text-left"
-                          id="passworderror"
-                        >
-                          password at least 8 char
-                        </p>
+
+                      {formErrors.password && (
+                        <span className="text-red-800 text-left">
+                          {formErrors.password}
+                        </span>
+                      )}
+                      {iserr && (
+                        <span className="text-red-800 text-left">{err}</span>
                       )}
                     </div>
 

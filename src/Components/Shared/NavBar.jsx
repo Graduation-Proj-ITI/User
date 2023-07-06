@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../../public/images/logo.png";
+import axios from "axios";
 // import logo from "../../../public/images/logo/furnivalLogo.png";
 
-const NavBar = ({ itemInCart }) => {
+const NavBar = ({setItemsInCart,itemInCart,itemsInWishlist,setItemsInWishlist }) => {
   const [visible, setVisible] = React.useState(false);
+  const token = localStorage.getItem("token");
 
   const location = useLocation();
   console.log(location.pathname);
@@ -19,6 +21,24 @@ const NavBar = ({ itemInCart }) => {
       setVisible(false);
     }
   };
+  const [items,setItems]=useState(0);
+  useEffect(()=>{
+  axios.get("https://furnival.onrender.com/wishlist",  {
+    headers: { Authorization: `Bearer ${token}` },
+  }).then((res)=>{
+    setItemsInWishlist(res.data.data.length);
+    console.log(res.data.data.length);
+    setItems(...itemsInWishlist)
+  }).catch((err)=>{
+  });
+  
+  axios.get("https://furnival.onrender.com/cart",  {
+    headers: { Authorization: `Bearer ${token}` },
+  }).then((res)=>{
+    setItemsInCart(res.data.data.cartItems.length)
+  }).catch((err)=>{
+  });
+    },[])
 
   window.addEventListener("scroll", toggleVisible);
 
@@ -224,6 +244,15 @@ const NavBar = ({ itemInCart }) => {
                   {/* <span className="badge badge-sm badge-white bg-secondary text-primary border-0 indicator-item">
                     0
                   </span> */}
+                  
+                  <span
+                    className={
+                      "badge badge-sm badge-white  bg-secondary text-primary border-0 indicator-item " +
+                      (!itemsInWishlist ? " hidden" : "")
+                    }
+                  >
+                    {itemsInWishlist}
+                  </span>
                 </div>
               </NavLink>
             </li>

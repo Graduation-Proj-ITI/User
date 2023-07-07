@@ -28,7 +28,8 @@ import Blogs from "./pages/Blogs";
 import Wishlist from "./Components/sections/Wishlist";
 import ForgetPassword from "./pages/ForgetPassword";
 import ErrorPage from "./pages/error";
-import AddressForm from "./Components/sections/AddressForm";
+import Protected from "./Components/Shared/ProtectedRoute";
+import Blog from "./pages/Blog";
 export default function App() {
   const [itemInCart, setItemsInCart] = useState(0);
   const [itemsInWishlist, setItemsInWishlist] = useState(0);
@@ -41,42 +42,71 @@ export default function App() {
         <Drawer>
           <NavBar itemInCart={itemInCart} setItemsInCart={setItemsInCart} itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist} isRemoved={isRemoved}/>
           <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
             <Route path="/" element={<Home />} />
-            <Route
+            <Route path="/community" element={<Community />} />
+            <Route path="/blog" element={<Blogs />} />
+            <Route path="/blog/:blogId" element={<Blog />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+//             <Route path="/form" element={<AddressForm  address={isAdressAdded} setIsAdressAdded={setIsAdressAdded}/>} />
+
+
+            <Route 
               path="/Product/:categoryId?"
               element={<Product setItemsInCart={setItemsInCart} />}
             />
-            <Route
+       
+           <Route
               path="/product/details/:productId?"
               element={<ProductDetails setItemsInCart={setItemsInCart} itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist} />}
             />
-            <Route path="/community" element={<Community />} />
-            <Route path="/blog" element={<Blogs />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/profile" element={<User itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist}  setItemsInCart={setItemsInCart} itemInCart={itemInCart} />} />
-            <Route path="/wishlist" element={<Wishlist setItemsInCart={setItemsInCart} itemInCart={itemInCart} setItemsInWishlist={setItemsInWishlist} itemsInWishlist={itemsInWishlist}/>} />
-            <Route path="/form" element={<AddressForm  address={isAdressAdded} setIsAdressAdded={setIsAdressAdded}/>} />
-            <Route path="*" element={<ErrorPage />} />
-
+            <Route
+              path="/successOrder"
+              element={
+                <Protected>
+                  <SuccessOrder />
+                </Protected>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <Protected>
+                  <User itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist}  setItemsInCart={setItemsInCart} itemInCart={itemInCart}/>
+                </Protected>
+              }
+            />
+            <Route
+              path="/wishlist"
+              element={
+                <Protected>
+                  <Wishlist setItemsInCart={setItemsInCart} itemInCart={itemInCart} setItemsInWishlist={setItemsInWishlist} itemsInWishlist={itemsInWishlist} />
+                </Protected>
+              }
+            />
             <Route
               path="/cart"
-              element={<CurrentOrder setItemsInCart={setItemsInCart} />}
+              element={
+                <Protected>
+                  <CurrentOrder setItemsInCart={setItemsInCart} />
+                </Protected>
+              }
             />
             <Route
               path="/checkout"
-              element={<Checkout setItemsInCart={setItemsInCart} isAdressAdded={isAdressAdded} />}
+              element={
+                <Protected>
+                  <Checkout setItemsInCart={setItemsInCart} isAdressAdded={isAdressAdded} />
+                </Protected>
+              }
             />
-            <Route path="/successOrder" element={<SuccessOrder />} />
-            {/* <Route path="/contact" element={<Contact />} /> */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/Register" element={<Register />} />
-            <Route
-              path="/product/details/:productId"
-              element={<ProductDetails />}
-            />
-            <Route path="/forget-password" element={<ForgetPassword />} />
+
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
+
           <ToastContainer />
           <Footer />
         </Drawer>

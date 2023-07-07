@@ -216,7 +216,7 @@ function ProductDetails({setItemsInCart,setItemsInWishlist,itemsInWishlist}) {
                 return (
                   <img
                     key={singleImage}
-                    className="mt-5 hover:cursor-pointer object-fit-cover w-full h-[160px]"
+                    className="mt-5 hover:cursor-pointer object-fit-cover w-full h-[160px] rounded-2xl "
                     src={singleImage}
                     alt="img1"
                     onClick={(e) => ShowImg(e.target.src)}
@@ -224,11 +224,30 @@ function ProductDetails({setItemsInCart,setItemsInWishlist,itemsInWishlist}) {
                 );
               })}
             </div>
-            <div className="shoeimf ms-3 lg:w-3/4 md:w-full h-[515px]">
+            <div className="relative shoeimf ms-3 lg:w-3/4 md:w-full h-[515px] ">
               <img
-                className="mt-5 object-fit-cover w-full h-full"
+                className=" mt-5 object-cover w-full h-full rounded-2xl"
                 src={imgarr ? imgarr : oneProduct?.imageCover}
               />
+              <button
+                onClick={addToWishList}
+                className="btn btn-circle btn-secondary  px-0 mt-3 absolute right-4 top-6 "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-7 h-7 text-white"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
 
@@ -289,7 +308,6 @@ function ProductDetails({setItemsInCart,setItemsInWishlist,itemsInWishlist}) {
                   }}
                 >
                   Add to cart
-
                </button>
                {   
                !isInFav?
@@ -316,29 +334,27 @@ function ProductDetails({setItemsInCart,setItemsInWishlist,itemsInWishlist}) {
                     key={rate._id}
                     className="stat w-64 rounded-2xl shadow-md relative"
                   >
-                    <div className="stat-title text-gray-700 capitalize font-semibold">
+                    <div className="stat-title text-primary  capitalize font-semibold">
                       {rate.user?.name}
                     </div>
-
-                    <div className="stat-value text-primary capitalize">
-                      <p>{rate?.title}</p>
-                    </div>
-                    <div className="text-black mb-3">
+                    <div className="text-gray-700 mb-1 text-sm">
                       {moment(rate?.createdAt).fromNow()}
                     </div>
 
+                    <div className="  capitalize mb-3">
+                      <p>{rate?.title}</p>
+                    </div>
+
                     {rate?.ratings > 3.5 ? (
-                      <div className="indicator-item badge btn-success p-4 ">
-                        <i className="fa-solid fa-star mr-1"></i>
-
-                        <span className="text-lg">{rate?.ratings}</span>
-                      </div>
+                      <span className="badge badge-lg relative gap-2 font-medium text-base  border-none bg-[#8FC83D] max-sm:badge-sm max-sm:py-3 flex items-center">
+                        <i className="fa-solid fa-star text-sm"></i>
+                        {rate?.ratings}
+                      </span>
                     ) : (
-                      <div className="indicator-item badge btn-secondary p-4 ">
-                        <i className="fa-solid fa-star mr-1"></i>
-
-                        <span className="text-lg">{rate?.ratings}</span>
-                      </div>
+                      <span className="badge badge-lg relative gap-2 font-medium text-base  border-none  bg-secondary  max-sm:badge-sm max-sm:py-3 flex items-center">
+                        <i className="fa-solid fa-star text-sm"></i>
+                        {rate?.ratings}
+                      </span>
                     )}
                   </div>
                 );
@@ -349,10 +365,10 @@ function ProductDetails({setItemsInCart,setItemsInWishlist,itemsInWishlist}) {
           </div>
         </div>
 
-        <div className="similarProduct">
-          <p className="text-2xl text-blue-950">Similar Products</p>
-          <div className="">
-            <div className="productSm justify-between flex gap-10 ">
+        <div className="w-full">
+          <h3 className=" text-blue-950 mb-4">Similar Products</h3>
+          <div className=" ">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-5 gap-4 ">
               {Array.from(Array(4)).map((e, i) => (
                 <SingleProduct key={i} product={productsSmilar[i]} />
               ))}

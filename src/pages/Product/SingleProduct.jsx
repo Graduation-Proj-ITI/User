@@ -53,7 +53,7 @@ function SingleProduct({ product, setItemsInCart ,setItemsInWishlist}) {
             <img
               src={product?.imageCover}
               alt="product-img"
-              className="rounded-lg object-cover h-full"
+              className="rounded-lg object-cover h-full w-full"
             />
           </div>
         </Link>

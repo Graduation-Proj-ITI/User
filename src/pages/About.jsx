@@ -13,11 +13,12 @@ function handleClick(event) {
   console.info("You clicked a breadcrumb.");
 }
 const About = () => {
+  window.scrollTo(0, 0);
   return (
     <div>
       <div className="relative">
         <img
-          className="w-full max-sm:h-[30vh] sm:h-[30vh] md:h-[40vh] xl:h-[45vh]"
+          className="w-full h-[40vh] lg:h-[45vh]"
           src={cover}
           alt="Cover"
           style={{ opacity: "0.8" }}

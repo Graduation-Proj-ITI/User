@@ -165,11 +165,13 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
     };
     window.scrollTo(0, 0);
   }, []);
+
+  window.scrollTo(0, 0);
   /*---------html and css--------*/
   return (
     <div className="pb-20">
       {/* <Navbar /> */}
-      <div className="bg-shop w-full max-sm:h-[30vh] sm:h-[30vh] md:h-[40vh] xl:h-[45vh] bg-no-repeat bg-cover ">
+      <div className="bg-shop w-full h-[40vh] lg:h-[45vh] bg-no-repeat bg-cover ">
         <div className=" w-full h-full bg-gray-600/30 backdrop-brightness-75 flex flex-col justify-center items-center">
           <h1 className="text-white font-semibold text-xl md:text-4xl mb-4 md:mb-6">
             Shop
@@ -273,8 +275,8 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
             </div>
           </div>
 
-          <div className="flex gap-16 sm:gap-4 md:gap-8 lg:gap-4 max-sm:gap-0 justify-evenly ">
-            <div className="2xl:w-1/4 xl:w-1/5 lg:w-1/4 md:w-1/3  max-sm:hidden ">
+          <div className="flex gap-16 sm:gap-4 md:gap-8 lg:gap-16 max-sm:gap-0 justify-evenly ">
+            <div className=" lg:w-1/4  max-sm:hidden ">
               <div className="sidebar shadow-xl rounded-tr-2xl rounded-br-2xl  h-auto p-5">
                 <div className="inputeSearch mb-5 mt-5">
                   <input
@@ -306,7 +308,7 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
                 />
               </div>
             </div>
-            <div className="2xl:w-3/4 xl:w-3/4 lg:w-3/4 md:w-2/3 sm:w-full max-sm:w-full ">
+            <div className=" w-full md:w-2/3  lg:w-3/4 ">
               <div className="grid max-sm:grid-cols-2 max-sm:gap-4 sm:grid-cols-2 sm:gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3 lg:gap-5 xl:gap-12 2xl:grid-cols-3 2xl:gap-8 ">
                 {itemsToRender.length ? (
                   itemsToRender
@@ -327,7 +329,9 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
                     })
                 ) : (
                   <div>
-                    <h2 className="text-black">No Products Match</h2>
+                    <h2 className="text-black text-center">
+                      No Products Match
+                    </h2>
                     {/* <img src={sorryImg} alt="sorry" /> */}
                   </div>
                 )}

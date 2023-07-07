@@ -186,7 +186,7 @@ function Orders() {
                   {new Date(order.createdAt).toUTCString().slice(0, 17)}{" "}
                 </p>
               </div>
-              <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10 ">
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-6 ">
                 {order.cartItems.map(
                   (item, ind) =>
                     ind < 3 && (
@@ -256,7 +256,7 @@ function Orders() {
 
       
           {(
-          (!isClose&&(order._id ==id))&&
+          (restItems  &&(order._id ==id))&&
           order.cartItems.map(
             (item, ind) =>
               ind >2 && (
@@ -331,12 +331,15 @@ function Orders() {
                 
                   <label
                     // htmlFor="my-modal-3"
-                    onClick={() => {
+                    onClick={(e) => {
                       setId(order._id);
                       setRestItems(!restItems)
                       if(restItems){
+                      setIsClose(true)
+                      }else 
+                      {
                       setIsClose(false)
-                      }
+                      };
                     }}
                     className="text-black font-semibold text-md cursor-pointer hover:text-primary transition duration-400 "
                   >

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Contact = () => {
+  window.scrollTo(0, 0);
   const handleClick = (event) => {
     // handle the logic for clicking the link
     event.preventDefault();
@@ -150,16 +151,13 @@ const Contact = () => {
         closeOnClick: true,
         pauseOnHover: true,
       });
-      setFormState
-      ({
+      setFormState({
         fName: "",
         lName: "",
         email: "",
         phone: "",
         message: "",
-        
-        
-      })
+      });
       // console.log(formState)
     }
   };
@@ -201,7 +199,7 @@ const Contact = () => {
   //rememebr to fix success color in inputs when handle change
   return (
     <div>
-      <header className="w-full max-sm:h-[30vh] sm:h-[30vh] md:h-[40vh] xl:h-[45vh] mb-5 relative top-0 left-0 bg-[url('contact/contact.png')]  bg-size-cover bg-no-repeat bg-center flex items-center justify-center h-[400px]">
+      <header className="w-full h-[40vh] lg:h-[45vh] mb-5 relative top-0 left-0 bg-[url('contact/contact.png')]  bg-size-cover bg-no-repeat bg-center flex items-center justify-center">
         <div className="container relative z-10 index top-0 left-0 text-light w-full h-full text-white flex flex-col items-center justify-center">
           <h1 className="text-white font-semibold text-xl md:text-4xl mb-4 md:mb-6">
             Contact Us

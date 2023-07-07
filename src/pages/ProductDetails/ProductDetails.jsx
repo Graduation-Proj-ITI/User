@@ -5,26 +5,32 @@ import axios from "axios";
 import SingleProduct from "../Product/SingleProduct";
 import moment from "moment/moment";
 import { toast } from "react-toastify";
-
-function ProductDetails() {
+import Loader from "../../Components/Shared/Loader";
+function ProductDetails({setItemsInCart,setItemsInWishlist,itemsInWishlist}) {
   const { productId } = useParams();
-
+  const [wishlist, setWishlist] = useState([]);
   const [oneProduct, setOneProduct] = useState();
   const [counter, setCounter] = useState(0);
   const [productsSmilar, setProductsSmilar] = useState([]);
   const [imgarr, setImgArr] = useState();
   const [AllRate, setAllRate] = useState([]);
   const [allRateLoading, setAllRateLoading] = useState(true);
+  const [isInFav,setIsInFav]=useState(false)
+  const [loading, setLoading] = useState(true);
+
   // const [images, setImages] = useState([
   //   "/images/grid/1.png",
   //   "/images/grid/2.png",
   //   "/images/grid/3.png",
   // ]);
-
+  
+  const token=localStorage.getItem("token");
   const navigate = useNavigate();
+  console.log(productId)
+
   const AddToCart = async (e, productId) => {
     e.preventDefault();
-
+    setLoading(true);
     console.log(localStorage.getItem("token"), productId);
     try {
       const { data } = await axios.post(
@@ -44,9 +50,13 @@ function ProductDetails() {
         closeOnClick: true,
         pauseOnHover: true,
       });
-      setItemsInCart(data.numberOfCartItems);
+      setItemsInCart(data.numberOfCartItems);    
+      setLoading(false);
+
     } catch (e) {
       console.log(e);
+      setLoading(false);
+
     }
   };
   const getProducts = async () => {
@@ -62,6 +72,8 @@ function ProductDetails() {
   };
 
   const addToWishList = async () => {
+    setLoading(true);
+
     try {
       const { data } = await axios.post(
         "https://furnival.onrender.com/wishlist",
@@ -72,26 +84,43 @@ function ProductDetails() {
           },
         }
       );
-      toast.success("Add to wish succesfully");
-      console.log(data);
+      toast.success("Your product Added to wishlist successfully!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        color: "green",
+      });      console.log(data.data.length);
+      setItemsInWishlist(data.data.length);
+      setIsInFav(true);
+      setLoading(false);
+
     } catch (e) {
       console.error(e);
-      toast.error("error");
+      setIsInFav(false)
+      setLoading(false);
+      toast("error");
     }
   };
 
   const ShowImg = (srcimg) => {
     setImgArr(srcimg);
   };
-
+  
   const getOneProduct = async () => {
+    setLoading(true);
+
     try {
       const { data } = await axios.get(
         `https://furnival.onrender.com/products/${productId}`
       );
       setOneProduct(data.data);
       console.log(oneProduct.images.length);
+      setLoading(false);
+
     } catch {
+      setLoading(false);
       console.log("error");
     }
   };
@@ -113,17 +142,68 @@ function ProductDetails() {
     }
   };
 
+  let wislistIds = [];
+
+  const getWishlist = () => {
+    axios
+      .get("https://furnival.onrender.com/wishlist", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {        
+        setWishlist(response.data.data);
+       response.data.data.map((item) => item._id).includes(productId) ? setIsInFav(true) : setIsInFav(false);
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
+
+  }; 
   useEffect(() => {
+    getWishlist();
     getAllRate();
     getOneProduct();
     getProducts();
     ShowImg();
-
+    console.log(wislistIds)
+    // wislistIds.includes(productId) ? setIsInFav(true) : setIsInFav(false);
+    console.log( wislistIds.includes(productId))
     window.scrollTo(0, 0);
-  }, []);
+  }, [isInFav]);
+  
+
+  const handleDelete = (id) => {
+    // handleRemove(id)
+    setLoading(true);
+    axios
+      .delete(`https://furnival.onrender.com/wishlist/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setWishlist(wishlist.filter((item) => item._id !== id));
+        toast.success("Your product deleted from wishlist successfully!", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          color: "green",
+        });
+        setItemsInWishlist(wishlist.length -1);
+        setIsInFav(false);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsInFav(true);
+        setLoading(false);
+
+      });
+  };
 
   return (
     <>
+          {loading && <Loader />}
+
       <div className=" max-sm:mx-[1rem] sm:mx-[2.5rem] md:mx-[3rem] lg:mx-[4rem] xl:mx-[12rem] mt-16 m-auto">
         <div className="flex flex-col  w-full md:flex-row ">
           <div className="flex max-sm:w-full md:w-full lg:w-2/3 lg:flex-row md:flex-row ">
@@ -132,6 +212,7 @@ function ProductDetails() {
               // style={{ height: "400px" }}
             >
               {oneProduct?.images.map((singleImage) => {
+              { setId(oneProduct._id) }
                 return (
                   <img
                     key={singleImage}
@@ -227,7 +308,17 @@ function ProductDetails() {
                   }}
                 >
                   Add to cart
+               </button>
+               {   
+               !isInFav?
+                <button onClick={addToWishList} className="btn addToCart mt-3">
+                  Add To Favourite
                 </button>
+                :
+                <button onClick={()=>handleDelete(oneProduct._id)} className="btn addToCart mt-3"> 
+                Remove From Favourite
+                </button>
+}
               </div>
             </div>
           </div>

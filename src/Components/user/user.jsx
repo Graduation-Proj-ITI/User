@@ -1,9 +1,13 @@
+import { useEffect } from "react"
 import Sidebar from "../common/Sidebar"
 
-const User = ()=> {
+const User = ({setItemsInCart, itemInCart,itemsInWishlist,setItemsInWishlist})=> {
+useEffect(()=>{
+console.log('user,' , itemInCart)
+})
   return (
     <div className="container-fluid grid">
-   <Sidebar />
+   <Sidebar setItemsInCart={setItemsInCart} itemInCart={itemInCart} itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist}/>
     </div>
 
 

@@ -51,8 +51,6 @@ export default function App() {
             <Route path="/blog/:blogId" element={<Blog />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-//             <Route path="/form" element={<AddressForm  address={isAdressAdded} setIsAdressAdded={setIsAdressAdded}/>} />
-
 
             <Route 
               path="/Product/:categoryId?"

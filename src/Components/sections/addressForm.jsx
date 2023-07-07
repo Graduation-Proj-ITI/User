@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const AddressForm = ({ id }) => {
+const AddressForm = ({ id ,address,setIsAdressAdded}) => {
   document.addEventListener("DOMContentLoaded", function () {
     window.setTimeout(
       document.querySelector("svg").classList.add("animated"),
@@ -107,6 +107,8 @@ const AddressForm = ({ id }) => {
     },
     { id: "27", governorate_name_ar: "سوهاج", governorate_name_en: "Sohag" },
   ]);
+  
+  
   // form state inputs value
   const [formState, setFormState] = useState({
     name: "",
@@ -381,7 +383,7 @@ const AddressForm = ({ id }) => {
         setIsEdit(true);
         setLoading(false);
         setChecked(false);
-
+        setIsAdressAdded(true);
         toast.success("Your address updated successfully!", {
           position: "bottom-right",
           autoClose: 5000,
@@ -395,28 +397,31 @@ const AddressForm = ({ id }) => {
         setChecked(false);
         setLoading(false);
         setIsEdit(true);
-
+        setIsAdressAdded(false);
         // console.log(err.data)
       });
   };
 
   useEffect(() => {
+    
     const getAdresses = () => {
       axios
-        .get("https://furnival.onrender.com/addresses", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        })
-        .then((response) => {
-          setLoading(false);
-          setAllAdresses(response.data.data);
-        })
-        .catch((error) => {
-          // console.log(error);
-        });
+      .get("https://furnival.onrender.com/addresses", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((response) => {
+        setLoading(false);
+        setAllAdresses(response.data.data);
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
     };
     getAdresses();
     colorAstrisk();
   }, [isDefault, rerend]);
+  
+  console.log('aa',address)
 
   return (
     <form onSubmit={handleSubmit} className="form flex flex-col gap-4">

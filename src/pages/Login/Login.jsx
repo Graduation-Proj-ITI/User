@@ -106,7 +106,7 @@ function Login() {
         setIsErr(false);
         setTimeout(() => {          
           navigate("/", { replace: true });
-        }, 350);
+        }, 500);
         localStorage.setItem("token", res.data.token);
       })
       .catch((e) => {

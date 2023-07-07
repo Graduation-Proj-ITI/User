@@ -33,7 +33,7 @@ export default function App() {
   const [itemInCart, setItemsInCart] = useState(0);
   const [itemsInWishlist, setItemsInWishlist] = useState(0);
   const [isRemoved,setIsRemoved]=useState(false);
-
+  const [isAdressAdded,setIsAdressAdded]=useState(false);
 
   return (
     <>
@@ -56,7 +56,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/profile" element={<User itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist}  setItemsInCart={setItemsInCart} itemInCart={itemInCart} />} />
             <Route path="/wishlist" element={<Wishlist setItemsInCart={setItemsInCart} itemInCart={itemInCart} setItemsInWishlist={setItemsInWishlist} itemsInWishlist={itemsInWishlist}/>} />
-            <Route path="/form" element={<AddressForm />} />
+            <Route path="/form" element={<AddressForm  address={isAdressAdded} setIsAdressAdded={setIsAdressAdded}/>} />
             <Route path="*" element={<ErrorPage />} />
 
             <Route
@@ -65,7 +65,7 @@ export default function App() {
             />
             <Route
               path="/checkout"
-              element={<Checkout setItemsInCart={setItemsInCart} />}
+              element={<Checkout setItemsInCart={setItemsInCart} isAdressAdded={isAdressAdded} />}
             />
             <Route path="/successOrder" element={<SuccessOrder />} />
             {/* <Route path="/contact" element={<Contact />} /> */}

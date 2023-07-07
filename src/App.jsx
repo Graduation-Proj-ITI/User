@@ -65,7 +65,7 @@ export default function App() {
             />
             <Route
               path="/checkout"
-              element={<Checkout setItemsInCart={setItemsInCart} isAdressAdded={isAdressAdded} />}
+              element={<Checkout setItemsInCart={setItemsInCart} add={isAdressAdded} />}
             />
             <Route path="/successOrder" element={<SuccessOrder />} />
             {/* <Route path="/contact" element={<Contact />} /> */}

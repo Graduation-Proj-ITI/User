@@ -17,7 +17,7 @@ const GridProducts = () => {
         <figure className="relative col-span-1 sm:w-full md:col-span-1 lg:col-span-1 xl:col-span-1 2xl:col-span-1 ">
           <img
             src={gImg1}
-            className="h-fit lg:h-full rounded-xl object-cover"
+            className=" h-80 w-full lg:h-full rounded-xl object-cover"
           />
           <div className="group">
             <button
@@ -55,7 +55,7 @@ const GridProducts = () => {
         <figure className="relative col-span-1 max-sm:col-span-2 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1 2xl:col-span-1">
           <img
             src={gImg2}
-            className="h-fit lg:h-full rounded-xl object-cover"
+            className=" h-80 w-full lg:h-full rounded-xl object-cover"
           />
           <div className="group">
             <button className="absolute btn-circle bg-slate-800 bg-opacity-50 btn-sm scale-100 transition-transform ease-linear 0.5s group-hover:scale-90 bottom-1/4  left-2/4 ">
@@ -84,7 +84,7 @@ const GridProducts = () => {
         <figure className="relative col-span-1 row-span-2 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2 xl:col-span-1 xl:row-span-2 2xl:col-span-1 2xl:row-span-2">
           <img
             src={gImg3}
-            className="h-fit lg:h-full rounded-xl object-cover"
+            className=" h-80 w-full lg:h-full rounded-xl object-cover"
           />
           <div className="group">
             <button
@@ -122,7 +122,7 @@ const GridProducts = () => {
         <figure className="relative col-span-2 row-span-2 sm:col-span-1 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2 xl:col-span-2 xl:row-span-2 2xl:col-span-2 2xl:row-span-2">
           <img
             src={gImg4}
-            className="h-fit lg:h-full rounded-xl object-cover"
+            className=" h-80 w-full lg:h-full rounded-xl object-cover"
           />
           <div className="group">
             <button
@@ -160,7 +160,7 @@ const GridProducts = () => {
         <figure className="relative col-span-1 2xl:col-span-1">
           <img
             src={gImg5}
-            className=" h-fit lg:h-full rounded-xl object-cover"
+            className="  h-80 w-full lg:h-full rounded-xl object-cover"
           />
           <div className="group">
             <button

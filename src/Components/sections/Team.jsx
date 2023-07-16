@@ -33,16 +33,16 @@ name: "Zeinab Mohamed",
       img: "./Naiem.jpg",
       name: "Mohamed Naiem",
       role: "Frontend developer",
-      github: "",
-      linkedin: "",
+      github: "https://github.com/mohamedNaiem2000",
+      linkedin: "https://www.linkedin.com/in/mohamed-naiem-883a78227",
     },
     {
       id: 5,
       img: "./yahia.jpg",
       name: "Mohamed Yahia",
       role: "Fullstack developer",
-      github: "",
-      linkedin: "",
+      github: "https://github.com/0xYahia",
+      linkedin: "https://www.linkedin.com/in/mohamdyahia/",
     },
   ];
   return (
@@ -67,16 +67,16 @@ name: "Zeinab Mohamed",
                 className=" scale-100 group-hover:scale-110 cursor-pointer ease-in duration-300 object-cover w-full"
                 style={{ height: "15rem" }}
               />
-              <Link to={name.github} target="blank">
+              <a href={name.github} target="_blank">
                 <div className=" hidden btn-circle bg-white btn-md  absolute group-hover:flex group-hover:justify-center group-hover:items-center  animate-wiggle top-4 right-4">
                   <i className="fa-brands fa-github text-xl text-primary"></i>
                 </div>
-              </Link>
-              <Link to={name.linkedin} target="blank">
+              </a>
+              <a href={name.linkedin} target="_blank">
                 <div className=" hidden btn-circle bg-white btn-md  absolute group-hover:flex group-hover:justify-center group-hover:items-center  animate-wiggle top-20 right-4">
                   <i className="fa-brands fa-linkedin text-xl text-primary"></i>
                 </div>
-              </Link>
+              </a>
             </div>
 
             <div className="px-3 pb-5">

@@ -56,7 +56,6 @@ export default function App() {
               path="/Product/:categoryId?"
               element={<Product setItemsInCart={setItemsInCart} />}
             />
-       
            <Route
               path="/product/details/:productId?"
               element={<ProductDetails setItemsInCart={setItemsInCart} itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist} />}

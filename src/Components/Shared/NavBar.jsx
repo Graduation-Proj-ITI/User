@@ -59,8 +59,8 @@ const NavBar = ({setItemsInCart,itemInCart,itemsInWishlist,setItemsInWishlist })
             : " bg-transparent ") +
           (location.pathname === "/Register" ||
           location.pathname === "/Login" ||
-          location.pathname === "/forget-password"||
-          location.pathname === "/reset-password"||
+          location.pathname === "/forget-password" ||
+          location.pathname === "/reset-password" ||
           location.pathname === "/*"
             ? " hidden"
             : " ")

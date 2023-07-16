@@ -199,7 +199,7 @@ const Contact = () => {
   //rememebr to fix success color in inputs when handle change
   return (
     <div>
-      <header className="w-full h-[40vh] lg:h-[45vh] mb-5 relative top-0 left-0 bg-[url('../contact/contact.png')]  bg-size-cover bg-no-repeat bg-center flex items-center justify-center">
+      <header className="w-full h-[400px]  relative top-0 left-0 bg-[url('../contact/contact.png')]  bg-size-cover bg-no-repeat bg-center flex items-center justify-center">
         <div className="container relative z-10 index top-0 left-0 text-light w-full h-full text-white flex flex-col items-center justify-center">
           <h1 className="text-white font-semibold text-xl md:text-4xl mb-4 md:mb-6">
             Contact Us
@@ -239,7 +239,7 @@ const Contact = () => {
 
         {/* overlay */}
         <div
-          className="overlay absolute top-0 left-0 w-full h-full z-[1]"
+          className="overlay absolute top-[0 left-0 w-full max-h-full z-[1] overflow-hidden"
           style={{
             background: "rgba(117, 117, 117, 0.39)",
           }}

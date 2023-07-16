@@ -162,10 +162,10 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
     return () => {
       console.log("clean useEffect shop ");
     };
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, []);
 
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
   /*---------html and css--------*/
   return (
     <div className="pb-20">

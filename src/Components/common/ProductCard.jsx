@@ -24,7 +24,7 @@ const ProductCard = () => {
   const renderProduct = products.slice(0, 4).map((item) => (
     <Link to={`/product/details/${item._id}`} key={item._id}>
       {" "}
-      <div className="card w-8/9 bg-transparent m-0 group cursor-pointer h-80 max-sm:h-72">
+      <div className=" w-8/9 bg-transparent m-0 group cursor-pointer h-60 max-sm:h-40 mb-12">
         {/* Card Image */}
         <figure className="overflow-hidden rounded-xl h-full w-full ">
           <img
@@ -34,7 +34,7 @@ const ProductCard = () => {
           />
         </figure>
         {/* Card Content */}
-        <div className="card-body py-3 z-10 rounded-xl bg-white relative bottom-10  shadow-md px-3  w-11/12 mx-auto h-1/3 max-sm:h-1/3">
+        <div className="card-body py-3 z-10 rounded-xl bg-white relative bottom-10  shadow-md px-3  w-11/12 mx-auto h-1/3 max-sm:h-1/2">
           <h2 className="card-title text-[14px] font-normal leading-tight h-9 overflow-hidden text-ellipsis flex items-start text-primary">
             {item.title}
           </h2>

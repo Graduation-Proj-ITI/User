@@ -7,10 +7,9 @@ import SingleProduct from "./SingleProduct";
 import FilterMenu from "../../Components/Shared/FilterMenu";
 import { Link, useParams } from "react-router-dom";
 
-
 const pageSize = 9;
 
-function Product({ setItemsInCart ,setItemsInWishlist}) {
+function Product({ setItemsInCart, setItemsInWishlist }) {
   const { categoryId } = useParams();
   console.log(categoryId);
 
@@ -212,7 +211,7 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
             <h1 className="text-xl font-extrabold pb-3">
               Make your dream home true
             </h1>
-            <p className="leading-8">
+            <p className="leading-8 text-gray-700">
               Lorem ipsum dolor sit amet consectetur. Sed tincidunt aliquam
               feugiat nunc tortor. Elementum sit urna arcu velit. Blandit odio
               vestibulum id lacus. Pellentesque turpis vel sed mattis a et eget
@@ -332,10 +331,8 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
                     <h2 className="text-black text-center">
                       No Products Match
                     </h2>
-                   
                   </div>
                 )}
-               
               </div>
               <div className=" flex w-full justify-center items-center mt-5 gap-1 ">
                 {pages?.map((page) => (

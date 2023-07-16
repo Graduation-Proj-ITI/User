@@ -8,7 +8,12 @@ import axios from "axios";
 import Loader from "../Shared/Loader";
 import { toast } from "react-toastify";
 
-const Sidebar = ({setItemsInCart, itemInCart,setItemsInWishlist,itemsInWishlist}) => {
+const Sidebar = ({
+  setItemsInCart,
+  itemInCart,
+  setItemsInWishlist,
+  itemsInWishlist,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -35,7 +40,14 @@ const Sidebar = ({setItemsInCart, itemInCart,setItemsInWishlist,itemsInWishlist}
       title: "Wishlist",
       path: "#wishlist",
       icon: "./icons/heart.svg",
-      component: <Wishlist setCartItems={setItemsInCart} cartItems={itemInCart}  setItemsInWishlist={setItemsInWishlist} itemsInWishlist={itemsInWishlist}/>,
+      component: (
+        <Wishlist
+          setCartItems={setItemsInCart}
+          cartItems={itemInCart}
+          setItemsInWishlist={setItemsInWishlist}
+          itemsInWishlist={itemsInWishlist}
+        />
+      ),
     },
     {
       title: "Orders",
@@ -113,8 +125,7 @@ const Sidebar = ({setItemsInCart, itemInCart,setItemsInWishlist,itemsInWishlist}
         setLoading(false);
         // console.log(err.response.data.message);
       });
-      console.log('sidebar,' , itemInCart)
-
+    console.log("sidebar,", itemInCart);
   }, [userImage]);
 
   return (
@@ -138,12 +149,12 @@ const Sidebar = ({setItemsInCart, itemInCart,setItemsInWishlist,itemsInWishlist}
                   : "left-0 w-[300px] md:w-[350px]"
               }`}
             >
-              <ul className="text-dark">
+              <ul className="text-gray-700">
                 <li>
                   <div className="relative flex items-center justify-end rounded-tr-xl ">
                     <button
                       onClick={toggleMenu}
-                      className="flex items-center px-3 py-2 text-dark  hover:text-gray-500 "
+                      className="flex items-center px-3 py-2 text-gray-700   hover:text-gray-500 "
                     >
                       <svg
                         className="w-6 h-6 fill-current"
@@ -191,7 +202,7 @@ const Sidebar = ({setItemsInCart, itemInCart,setItemsInWishlist,itemsInWishlist}
                   <h4 className="text-primary">
                     Hi, <span>{user?.name}</span>
                   </h4>
-                  <p className="text-dark-gray">{user?.email}</p>
+                  <p className="text-gray-500">{user?.email}</p>
                 </li>
 
                 {/* Menu items */}

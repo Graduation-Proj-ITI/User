@@ -12,33 +12,34 @@ function Orders() {
   const [product, setProduct] = useState([]);
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
-  const [isChecked,setChecked]=useState(false);
+  const [isChecked, setChecked] = useState(false);
   const [cancel, setCancel] = useState(false);
   const [restItems, setRestItems] = useState(false);
-  let [isClose,setIsClose] = useState(true)
-  const [HoverRating,setHoverRating] = useState(0)
-  const handleRate = (e,value) => {
-  e.preventDefault();
+  let [isClose, setIsClose] = useState(true);
+  const [HoverRating, setHoverRating] = useState(0);
+  const handleRate = (e, value) => {
+    e.preventDefault();
     setRating(value);
     // console.log(rating)
   };
-  
-  const handleHoverRate = (e,value) => {
+
+  const handleHoverRate = (e, value) => {
     e.preventDefault();
-      setHoverRating(value);
-    };
-  
+    setHoverRating(value);
+  };
+
   const handleReview = (data) => {
     setProduct([data]);
     setChecked(true);
-    setHoverRating(0)
+    setHoverRating(0);
     setRating(0);
     setReview("");
     const getReviews = () => {
       axios
-        .get(`https://furnival.onrender.com/products/${data[0]}/reviews`, {headers:{Authorization: `Bearer ${localStorage.getItem("token")}`}})
+        .get(`https://furnival.onrender.com/products/${data[0]}/reviews`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
         .then((response) => {
-        
           // console.log(response.data.data);
         })
         .catch((error) => {
@@ -49,29 +50,34 @@ function Orders() {
     // console.log(...data);
   };
 
-  const submitReview = (e,id) => {
-   e.preventDefault();
-   setChecked(true);
-  //  console.log(id)
-      axios
-        .post(`https://furnival.onrender.com/products/${id}/reviews`,
+  const submitReview = (e, id) => {
+    e.preventDefault();
+    setChecked(true);
+    //  console.log(id)
+    axios
+      .post(
+        `https://furnival.onrender.com/products/${id}/reviews`,
         {
-        "ratings":rating,
-        "title":review
-        }, {headers:{Authorization: `Bearer ${localStorage.getItem("token")}`}})
-        .then((response) => {
-          // console.log('send',response.data.data);
-          setChecked(false);
-          toast.success('your review submitted successfully', {
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-          });
-        })
-        .catch((error) => {
-          // setChecked(false);
+          ratings: rating,
+          title: review,
+        },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      )
+      .then((response) => {
+        // console.log('send',response.data.data);
+        setChecked(false);
+        toast.success("your review submitted successfully", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      })
+      .catch((error) => {
+        // setChecked(false);
         // console.log(error.response.data.errors)
         error.response.data.errors.map((err) => {
           toast.error(err.msg, {
@@ -82,35 +88,40 @@ function Orders() {
             pauseOnHover: true,
           });
         });
-          // console.log(error);
-        });
-  // console.log('checked',isChecked)
+        // console.log(error);
+      });
+    // console.log('checked',isChecked)
   };
-  
-  
-  
+
   const handleCancel = (id) => {
     setCancel(false);
     setLoading(true);
-      axios.put(`https://furnival.onrender.com/orders/${id}/cancel`,{}, {headers:{Authorization: `Bearer ${localStorage.getItem("token")}`}})
+    axios
+      .put(
+        `https://furnival.onrender.com/orders/${id}/cancel`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      )
       .then((response) => {
-      setCancel(true);
-      setLoading(false);
-      toast.success('your order canceled successfully', {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
-      // console.log(response.data.data);
+        setCancel(true);
+        setLoading(false);
+        toast.success("your order canceled successfully", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+        // console.log(response.data.data);
       })
       .catch((error) => {
         setCancel(false);
         setLoading(false);
         // console.log(error.response.data.message);
-        ;});
-  }
+      });
+  };
 
   useEffect(() => {
     const getOrders = () => {
@@ -129,7 +140,7 @@ function Orders() {
     };
 
     getOrders();
-  }, [cancel,restItems]);
+  }, [cancel, restItems]);
 
   return (
     <div className="flex flex-col gap-5 content-center">
@@ -141,9 +152,9 @@ function Orders() {
         </p>
       </div>
 
-     {allOrders.length ==0 && 
-           <img src={order} alt="no-order" className="w-1/2 mx-auto mt-[-30px]" />
-     }
+      {allOrders.length == 0 && (
+        <img src={order} alt="no-order" className="w-1/2 mx-auto mt-[-30px]" />
+      )}
       {allOrders.map((order, ind) => (
         <div
           className="flex flex-col lg:flex-row gap-1 bg-bgColor px-5 w-full lg:px-10 py-7 rounded-[16px] shadow-gray "
@@ -152,30 +163,42 @@ function Orders() {
           <div className="w-full">
             <div className="flex flex-col gap-4">
               <div className="flex justify-between md:items-center flex-col md:flex-row gap-1">
-              
-              <div className="w-full flex flex-row items-center gap-2">
-                <p className="text-primary font-bold text-sm md:text-md"><span className="text-green-700 text-[15px]">orderId: </span>{order._id} </p>
-                <p
-                  className={`${
-                    order.status === "delivered"
-                      ? "bg-green-600/60 "
-                      : order.status === "pending"
-                      ? "bg-secondary"
-                      : "bg-error"
-                  } text-sm text-white text-bold px-4 py-1 rounded-[6px]`}
-                >
-                  {" "}
-                  {order.status}
-                </p>
-              </div>
-              
-              {order.status == 'pending' &&
-              <button className={`btn btn-error-outline my-2 md:my-0 py-0 text-sm min-h-[40px] h-[40px]`} onClick={()=>{handleCancel(order._id)}} > Cancle Order </button>
-              }
+                <div className="w-full flex flex-row items-center gap-2">
+                  <p className="text-primary font-bold text-sm md:text-md">
+                    <span className="text-green-700 text-[15px]">
+                      orderId:{" "}
+                    </span>
+                    {order._id}{" "}
+                  </p>
+                  <p
+                    className={`${
+                      order.status === "delivered"
+                        ? "bg-green-600/60 "
+                        : order.status === "pending"
+                        ? "bg-secondary"
+                        : "bg-error"
+                    } text-sm text-white text-bold px-4 py-1 rounded-[6px]`}
+                  >
+                    {" "}
+                    {order.status}
+                  </p>
+                </div>
+
+                {order.status == "pending" && (
+                  <button
+                    className={`btn btn-error-outline my-2 md:my-0 py-0 text-sm min-h-[40px] h-[40px]`}
+                    onClick={() => {
+                      handleCancel(order._id);
+                    }}
+                  >
+                    {" "}
+                    Cancle Order{" "}
+                  </button>
+                )}
               </div>
 
               <div className="w-full mt-[-10px]">
-                <p className="text-dark text-bold flex items-center align-top">
+                <p className="text-gray-600  text-bold flex items-center align-top">
                   {" "}
                   <img
                     src="./icons/date.svg"
@@ -190,12 +213,9 @@ function Orders() {
                 {order.cartItems.map(
                   (item, ind) =>
                     ind < 3 && (
-                      <div
-                        className="flex pt-0 ps-0 flex-row gap-2"
-                        key={ind}
-                      >
+                      <div className="flex pt-0 ps-0 flex-row gap-2" key={ind}>
                         <img
-                          src={`${item['product'].imageCover}`}
+                          src={`${item["product"].imageCover}`}
                           // src="./images/products/product2
                           // .jpg"
                           alt="product"
@@ -206,18 +226,36 @@ function Orders() {
                             {" "}
                             {item["product"]?.["title"]}{" "}
                           </p>
-                          <p className="text-dark">
+                          <p className="text-gray-600 ">
                             {" "}
                             Quantity:{" "}
                             <span className="text-black">
                               {item.quantity}
                             </span>{" "}
                           </p>
-                          
-                          { order.status === "delivered"&&
+
+                          {order.status === "delivered" && (
+                            <label
+                              htmlFor="my-modal-5"
+                              className="cursor-pointer text-primary font-semibold lg:hidden xl:flex w-[130px]  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
+                              onClick={(e) => {
+                                handleReview([
+                                  item["product"]._id,
+                                  item["product"].title,
+                                  item["product"].imageCover,
+                                  item.price / item.quantity,
+                                ]);
+                              }}
+                            >
+                              {" "}
+                              Review Product{" "}
+                            </label>
+                          )}
+                        </div>
+                        {order.status === "delivered" && (
                           <label
                             htmlFor="my-modal-5"
-                            className="cursor-pointer text-primary font-semibold lg:hidden xl:flex w-[130px]  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
+                            className="cursor-pointer text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary cursor-pointer"
                             onClick={(e) => {
                               handleReview([
                                 item["product"]._id,
@@ -230,124 +268,99 @@ function Orders() {
                             {" "}
                             Review Product{" "}
                           </label>
-}
-                        </div>
-                        { order.status === "delivered"&&
-                        <label
-                          htmlFor="my-modal-5"
-                          className="cursor-pointer text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary cursor-pointer"
-                          onClick={(e) => {
-                            handleReview([
-                              item["product"]._id,
-                              item["product"].title,
-                              item["product"].imageCover,
-                              item.price / item.quantity,
-                            ]);
-                          }}
-                        >
-                          {" "}
-                          Review Product{" "}
-                        </label>
-}
+                        )}
                       </div>
-
                     )
                 )}
 
-      
-          {(
-          (restItems  &&(order._id ==id))&&
-          order.cartItems.map(
-            (item, ind) =>
-              ind >2 && (
-                <div
-                className="flex pt-0 ps-0 flex-row gap-2 "
-                key={ind}
-                >
-                  <img
-                    src={`${item['product'].imageCover}`}
-                    // src="./images/products/product2
-                    // .jpg"
-                    alt="product"
-                    className="w-20 h-20 rounded-[8px]"
-                  />
-                  <div className="flex flex-col gap-1 text-[14px]">
-                    <p className="text-black font-light">
-                      {" "}
-                      {item["product"]?.["title"]}{" "}
-                    </p>
-                    <p className="text-dark">
-                      {" "}
-                      Quantity:{" "}
-                      <span className="text-black">
-                        {item.quantity}
-                      </span>{" "}
-                    </p>
-                    { order.status === "delivered"&&
+                {restItems &&
+                  order._id == id &&
+                  order.cartItems.map(
+                    (item, ind) =>
+                      ind > 2 && (
+                        <div
+                          className="flex pt-0 ps-0 flex-row gap-2 "
+                          key={ind}
+                        >
+                          <img
+                            src={`${item["product"].imageCover}`}
+                            // src="./images/products/product2
+                            // .jpg"
+                            alt="product"
+                            className="w-20 h-20 rounded-[8px]"
+                          />
+                          <div className="flex flex-col gap-1 text-[14px]">
+                            <p className="text-black font-light">
+                              {" "}
+                              {item["product"]?.["title"]}{" "}
+                            </p>
+                            <p className="text-dark">
+                              {" "}
+                              Quantity:{" "}
+                              <span className="text-black">
+                                {item.quantity}
+                              </span>{" "}
+                            </p>
+                            {order.status === "delivered" && (
+                              <label
+                                htmlFor="my-modal-5"
+                                className="cursor-pointer text-primary font-semibold lg:hidden xl:flex w-[130px]  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
+                                onClick={(e) => {
+                                  handleReview([
+                                    item["product"]._id,
+                                    item["product"].title,
+                                    item["product"].imageCover,
+                                    item.price / item.quantity,
+                                  ]);
+                                }}
+                              >
+                                {" "}
+                                Review Product{" "}
+                              </label>
+                            )}
+                          </div>
+                          {order.status === "delivered" && (
+                            <label
+                              htmlFor="my-modal-5"
+                              className="cursor-pointer text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary"
+                              onClick={(e) => {
+                                handleReview([
+                                  item["product"]._id,
+                                  item["product"].title,
+                                  item["product"].imageCover,
+                                  item.price / item.quantity,
+                                ]);
+                              }}
+                            >
+                              {" "}
+                              Review Product{" "}
+                            </label>
+                          )}
+                        </div>
+                      )
+                  )}
+              </div>
 
-                    <label
-                      htmlFor="my-modal-5"
-                      className="cursor-pointer text-primary font-semibold lg:hidden xl:flex w-[130px]  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
-                      onClick={(e) => {
-                        handleReview([
-                          item["product"]._id,
-                          item["product"].title,
-                          item["product"].imageCover,
-                          item.price / item.quantity,
-                        ]);
-                      }}
-                    >
-                      {" "}
-                      Review Product{" "}
-                    </label>
-}
-                  </div>
-                  { order.status === "delivered"&&
-
-                  <label
-                    htmlFor="my-modal-5"
-                    className="cursor-pointer text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary"
-                    onClick={(e) => {
-                      handleReview([
-                        item["product"]._id,
-                        item["product"].title,
-                        item["product"].imageCover,
-                        item.price / item.quantity,
-                      ]);
-                    }}
-                  >
-                    {" "}
-                    Review Product{" "}
-                  </label>
-}
-                </div>
-              )
-          ))}
-        
-        </div>
-        
-        {order.cartItems.length > 3 && (
+              {order.cartItems.length > 3 && (
                 <p className="text-black font-semibold text-md">
-                
                   <label
                     // htmlFor="my-modal-3"
                     onClick={(e) => {
                       setId(order._id);
-                      setRestItems(!restItems)
-                      if(restItems){
-                      setIsClose(true)
-                      }else 
-                      {
-                      setIsClose(false)
-                      };
+                      setRestItems(!restItems);
+                      if (restItems) {
+                        setIsClose(true);
+                      } else {
+                        setIsClose(false);
+                      }
                     }}
                     className="text-black font-semibold text-md cursor-pointer hover:text-primary transition duration-400 "
                   >
-                    {(!isClose && order._id==id) ?'-':'+'}{order.cartItems.length - 3} more items
+                    {!isClose && order._id == id ? "-" : "+"}
+                    {order.cartItems.length - 3} more items
                   </label>
                 </p>
               )}
-              
             </div>
           </div>
         </div>
@@ -467,7 +480,7 @@ function Orders() {
       </div>
  */}
 
-<input type="checkbox" id="my-modal-3" className="modal-toggle"  />
+      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
       <div className="modal z-100 ">
         <div className="modal-box relative w-11/12 max-w-5xl">
           <label
@@ -485,9 +498,9 @@ function Orders() {
                     <p className="text-primary font-bold "> {order._id} </p>
                     <p
                       className={`${
-                        order.status == 'delivered'
+                        order.status == "delivered"
                           ? "bg-green-600/60 "
-                          : order.status == 'pending'
+                          : order.status == "pending"
                           ? "bg-secondary"
                           : "bg-error"
                       } text-sm text-white text-bold px-4 py-1 rounded-[6px]`}
@@ -520,7 +533,7 @@ function Orders() {
                               key={ind}
                             >
                               <img
-                                src={`${item['product'].imageCover}`}
+                                src={`${item["product"].imageCover}`}
                                 // src="./images/products/product2.jpg"
                                 alt="product"
                                 className="w-20 h-20 rounded-[8px]"
@@ -537,26 +550,32 @@ function Orders() {
                                     {item.quantity}
                                   </span>{" "}
                                 </p>
-                                <button     onClick={(e) => {
-                              handleReview([
-                                item["product"]._id,
-                                item["product"].title,
-                                item["product"].imageCover,
-                                item.price / item.quantity,
-                              ]);
-                            }} className=" cursor-pointer text-primary font-semibold lg:hidden w-[130px] xl:flex  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
+                                <button
+                                  onClick={(e) => {
+                                    handleReview([
+                                      item["product"]._id,
+                                      item["product"].title,
+                                      item["product"].imageCover,
+                                      item.price / item.quantity,
+                                    ]);
+                                  }}
+                                  className=" cursor-pointer text-primary font-semibold lg:hidden w-[130px] xl:flex  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
+                                >
                                   {" "}
                                   Review Product{" "}
                                 </button>
                               </div>
-                              <button     onClick={(e) => {
-                              handleReview([
-                                item["product"]._id,
-                                item["product"].title,
-                                item["product"].imageCover,
-                                item.price / item.quantity,
-                              ]);
-                            }} className="cursor-pointer text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
+                              <button
+                                onClick={(e) => {
+                                  handleReview([
+                                    item["product"]._id,
+                                    item["product"].title,
+                                    item["product"].imageCover,
+                                    item.price / item.quantity,
+                                  ]);
+                                }}
+                                className="cursor-pointer text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
+                              >
                                 {" "}
                                 Review Product{" "}
                               </button>
@@ -580,14 +599,22 @@ function Orders() {
         </div>
       </div>
 
-
-
-      <input type="checkbox" id="my-modal-5" className="modal-toggle"  checked={isChecked}  onChange={(e)=>{setChecked(isChecked)}}  />
+      <input
+        type="checkbox"
+        id="my-modal-5"
+        className="modal-toggle"
+        checked={isChecked}
+        onChange={(e) => {
+          setChecked(isChecked);
+        }}
+      />
       <div className="modal z-100 ">
         <div className="modal-box relative w-11/12 max-w-5xl">
           <label
             htmlFor="my-modal-5"
-            onClick={()=>{setChecked(false)}}
+            onClick={() => {
+              setChecked(false);
+            }}
             className="btn btn-error-outline px-4 rounded-[6px] btn-sm btn-circle absolute right-3 top-3 hover:bg-error hover:text-white hover:border-error"
           >
             ✕
@@ -615,63 +642,81 @@ function Orders() {
 
                       <div className="flex flex-wrap gap-5 text-[14px] justify-between items-center w-full ">
                         <form className="flex flex-col gap-4 w-full">
-                         <div className="flex flex-wrap items-center">
-                         <p className="text-primary">Rate product from 1 - 5 :</p>
-<div className="flex flex-row items-center justify-start rank">
-                          <button
-                            className={`text-3xl ${
-                              rating >= 1 ? "text-yellow-400" : "text-gray-400"
-                            } hover:text-yellow-400 transition duration-500  ${HoverRating>=1 && "text-yellow-400"}`}
-                            onMouseOver={(e) => handleHoverRate(e,1)}
-                            onMouseLeave={(e) => handleHoverRate(e,0)}
-                            onClick={(e) => handleRate(e,1)}
-
-                          >
-                            ★
-                          </button>
-                          <button
-                            className={`text-3xl ${
-                              rating >= 2 ? "text-yellow-400" : "text-gray-400"
-                            } hover:text-yellow-400 transition duration-500   ${HoverRating>=2 && "text-yellow-400"}`}
-                            onMouseOver={(e) => handleHoverRate(e,2)}
-                            onMouseLeave={(e) => handleHoverRate(e,0)}
-                            onClick={(e) => handleRate(e,2)}
-                          >
-                            ★
-                          </button>
-                          <button
-                            className={`text-3xl ${
-                              rating >= 3 ? "text-yellow-400" : "text-gray-400"
-                            } hover:text-yellow-400 transition duration-500    ${HoverRating>=3 && "text-yellow-400"}`}
-                            onMouseOver={(e) => handleHoverRate(e,3)}
-                            onMouseLeave={(e) => handleHoverRate(e,0)}
-                            onClick={(e) => handleRate(e,3)}
-                          >
-                            ★
-                          </button>
-                          <button
-                            className={`text-3xl ${
-                              rating >= 4 ? "text-yellow-400" : "text-gray-400"
-                            } hover:text-yellow-400 transition duration-500   ${HoverRating>=4 && "text-yellow-400"}`}
-                            onMouseOver={(e) => handleHoverRate(e,4)}
-                            onMouseLeave={(e) => handleHoverRate(e,0)}
-                            onClick={(e) => handleRate(e,4)}
-                          >
-                            ★
-                          </button>
-                          <button
-                            className={`text-3xl ${
-                              rating >= 5 ? "text-yellow-400" : "text-gray-400"
-                            } hover:text-yellow-400 transition duration-500 
-                            ${HoverRating>=5 && "text-yellow-400"}`
-                            }
-                            onMouseOver={(e) => handleHoverRate(e,5)}
-                            onMouseLeave={(e) => handleHoverRate(e,0)}
-                            onClick={(e) => handleRate(e,5)}
-                          >
-                            ★
-                          </button>
-                          </div>
+                          <div className="flex flex-wrap items-center">
+                            <p className="text-primary">
+                              Rate product from 1 - 5 :
+                            </p>
+                            <div className="flex flex-row items-center justify-start rank">
+                              <button
+                                className={`text-3xl ${
+                                  rating >= 1
+                                    ? "text-yellow-400"
+                                    : "text-gray-400"
+                                } hover:text-yellow-400 transition duration-500  ${
+                                  HoverRating >= 1 && "text-yellow-400"
+                                }`}
+                                onMouseOver={(e) => handleHoverRate(e, 1)}
+                                onMouseLeave={(e) => handleHoverRate(e, 0)}
+                                onClick={(e) => handleRate(e, 1)}
+                              >
+                                ★
+                              </button>
+                              <button
+                                className={`text-3xl ${
+                                  rating >= 2
+                                    ? "text-yellow-400"
+                                    : "text-gray-400"
+                                } hover:text-yellow-400 transition duration-500   ${
+                                  HoverRating >= 2 && "text-yellow-400"
+                                }`}
+                                onMouseOver={(e) => handleHoverRate(e, 2)}
+                                onMouseLeave={(e) => handleHoverRate(e, 0)}
+                                onClick={(e) => handleRate(e, 2)}
+                              >
+                                ★
+                              </button>
+                              <button
+                                className={`text-3xl ${
+                                  rating >= 3
+                                    ? "text-yellow-400"
+                                    : "text-gray-400"
+                                } hover:text-yellow-400 transition duration-500    ${
+                                  HoverRating >= 3 && "text-yellow-400"
+                                }`}
+                                onMouseOver={(e) => handleHoverRate(e, 3)}
+                                onMouseLeave={(e) => handleHoverRate(e, 0)}
+                                onClick={(e) => handleRate(e, 3)}
+                              >
+                                ★
+                              </button>
+                              <button
+                                className={`text-3xl ${
+                                  rating >= 4
+                                    ? "text-yellow-400"
+                                    : "text-gray-400"
+                                } hover:text-yellow-400 transition duration-500   ${
+                                  HoverRating >= 4 && "text-yellow-400"
+                                }`}
+                                onMouseOver={(e) => handleHoverRate(e, 4)}
+                                onMouseLeave={(e) => handleHoverRate(e, 0)}
+                                onClick={(e) => handleRate(e, 4)}
+                              >
+                                ★
+                              </button>
+                              <button
+                                className={`text-3xl ${
+                                  rating >= 5
+                                    ? "text-yellow-400"
+                                    : "text-gray-400"
+                                } hover:text-yellow-400 transition duration-500 
+                            ${HoverRating >= 5 && "text-yellow-400"}`}
+                                onMouseOver={(e) => handleHoverRate(e, 5)}
+                                onMouseLeave={(e) => handleHoverRate(e, 0)}
+                                onClick={(e) => handleRate(e, 5)}
+                              >
+                                ★
+                              </button>
+                            </div>
                           </div>
                           <textarea
                             value={review}
@@ -679,8 +724,12 @@ function Orders() {
                             className="w-full min-h-[182px] rounded-[8px] border-2 border-gray-300 px-2 py-1 transition duration-500 hover:border-primary focus:border-primary focus:outline-none"
                             placeholder="write your review here"
                           ></textarea>
-                          <button className="btn btn-primary" type="submit" onClick={(e)=>submitReview(e,item[0])}>
-                             Send Review
+                          <button
+                            className="btn btn-primary"
+                            type="submit"
+                            onClick={(e) => submitReview(e, item[0])}
+                          >
+                            Send Review
                           </button>
                         </form>
                         {/* <p>{item[1]}</p> */}

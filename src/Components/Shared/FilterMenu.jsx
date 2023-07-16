@@ -120,7 +120,7 @@ const FilterMenu = ({
                   style={{
                     width: "18px",
                     height: "18px",
-                    borderRadius: "50%",
+                    borderRadius: "20%",
                     backgroundColor: color.name,
                     display: "inline-block",
                     marginTop: "5px",

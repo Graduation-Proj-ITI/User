@@ -6,18 +6,19 @@ import "./../../index.css";
 const Drawer = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [isOpen, setOpen] = useState(false);
   // console.log(location.pathname);
 
   const [search, setsearch] = useState([]);
   return (
     <>
       <div className="drawer h-min overflow-hidden">
-        <input id="sidemenu" type="checkbox" className="drawer-toggle " />
-        <div className="drawer-content h-full ">{children}</div>
+        <input id="sidemenu" type="checkbox" className="drawer-toggle " onClick={(e)=>{setOpen(!isOpen)}} />
+        <div className={`drawer-content ${isOpen?' h-screen':' h-full'} `}>{children}</div>
 
-        <div className="drawer-side h-screen hScroll overflow-hidden ">
+        <div className="drawer-side h-full hScroll overflow-hidden max-h-full">
           <label htmlFor="sidemenu" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 h-full bg-primary ">
+          <ul className="menu p-4 w-80 h-full bg-primary fixed ">
             <li className="mx-auto">
               <Link to="/" className="flex gap-1">
                 <img src={logo} className="w-9" />

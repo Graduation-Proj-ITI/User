@@ -222,7 +222,7 @@ function ProductDetails({
             >
               {oneProduct?.images.map((singleImage) => {
                 {
-                  setId(oneProduct._id);
+                  // setId(oneProduct?._id);
                 }
                 return (
                   <img

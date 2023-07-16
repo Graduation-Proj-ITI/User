@@ -6,7 +6,7 @@ import Navbar from "../../Components/navbar/Navbar";
 import SingleProduct from "./SingleProduct";
 import FilterMenu from "../../Components/Shared/FilterMenu";
 import { Link, useParams } from "react-router-dom";
-// import sorryImg from "../../../public/images/community/Feeling sorry-cuate.jpg";
+
 
 const pageSize = 9;
 
@@ -332,24 +332,10 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
                     <h2 className="text-black text-center">
                       No Products Match
                     </h2>
-                    {/* <img src={sorryImg} alt="sorry" /> */}
+                   
                   </div>
                 )}
-                {/* {itemsToRender
-                  .filter((product) => {
-                    return product.title
-                      .toLowerCase()
-                      .includes(search.toLowerCase());
-                  })
-                  .map((product) => {
-                    return (
-                      <SingleProduct
-                        product={product}
-                        setItemsInCart={setItemsInCart}
-                        key={product._id}
-                      />
-                    );
-                  })} */}
+               
               </div>
               <div className=" flex w-full justify-center items-center mt-5 gap-1 ">
                 {pages?.map((page) => (

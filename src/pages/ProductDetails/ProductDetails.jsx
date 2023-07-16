@@ -170,7 +170,6 @@ function ProductDetails({
       });
   };
   useEffect(() => {
-
     window.scrollTo(0, 0);
     getWishlist();
     getAllRate();
@@ -178,15 +177,10 @@ function ProductDetails({
     getProducts();
     ShowImg();
 
-  }, [productId]);
-
-  window.scrollTo(0, 0);
-
     console.log(wislistIds);
     // wislistIds.includes(productId) ? setIsInFav(true) : setIsInFav(false);
     console.log(wislistIds.includes(productId));
-    window.scrollTo(0, 0);
-  }, [isInFav]);
+  }, [productId, isInFav]);
 
   const handleDelete = (id) => {
     // handleRemove(id)
@@ -271,7 +265,7 @@ function ProductDetails({
                   onClick={() => handleDelete(oneProduct._id)}
                   className="btn btn-circle btn-secondary  px-0 mt-3 absolute right-4 top-6 "
                 >
-                <svg
+                  <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"

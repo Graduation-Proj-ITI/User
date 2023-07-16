@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../../public/images/logo.png";
+import "./../../index.css";
 
 const Drawer = ({ children }) => {
   const location = useLocation();
@@ -10,11 +11,11 @@ const Drawer = ({ children }) => {
   const [search, setsearch] = useState([]);
   return (
     <>
-      <div className="drawer h-screen lg:h-full  overflow-y-hidden ">
+      <div className="drawer h-min overflow-hidden">
         <input id="sidemenu" type="checkbox" className="drawer-toggle " />
-        <div className="drawer-content flex flex-col ">{children}</div>
+        <div className="drawer-content h-full ">{children}</div>
 
-        <div className="drawer-side  h-screen overflow-scroll   ">
+        <div className="drawer-side h-screen hScroll overflow-hidden ">
           <label htmlFor="sidemenu" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 h-full bg-primary ">
             <li className="mx-auto">

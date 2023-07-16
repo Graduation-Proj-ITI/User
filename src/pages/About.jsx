@@ -2,7 +2,7 @@ import React from "react";
 
 import vector from "../../public/images/About/Vector.png";
 import cover from "../../public/images/About/cover.png";
-import { Link } from "react-router-dom";
+
 
 import Team from "../Components/sections/Team";
 import Testimonials from "../Components/sections/Testimonials";

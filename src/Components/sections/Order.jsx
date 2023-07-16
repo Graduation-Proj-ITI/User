@@ -14,15 +14,24 @@ function Orders() {
   const [review, setReview] = useState("");
   const [isChecked,setChecked]=useState(false);
   const [cancel, setCancel] = useState(false);
-  const [restItems, setRestItems] = useState(false)
-  const handleRate = (value) => {
+  const [restItems, setRestItems] = useState(false);
+  let [isClose,setIsClose] = useState(true)
+  const [HoverRating,setHoverRating] = useState(0)
+  const handleRate = (e,value) => {
+  e.preventDefault();
     setRating(value);
     // console.log(rating)
   };
   
+  const handleHoverRate = (e,value) => {
+    e.preventDefault();
+      setHoverRating(value);
+    };
+  
   const handleReview = (data) => {
     setProduct([data]);
     setChecked(true);
+    setHoverRating(0)
     setRating(0);
     setReview("");
     const getReviews = () => {
@@ -120,7 +129,7 @@ function Orders() {
     };
 
     getOrders();
-  }, [cancel]);
+  }, [cancel,restItems]);
 
   return (
     <div className="flex flex-col gap-5 content-center">
@@ -145,7 +154,7 @@ function Orders() {
               <div className="flex justify-between md:items-center flex-col md:flex-row gap-1">
               
               <div className="w-full flex flex-row items-center gap-2">
-                <p className="text-primary font-bold text-sm md:text-md"> {order._id} </p>
+                <p className="text-primary font-bold text-sm md:text-md"><span className="text-green-700 text-[15px]">orderId: </span>{order._id} </p>
                 <p
                   className={`${
                     order.status === "delivered"
@@ -161,7 +170,7 @@ function Orders() {
               </div>
               
               {order.status == 'pending' &&
-              <button className="btn btn-error-outline my-0 py-0 text-sm " onClick={()=>{handleCancel(order._id)}} > Cancle Order </button>
+              <button className={`btn btn-error-outline my-2 md:my-0 py-0 text-sm min-h-[40px] h-[40px]`} onClick={()=>{handleCancel(order._id)}} > Cancle Order </button>
               }
               </div>
 
@@ -177,12 +186,12 @@ function Orders() {
                   {new Date(order.createdAt).toUTCString().slice(0, 17)}{" "}
                 </p>
               </div>
-              <div className="w-full flex flex-col lg:flex-row gap-6 lg:gap-40 divide-y-2 lg:divide-x-2 lg:divide-y-0 divide-gray-300 ">
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-6 ">
                 {order.cartItems.map(
                   (item, ind) =>
                     ind < 3 && (
                       <div
-                        className="flex  first:pt-0 pt-7 lg:pt-0 lg:first:ps-0 lg:ps-8 flex-row gap-2 flex-wrap"
+                        className="flex pt-0 ps-0 flex-row gap-2"
                         key={ind}
                       >
                         <img
@@ -204,9 +213,11 @@ function Orders() {
                               {item.quantity}
                             </span>{" "}
                           </p>
+                          
+                          { order.status === "delivered"&&
                           <label
                             htmlFor="my-modal-5"
-                            className="text-primary font-semibold lg:hidden xl:flex w-[130px]  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
+                            className="cursor-pointer text-primary font-semibold lg:hidden xl:flex w-[130px]  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
                             onClick={(e) => {
                               handleReview([
                                 item["product"]._id,
@@ -219,10 +230,12 @@ function Orders() {
                             {" "}
                             Review Product{" "}
                           </label>
+}
                         </div>
+                        { order.status === "delivered"&&
                         <label
                           htmlFor="my-modal-5"
-                          className="text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary"
+                          className="cursor-pointer text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary cursor-pointer"
                           onClick={(e) => {
                             handleReview([
                               item["product"]._id,
@@ -235,20 +248,21 @@ function Orders() {
                           {" "}
                           Review Product{" "}
                         </label>
+}
                       </div>
+
                     )
                 )}
-              </div>
 
-              
-         <div className={`${restItems?"flex":"hidden"} flex w-full flex-col lg:flex-row gap-6 lg:gap-40 divide-y-2 lg:divide-x-2 lg:divide-y-0 divide-gray-300 `} >
+      
           {(
+          (restItems  &&(order._id ==id))&&
           order.cartItems.map(
             (item, ind) =>
               ind >2 && (
                 <div
-                  className="flex  first:pt-0 pt-7 lg:pt-0 lg:first:ps-0 lg:ps-8 flex-row gap-2 flex-wrap"
-                  key={ind}
+                className="flex pt-0 ps-0 flex-row gap-2 "
+                key={ind}
                 >
                   <img
                     src={`${item['product'].imageCover}`}
@@ -269,9 +283,11 @@ function Orders() {
                         {item.quantity}
                       </span>{" "}
                     </p>
+                    { order.status === "delivered"&&
+
                     <label
                       htmlFor="my-modal-5"
-                      className="text-primary font-semibold lg:hidden xl:flex w-[130px]  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
+                      className="cursor-pointer text-primary font-semibold lg:hidden xl:flex w-[130px]  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary "
                       onClick={(e) => {
                         handleReview([
                           item["product"]._id,
@@ -284,10 +300,13 @@ function Orders() {
                       {" "}
                       Review Product{" "}
                     </label>
+}
                   </div>
+                  { order.status === "delivered"&&
+
                   <label
                     htmlFor="my-modal-5"
-                    className="text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary"
+                    className="cursor-pointer text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary"
                     onClick={(e) => {
                       handleReview([
                         item["product"]._id,
@@ -300,24 +319,31 @@ function Orders() {
                     {" "}
                     Review Product{" "}
                   </label>
+}
                 </div>
               )
           ))}
+        
         </div>
         
         {order.cartItems.length > 3 && (
                 <p className="text-black font-semibold text-md">
+                
                   <label
                     // htmlFor="my-modal-3"
-                    onClick={() => {
+                    onClick={(e) => {
                       setId(order._id);
-                      setRestItems(!restItems);
-                      console.log(restItems);
-
+                      setRestItems(!restItems)
+                      if(restItems){
+                      setIsClose(true)
+                      }else 
+                      {
+                      setIsClose(false)
+                      };
                     }}
                     className="text-black font-semibold text-md cursor-pointer hover:text-primary transition duration-400 "
                   >
-                    {restItems?'-':'+'}{order.cartItems.length - 3} more items
+                    {(!isClose && order._id==id) ?'-':'+'}{order.cartItems.length - 3} more items
                   </label>
                 </p>
               )}
@@ -455,7 +481,7 @@ function Orders() {
             (order, ind) =>
               order._id === id && (
                 <div key={ind}>
-                  <div className="w-full flex flex-row items-center  gap-4 pb-4 ">
+                  <div className="w-full flex flex-row items-center gap-4 pb-4 ">
                     <p className="text-primary font-bold "> {order._id} </p>
                     <p
                       className={`${
@@ -518,7 +544,7 @@ function Orders() {
                                 item["product"].imageCover,
                                 item.price / item.quantity,
                               ]);
-                            }} className="text-primary font-semibold lg:hidden w-[130px] xl:flex  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
+                            }} className=" cursor-pointer text-primary font-semibold lg:hidden w-[130px] xl:flex  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
                                   {" "}
                                   Review Product{" "}
                                 </button>
@@ -530,7 +556,7 @@ function Orders() {
                                 item["product"].imageCover,
                                 item.price / item.quantity,
                               ]);
-                            }} className="text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
+                            }} className="cursor-pointer text-primary font-semibold hidden lg:flex xl:hidden  border-2 border-gray-300 px-2 py-1 transition duration-500 rounded-[8px] hover:bg-primary hover:text-white hover:border-primary ">
                                 {" "}
                                 Review Product{" "}
                               </button>
@@ -556,17 +582,13 @@ function Orders() {
 
 
 
-
-
-
-
       <input type="checkbox" id="my-modal-5" className="modal-toggle"  checked={isChecked}  onChange={(e)=>{setChecked(isChecked)}}  />
       <div className="modal z-100 ">
         <div className="modal-box relative w-11/12 max-w-5xl">
           <label
             htmlFor="my-modal-5"
             onClick={()=>{setChecked(false)}}
-            className="btn text-error px-4 rounded-[6px] btn-sm btn-circle absolute right-3 top-3 hover:bg-error hover:text-white hover:border-error"
+            className="btn btn-error-outline px-4 rounded-[6px] btn-sm btn-circle absolute right-3 top-3 hover:bg-error hover:text-white hover:border-error"
           >
             ✕
           </label>
@@ -595,44 +617,57 @@ function Orders() {
                         <form className="flex flex-col gap-4 w-full">
                          <div className="flex flex-wrap items-center">
                          <p className="text-primary">Rate product from 1 - 5 :</p>
-<div className="flex flex-row items-center justify-start">
+<div className="flex flex-row items-center justify-start rank">
                           <button
                             className={`text-3xl ${
                               rating >= 1 ? "text-yellow-400" : "text-gray-400"
-                            } hover:text-yellow-400 transition duration-500  `}
-                            onClick={() => handleRate(1)}
+                            } hover:text-yellow-400 transition duration-500  ${HoverRating>=1 && "text-yellow-400"}`}
+                            onMouseOver={(e) => handleHoverRate(e,1)}
+                            onMouseLeave={(e) => handleHoverRate(e,0)}
+                            onClick={(e) => handleRate(e,1)}
+
                           >
                             ★
                           </button>
                           <button
                             className={`text-3xl ${
                               rating >= 2 ? "text-yellow-400" : "text-gray-400"
-                            } hover:text-yellow-400 transition duration-500 `}
-                            onClick={() => handleRate(2)}
+                            } hover:text-yellow-400 transition duration-500   ${HoverRating>=2 && "text-yellow-400"}`}
+                            onMouseOver={(e) => handleHoverRate(e,2)}
+                            onMouseLeave={(e) => handleHoverRate(e,0)}
+                            onClick={(e) => handleRate(e,2)}
                           >
                             ★
                           </button>
                           <button
                             className={`text-3xl ${
                               rating >= 3 ? "text-yellow-400" : "text-gray-400"
-                            } hover:text-yellow-400 transition duration-500  `}
-                            onClick={() => handleRate(3)}
+                            } hover:text-yellow-400 transition duration-500    ${HoverRating>=3 && "text-yellow-400"}`}
+                            onMouseOver={(e) => handleHoverRate(e,3)}
+                            onMouseLeave={(e) => handleHoverRate(e,0)}
+                            onClick={(e) => handleRate(e,3)}
                           >
                             ★
                           </button>
                           <button
                             className={`text-3xl ${
                               rating >= 4 ? "text-yellow-400" : "text-gray-400"
-                            } hover:text-yellow-400 transition duration-500 `}
-                            onClick={() => handleRate(4)}
+                            } hover:text-yellow-400 transition duration-500   ${HoverRating>=4 && "text-yellow-400"}`}
+                            onMouseOver={(e) => handleHoverRate(e,4)}
+                            onMouseLeave={(e) => handleHoverRate(e,0)}
+                            onClick={(e) => handleRate(e,4)}
                           >
                             ★
                           </button>
                           <button
                             className={`text-3xl ${
                               rating >= 5 ? "text-yellow-400" : "text-gray-400"
-                            } hover:text-yellow-400 transition duration-500 `}
-                            onClick={() => handleRate(5)}
+                            } hover:text-yellow-400 transition duration-500 
+                            ${HoverRating>=5 && "text-yellow-400"}`
+                            }
+                            onMouseOver={(e) => handleHoverRate(e,5)}
+                            onMouseLeave={(e) => handleHoverRate(e,0)}
+                            onClick={(e) => handleRate(e,5)}
                           >
                             ★
                           </button>

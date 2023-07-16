@@ -4,24 +4,25 @@ const Team = () => {
   const names = [
     {
       id: 1,
-      img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60",
+      img: "./Mayar.jpg",
       name: "Mayar Mohamed",
       role: "Frontend developer",
-      github: "",
-      linkedin: "",
+      github: "https://github.com/Mayar103",
+      linkedin: "https://www.linkedin.com/in/mayar-mohamed-362b99168/",
     },
     {
       id: 2,
       // img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      // img:"./images/About/zien.jpg",
-img:"https://img.freepik.com/free-photo/modern-muslim-woman-hijab-office-room_285396-11089.jpg?w=826&t=st=1687214513~exp=1687215113~hmac=37ee5fbf041cf71f7c2d69fe44070f1874dc5116f2024480383f110d8bdce1f6",      name: "Zeinab Mohamed",
+      img: "https://media.licdn.com/dms/image/D4D03AQEMTfA4nZLlBQ/profile-displayphoto-shrink_400_400/0/1687726472789?e=1694044800&v=beta&t=jmc_2z-2kJeb4beGCv_PfhAYQZegk8Rb6sBf8AIj9Ek",
+      // img:"https://img.freepik.com/free-photo/modern-muslim-woman-hijab-office-room_285396-11089.jpg?w=826&t=st=1687214513~exp=1687215113~hmac=37ee5fbf041cf71f7c2d69fe44070f1874dc5116f2024480383f110d8bdce1f6",
+      name: "Zeinab Mohamed",
       role: "Frontend developer",
-      github: "",
-      linkedin: "",
+      github: "https://github.com/zenab12",
+      linkedin: "https://www.linkedin.com/in/zienabmuhammad/",
     },
     {
       id: 3,
-      img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+      img: "https://firebasestorage.googleapis.com/v0/b/blog-5addf.appspot.com/o/images%2F51724572-9081-4fb2-80e0-7726029d7c07-IMG_4774.jpeg?alt=media&token=318cb9a3-e8be-480c-b179-d143b679fc5b",
       name: "Rahma Hanafi",
       role: "Frontend developer",
       github: "https://github.com/RahmaHanafi",
@@ -29,19 +30,19 @@ img:"https://img.freepik.com/free-photo/modern-muslim-woman-hijab-office-room_28
     },
     {
       id: 4,
-      img: "https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80",
+      img: "./Naiem.jpg",
       name: "Mohamed Naiem",
       role: "Frontend developer",
-      github: "",
-      linkedin: "",
+      github: "https://github.com/mohamedNaiem2000",
+      linkedin: "https://www.linkedin.com/in/mohamed-naiem-883a78227",
     },
     {
       id: 5,
-      img: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+      img: "./yahia.jpg",
       name: "Mohamed Yahia",
       role: "Fullstack developer",
-      github: "",
-      linkedin: "",
+      github: "https://github.com/0xYahia",
+      linkedin: "https://www.linkedin.com/in/mohamdyahia/",
     },
   ];
   return (
@@ -66,16 +67,16 @@ img:"https://img.freepik.com/free-photo/modern-muslim-woman-hijab-office-room_28
                 className=" scale-100 group-hover:scale-110 cursor-pointer ease-in duration-300 object-cover w-full"
                 style={{ height: "15rem" }}
               />
-              <Link to={name.github} target="blank">
+              <a href={name.github} target="_blank">
                 <div className=" hidden btn-circle bg-white btn-md  absolute group-hover:flex group-hover:justify-center group-hover:items-center  animate-wiggle top-4 right-4">
                   <i className="fa-brands fa-github text-xl text-primary"></i>
                 </div>
-              </Link>
-              <Link to={name.linkedin} target="blank">
+              </a>
+              <a href={name.linkedin} target="_blank">
                 <div className=" hidden btn-circle bg-white btn-md  absolute group-hover:flex group-hover:justify-center group-hover:items-center  animate-wiggle top-20 right-4">
                   <i className="fa-brands fa-linkedin text-xl text-primary"></i>
                 </div>
-              </Link>
+              </a>
             </div>
 
             <div className="px-3 pb-5">

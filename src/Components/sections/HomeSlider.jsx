@@ -2,6 +2,7 @@ import React from "react";
 
 import { Pagination, A11y, Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+// import { useNavigate } from "react-router-dom";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -9,12 +10,13 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
 
-import img1Slide1 from "../../../public/images/slider/img1-1.jpg";
-import img2Slide1 from "../../../public/images/slider/img1-2.jpg";
+import img1Slide1 from "../../../public/images/slider/img1-1.webp";
+import img2Slide1 from "../../../public/images/slider/img1-2.webp";
 import img1Slide2 from "../../../public/images/slider/img2-1.jpg";
 import img2Slide2 from "../../../public/images/slider/img2-2.jpg";
-import img1Slide4 from "../../../public/images/slider/img4-1.jpg";
-import img2Slide4 from "../../../public/images/slider/img4-2.jpg";
+import img1Slide4 from "../../../public/images/slider/img4-1.webp";
+import img2Slide4 from "../../../public/images/slider/img4-2.webp";
+import { Link, useNavigate } from "react-router-dom";
 
 const Slider = () => {
   const sliders = [
@@ -84,9 +86,11 @@ const Slider = () => {
                   <p className="capitalize text-white md:w-6/12 lg:w-1/2 text-xl pb-10 max-sm:text-center max-sm:w-full max-sm:text-base sm:w-full sm:text-center md:text-start lg:text-start">
                     {slider.description}
                   </p>
-                  <button className="btn bg-white border-0 text-primary hover:bg-primary hover:text-white rounded-3xl flex max-sm:text-sm max-sm:mx-auto sm:mx-auto md:mx-0 lg:mx-0 ">
-                    view more
-                  </button>
+                  <Link to={"/about"}>
+                    <button className="btn bg-white border-0 text-primary hover:bg-primary hover:text-white rounded-3xl flex max-sm:text-sm max-sm:mx-auto sm:mx-auto md:mx-0 lg:mx-0 ">
+                      view more
+                    </button>
+                  </Link>
                 </div>
 
                 <div className="md:flex lg:flex gap-12 mt-24 relative max-sm:hidden sm:hidden">

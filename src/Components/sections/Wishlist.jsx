@@ -4,39 +4,52 @@ import Loader from "../Shared/Loader";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import empwishlist from "../../../public/wishlist.svg";
-const Wishlist = () => {
+const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishlistItems,setItemsInWishlist,itemsInWishlist }) => {
   const token = localStorage.getItem("token");
   const [wishlist, setWishlist] = useState([]);
+  // const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [wishPage, setWishPage] = useState(false);
+  const [allItems, setAllItems] = useState([]);
+  const [isInCart, setIsInCart] = useState(false);
   const handleAddToCart = (id) => {
-    setLoading(true);
-    axios
-      .post(
-        "https://furnival.onrender.com/cart",
-        { productId: id },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
-      .then((response) => {
-        setLoading(false);
-        // console.log(id)
-        toast.success("Your product added to cart successfully!", {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          color: "green",
-        });
-      })
-      .catch((error) => {
-        // console.log(error);
-      });
+    if (!allItems?.cartItems.find((item) => item._id == id)) {
+      setLoading(true);
+      axios
+        .post(
+          "https://furnival.onrender.com/cart",
+          { productId: id },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
+        .then((response) => {
+          setLoading(false);
+          toast.success("Your product added to cart successfully!", {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            color: "green",
+          });
+          setItemsInCart(response.data.numberOfCartItems);
+          setCartItems(response.data.numberOfCartItems);
+        })
+        .catch((error) => {});
+    }
+    console.log("wislist", cartItems);
   };
+  
+  const [listInCart,setListInCart]=useState([]);
+  const newItems=[]
 
   useEffect(() => {
+    if (window.location.pathname === "/wishlist") {
+      setWishPage(true);
+    } else {
+      setWishPage(false);
+    }
     const getWishlist = () => {
       axios
         .get("https://furnival.onrender.com/wishlist", {
@@ -44,6 +57,7 @@ const Wishlist = () => {
         })
         .then((response) => {
           setLoading(false);
+
           setWishlist(response.data.data);
         })
         .catch((error) => {
@@ -51,9 +65,64 @@ const Wishlist = () => {
         });
     };
     getWishlist();
-  }, []);
 
+    const getCartItems = () => {
+    
+      axios
+        .get("https://furnival.onrender.com/cart", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          setLoading(false);
+          setAllItems(...allItems, response.data.data);
+        })
+        .catch((error) => {
+          // console.log(error);
+        });
+      
+    };
+
+    getCartItems();
+    console.log(allItems?.cartItems)
+    const productIds = wishlist.map((item)=>item._id);
+    console.log(productIds);
+    console.log(allItems?.cartItems);
+    // if(allItems?.cartItems?.length==0){
+    //   setIsInCart(false)
+    //   }
+    const items = [];
+     productIds.forEach((element)=>{
+      
+      if(allItems?.cartItems?.length==0){
+        setIsInCart(false)
+        }
+      allItems?.cartItems?.forEach((item)=>{
+        if(item.product._id==element){
+        
+        items.push({id:element,isInCart:true})
+         console.log('true')
+          setIsInCart(true);
+        }else 
+        {
+          items.push({id:element,isInCart:false})
+          setIsInCart(false);
+          console.log('false')
+
+        }
+      })
+    });
+    
+    items.forEach((item,ind,items)=>{
+         
+      if(item.id == items[ind+1]?.id){
+        newItems.push(item)
+         console.log(item.id)
+      }
+     })
+    setListInCart(newItems)
+  }, [isInCart,itemsInWishlist]);
   const handleDelete = (id) => {
+    // handleRemove(id)
     setLoading(true);
     axios
       .delete(`https://furnival.onrender.com/wishlist/${id}`, {
@@ -70,16 +139,26 @@ const Wishlist = () => {
           pauseOnHover: true,
           color: "green",
         });
+        console.log('deleted')
+        // console.log(wishlistItems)
+        // setIsRemoved(true)
+        setItemsInWishlist(wishlist.length -1);
+        // console.log(wishlistItems)
+
       })
       .catch((error) => {
+      // setIsRemoved(false)
         // console.log(error);
       });
   };
 
-  // console.log(wishlist);
 
   return (
-    <div className="flex flex-col gap-9 content-center">
+    <div
+      className={`flex flex-col gap-9 content-center ${
+        wishPage ? "w-[90%] m-auto mt-[80px]" : ""
+      }`}
+    >
       {loading && <Loader />}
       <div className="flex flex-col gap-4 md:flex-row justify-between mt-5">
         <div>
@@ -124,14 +203,16 @@ const Wishlist = () => {
                     <div className="flex flex-col absolute -bottom-3 w-[90%] mx-auto self-center bg-white px-4 py-4 rounded-[8px] h-auto gap-2 ">
                       <p className="text-black truncate">{item.title}</p>
                       <div className="flex flex-row justify-between items-center content-center gap-2">
-                        <button
-                          className="btn-primary text-sm"
-                          onClick={() => {
-                            handleAddToCart(item._id);
-                          }}
-                        >
-                          Add to cart
-                        </button>
+                     
+                          <button
+                            className="btn-primary text-sm"
+                            onClick={() => {
+                              handleAddToCart(item._id);
+                            }}
+                          >
+                            Add to cart
+                          </button>
+                       
                         <p className="text-black text-sm font-bold self-end">
                           {item.price}$
                         </p>

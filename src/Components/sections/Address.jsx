@@ -253,6 +253,7 @@ const Address = () => {
     setChecked(true);
 
     if (isDefault) {
+      // console.log(isDefault,'from submit')
       const newAddress = [];
       allAdresses.forEach((address) => {
         address.default = false;
@@ -267,7 +268,6 @@ const Address = () => {
             }
           )
           .then((res) => {
-            console.log(res.data.data);
             newAddress.push(res.data.data);
             return res.data.data;
           })
@@ -283,7 +283,7 @@ const Address = () => {
         address: "",
         zip: "",
         phone: "",
-        default: false,
+        default: isDefault,
         // country: "",
         city: "",
       });
@@ -291,7 +291,7 @@ const Address = () => {
 
     setLoading(true);
     setIsEdit(false);
-    setIsDefault(false);
+    setIsDefault(formState.default);
     axios
       .post(
         "https://furnival.onrender.com/addresses",
@@ -301,7 +301,7 @@ const Address = () => {
           phone: formState.phone,
           postalCode: formState.zip,
           city: formState.city,
-          default: formState.default,
+          default: isDefault,
         },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -312,6 +312,8 @@ const Address = () => {
         setAllAdresses(res.data.data);
         setChecked(false);
         setRerend(true);
+        // console.log(formState.default);
+        // console.log(res.data.data);
         toast.success("Your address added successfully!", {
           position: "bottom-right",
           autoClose: 5000,
@@ -319,12 +321,12 @@ const Address = () => {
           closeOnClick: true,
           pauseOnHover: true,
         });
-        setIsDefault(false);
+        // setIsDefault(false);
       })
       .catch((err) => {
         setChecked(false);
         setLoading(false);
-        console.log(err.data);
+        // console.log(err.data)
       });
   };
 
@@ -347,7 +349,7 @@ const Address = () => {
         });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
 
@@ -365,8 +367,8 @@ const Address = () => {
       city: address.city,
     });
     setEditId(id);
-    console.log(id);
-    console.log(address);
+    // console.log(id);
+    // console.log(address)
     setCurrentAddress(address);
     setIsDefault(address.default);
     // console.log(currentAddress[currentAddress.length-1])
@@ -435,14 +437,14 @@ const Address = () => {
           closeOnClick: true,
           pauseOnHover: true,
         });
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         setChecked(false);
         setLoading(false);
         setIsEdit(true);
 
-        console.log(err.data);
+        // console.log(err.data)
       });
   };
 
@@ -457,7 +459,7 @@ const Address = () => {
           setAllAdresses(response.data.data);
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
         });
     };
     getAdresses();
@@ -472,7 +474,7 @@ const Address = () => {
     <div className="flex flex-col gap-5 content-center">
       {loading && <Loader />}
 
-      <div className="flex flex-col gap-4 md:flex-row items-center justify-between my-4">
+      <div className="flex flex-col gap-4 md:flex-row items-center justify-between my-4 order-first">
         <div>
           <h2 className="text-primary my-2">Address</h2>
           <p className="text-dark">
@@ -508,7 +510,9 @@ const Address = () => {
       {allAdresses
         .map((address, ind) => (
           <div
-            className="flex  flex-col lg:flex-row gap-1 bg-bgColor px-5 w-full lg:px-10 py-7 rounded-[16px] shadow-gray "
+            className={`flex  flex-col lg:flex-row gap-1 bg-bgColor px-5 w-full lg:px-10 py-7 rounded-[16px] shadow-gray ${
+              address.default ? "order-1" : "order-2"
+            }`}
             key={ind}
           >
             <div className="w-full">
@@ -548,20 +552,47 @@ const Address = () => {
               </div>
               <div className="flex flex-col gap-4">
                 <div className="w-full flex flex-col md:flex-row  gap-1 ">
-                  <p className="text-dark">Name: </p>
-                  <p className="text-primary ">
+                  <p className="text-dark flex gap-[8px] text-[16px] items-center">
+                    <img
+                      src="./icons8-details-48.png"
+                      className="w-[25px] h-[25px]"
+                    />{" "}
+                    <span className="font-medium text-primary">Name: </span>
+                  </p>
+                  <p
+                    className={`${
+                      address.default ? "font-bold" : ""
+                    } text-primary `}
+                  >
                     {address.alias}
-                    {address.default && "(Default)"}
+                    <span className="font-bold text-green-800">
+                      {" "}
+                      {address.default && " (Default)"}
+                    </span>
                   </p>
                 </div>
                 <div className="w-full flex flex-col md:flex-row  gap-1 ">
-                  <p className="text-dark"> Address: </p>
+                  <p className="text-dark flex gap-[8px] text-[16px] items-center">
+                    <img
+                      src="./icons8-address-50.png"
+                      className="w-[25px] h-[25px]"
+                    />{" "}
+                    <span className="font-medium text-primary">Address: </span>
+                  </p>
                   <p className="text-primary ">
                     {address.city} {address.details} {address.postalCode}
                   </p>
                 </div>
                 <div className="w-full flex flex-col md:flex-row  gap-1">
-                  <p className="text-dark">Phone Number: </p>
+                  <p className="text-dark flex gap-[8px] text-[16px] items-center">
+                    <img
+                      src="./icons8-phone-50.png"
+                      className="w-[25px] h-[25px]"
+                    />{" "}
+                    <span className="font-medium text-primary">
+                      Phone Number:{" "}
+                    </span>
+                  </p>
                   <p className="text-primary ">{address.phone} </p>
                 </div>
               </div>
@@ -584,7 +615,7 @@ const Address = () => {
             onClick={() => {
               setChecked(false);
             }}
-            className="btn text-error px-4 rounded-full  btn-sm  border-error btn-outline btn-circle absolute right-4 top-2 hover:bg-error hover:text-white hover:border-error"
+            className="btn text-error px-4  btn-sm  border-error btn-outline rounded-[6px] absolute right-4 top-2 hover:bg-error hover:text-white hover:border-error"
           >
             ✕
           </label>
@@ -666,6 +697,23 @@ const Address = () => {
                 value={formState.city}
                 onChange={handleChange}
               >
+                <option
+                  className="text-primary hover:text-white"
+                  value="Select City"
+                  hidden
+                >
+                  {" "}
+                  Select City
+                </option>
+                <option
+                  className="text-primary hover:text-white"
+                  value="Select City"
+                  disabled
+                  default={true}
+                  >
+                  {" "}
+                  Select City
+                </option>
                 {cities.map((city, ind) => (
                   <option
                     key={ind}

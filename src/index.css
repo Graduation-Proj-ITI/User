@@ -253,3 +253,17 @@ svg#freepik_stories-delivery-address.animated #freepik--Floor--inject-13 {
     transform: translate3d(0, 0, 0);
   }
 }
+
+.hScroll {
+  overflow-y: hidden !important;
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+  max-height: max-content !important;
+}
+
+::selection 
+{
+background-color: #133a5e;
+color:#fff;
+
+}

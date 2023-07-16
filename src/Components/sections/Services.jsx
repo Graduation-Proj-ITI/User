@@ -84,7 +84,7 @@ const Services = () => {
 
   return (
     <section className="flex flex-col my-28 max-sm:my-12 sm:my-12 xl:my-28 lg:my-20 2xl:my-28">
-      <h2 className="text-primary bg-white max-sm:mb-5 sm:mb-5 lg:mb-16 md:pb-5 text-center font-bold max-sm:text-2xl sm:text-2xl md:text-2xl lg:text-2xl 2xl:text-3xl">
+      <h2 className="text-primary max-sm:mb-5 sm:mb-5 lg:mb-16 md:pb-5 text-center font-bold max-sm:text-2xl sm:text-2xl md:text-2xl lg:text-2xl 2xl:text-3xl">
         Services
       </h2>
       {size.width > 1023 ? (

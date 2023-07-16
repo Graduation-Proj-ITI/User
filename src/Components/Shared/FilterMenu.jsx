@@ -40,7 +40,7 @@ const FilterMenu = ({
           <span className="text-black">15000</span>
           <span className="text-black">20000</span>
           <span className="text-black">25000</span>
-          <span className="text-black">3000</span>
+          <span className="text-black">30000</span>
         </div>
       </div>
       <div className="filterRate  ps-4 mb-8">
@@ -85,11 +85,11 @@ const FilterMenu = ({
             All
           </h5>
 
-          {categories?.map((category) => {
+          {categories?.map((category,ind) => {
             return (
               <>
                 <h5
-                  key={category?._id}
+                  key={ind}
                   className={`categorylink mb-4 ms-5 text-base ${
                     category?.name === currentCategory ? "categoryactive" : ""
                   }`}
@@ -120,7 +120,7 @@ const FilterMenu = ({
                   style={{
                     width: "18px",
                     height: "18px",
-                    borderRadius: "50%",
+                    borderRadius: "20%",
                     backgroundColor: color.name,
                     display: "inline-block",
                     marginTop: "5px",

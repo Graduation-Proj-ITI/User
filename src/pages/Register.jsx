@@ -11,29 +11,157 @@ function Register() {
   const [nameError, setNameError] = useState(false);
   const [PasswordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setconfirmPasswordError] = useState(false);
+  const [existEmail, setExistEmail] = useState(false);
+
   const [regiester, setregister] = useState({
     name: "",
     email: "",
     password: "",
     passwordConfirm: "",
   });
+  const [formErrors, setFormErrors] = useState([{
+    name: "",
+  },{
+    email: ""},
+    {
+    password: ""},{
+    passwordConfirm: ""},
+  ]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  
+  
+  const isValidEmail = (email) => {
+    // Email validation logic (regex or other validation methods)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  
+  const validateName = ()=>{
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      name: "",
+    }));
+    let isValid = true;
+    if (regiester.name.trim() === "") {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        name: "userName is required",
+      }));
+      isValid = false;
+    } else if (regiester.name.trim().length <= 2) {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        name: "userName must be at least 3 characters long",
+      }));
+      isValid = false;
+    } else if (regiester.name.trim().length >= 20) {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        name: "userName must be less than 20 characters long",
+      }));
+      isValid = false;
+    }
+    
+    return isValid;
+  
+  }
+  
+  
+  const validateEmail = ()=>{
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      email: "",
+    }));
+    let isValid=true;
+    if (regiester.email.trim() === "") {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Email is required",
+      }));
+      isValid = false;
+    } else if (!isValidEmail(regiester.email.trim())) {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Invalid email address",
+      }));
+      isValid = false;
+    }
+    
+    return isValid;
+  }
+  
+  const validatePassword = ()=>{
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      password: "",
+    }));
+    let isValid=false;
+    if(regiester.password.trim() === "") {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password is required",
+      }));
+      isValid = false;
+    
+    } else if (regiester.password.trim().length <= 5) {
+    
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password must be at least 6 characters long",
+      }));
+      isValid = false;
+    } else if (regiester.password.trim().length >= 20) {
+         setFormErrors({...prevErrors,password: "Password must be less than 20 characters long"})
+         
+         isValid=false;
+    }
+    
+    return isValid;
+  }
+  
+   
+  const validatePasswordConfirm = ()=>{
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      passwordConfirm: "",
+    }));
+    let isValid=true;
+    if(regiester.passwordConfirm.trim() === "") {
+       
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        passwordConfirm: "confirm Password is required",
+      }));
+      isValid = false;
+    
+    }else if (regiester.passwordConfirm.trim() !== regiester.password.trim()) {
+       
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        passwordConfirm: "Password and confirm password must be the same",
+      }));
+      isValid = false;
+    }    
+    return isValid;
+  }
+  
+  
 
   const handlesubmit = async (e) => {
     e.preventDefault();
     console.log("success true");
     setLoading(true);
-
-    // setLoading(true);
-    //call back end
+    validateName();
+    validateEmail();
+    validatePassword();
+    validatePasswordConfirm();
     await axios
       .post("https://furnival.onrender.com/auth/signup", regiester)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         // localStorage.setItem("token", res.data.data.token);
         console.log(res.data.data);
-
         toast.success(`Welcome ${regiester.name}`, {
           position: "top-right",
           autoClose: 5000,
@@ -41,32 +169,44 @@ function Register() {
           closeOnClick: true,
           pauseOnHover: true,
         });
-
-        navigate("/", { replace: true });
+        setExistEmail(false);
+        setTimeout(() => {          
+          navigate("/", { replace: true });
+        }, 350);
       })
       .catch((e) => {
-        console.log(e);
-
-        toast.error("please Check your information", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-        });
-        setLoading(true);
-
-        // setLoading(true);
-
+        console.log(e.response.data.errors);
+        const errors = {};
+        e.response.data.errors.forEach(err => {
+          if (err.param === "name") {
+          errors.name= err.msg;
+        }else if (err.param === "email") {
+          errors.email= err.msg;
+        }else if (err.param === "password") {
+          errors.password= err.msg;
+        } else if (err.param === "passwordConfirm") {
+          errors.passwordConfirm= err.msg;
+        }
+      }
+        );
+        
+        if(errors.email === "E-mail already in used"){
+           setExistEmail(true);
+        }
+        setLoading(true); 
         console.log(regiester);
       })
       .finally(() => setLoading(false));
-  };
-
-  const handlechange = (e) => {
-    setregister({ ...regiester, [e.target.name]: e.target.value });
-  };
-
+      
+    };
+    
+    const handlechange = (e) => {
+      setregister({ ...regiester, [e.target.name]: e.target.value });
+    };
+    
+    
+    
+    console.log(formErrors)
   return (
     <>
       <div className=" bg-slide2 h-full w-full bg-cover  bg-no-repeat">
@@ -108,28 +248,20 @@ function Register() {
                               onChange={handlechange}
                               value={regiester.name}
                               id="username"
-                              required
+                              // required
                               className="input input-bordered w-full max-w-xs px-3"
-                              onInput={(e) => {
-                                setNameError(
-                                  e.target.value.length >= 3 ? false : true
-                                );
-                              }}
-                              onBlur={(e) => {
-                                setNameError(
-                                  e.target.value.length ? false : true
-                                );
+                              onKeyUp={(e) => {
+                                validateName();
                               }}
                             />
-
-                            {nameError && (
-                              <p
+                            {formErrors.name &&
+                            <p
                                 className="text-red-900 text-left"
                                 id="nameerror"
                               >
-                                invalid name
-                              </p>
-                            )}
+                                {formErrors.name}
+                              </p>}
+                              
                           </div>
 
                           <div className="form-control m-auto max-w-xs">
@@ -145,27 +277,29 @@ function Register() {
                               onChange={handlechange}
                               value={regiester.email}
                               id="email"
-                              required
+                              // required
                               className="input input-bordered w-full max-w-xs px-3"
-                              onInput={(e) => {
-                                setEmailError(
-                                  e.target.value.length >= 6 ? false : true
-                                );
+                              onKeyUp={(e) => {                                
+                                validateEmail(e);
                               }}
-                              onBlur={(e) => {
-                                setEmailError(
-                                  e.target.value.length >= 6 ? false : true
-                                );
-                              }}
+                              
                             />
-                            {emailError && (
-                              <p
+                                {formErrors.email &&  
+                            (<p
                                 className="text-red-900 text-left"
                                 id="emailerror"
                               >
-                                invalid email
+                                {formErrors.email}
+                              </p>)}
+                              
+                              
+                            
+                           { 
+                            existEmail &&
+                              <p className="text-red-900 text-left"> 
+                                E-mail already in used
                               </p>
-                            )}
+}  
                           </div>
 
                           <div className="form-control m-auto max-w-xs ">
@@ -181,27 +315,19 @@ function Register() {
                               onChange={handlechange}
                               value={regiester.password}
                               id="password"
-                              required
+                              // required
                               className="input input-bordered w-full max-w-xs px-3"
-                              onInput={(e) => {
-                                setPasswordError(
-                                  e.target.value.length >= 8 ? false : true
-                                );
-                              }}
-                              onBlur={(e) => {
-                                setPasswordError(
-                                  e.target.value.length >= 8 ? false : true
-                                );
+                              onKeyUp={(e) => {
+                                validatePassword(e);
                               }}
                             />
-                            {PasswordError && (
-                              <p
+                          {formErrors.password &&  
+                            (<p
                                 className="text-red-900 text-left"
                                 id="passworderror"
                               >
-                                invalid
-                              </p>
-                            )}
+                                {formErrors.password}
+                              </p>)}
                           </div>
 
                           <div className="form-control m-auto max-w-xs">
@@ -218,33 +344,19 @@ function Register() {
                               placeholder="password"
                               onChange={handlechange}
                               value={regiester.passwordConfirm}
-                              required
+                              // required
                               className="input input-bordered w-full max-w-xs px-3"
-                              onInput={(e) => {
-                                setconfirmPasswordError(
-                                  e.target.value.length >= 8 ||
-                                    e.target.value === regiester.password
-                                    ? false
-                                    : true
-                                );
-                              }}
-                              onBlur={(e) => {
-                                setconfirmPasswordError(
-                                  e.target.value.length >= 8 ||
-                                    e.target.value === regiester.password
-                                    ? false
-                                    : true
-                                );
+                              onKeyUp={(e) => {
+                                validatePasswordConfirm(e);
                               }}
                             />
-                            {confirmPasswordError && (
-                              <p
+                              { formErrors.passwordConfirm&&  
+                            (<p
                                 className="text-red-900 text-left"
-                                id="confirmerror"
+                                id="passworderror"
                               >
-                                Two passwords not match
-                              </p>
-                            )}
+                                {formErrors.passwordConfirm}
+                              </p>)}
                           </div>
 
                           {!loading ? (

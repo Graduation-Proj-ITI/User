@@ -11,7 +11,9 @@ export default function Footer() {
         className={
           location.pathname === "/Login" ||
           location.pathname === "/Register" ||
-          location.pathname === "/forget-password"
+          location.pathname === "/forget-password" ||
+          location.pathname === "/reset-password" ||
+          location.pathname === "/*"
             ? "hidden"
             : ""
         }
@@ -28,9 +30,9 @@ export default function Footer() {
                 <img src={logo} className="w-20" /> */}
               <h1 className=" text-white">Furnival</h1>
               {/* </Link> */}
-              <p className=" text-gray-300 text-base ">
-                Lorem sit adipisicing elit. facere magni possimus molestiae,
-                voluptas magnam. Minus dolorem quisquam!
+              <p className=" text-gray-300 text-base capitalize ">
+                the perfect place for every contemporary furniture store and
+                manufacturer. This is Furnival.
               </p>
 
               <div className="flex space-x-1 ">
@@ -110,14 +112,12 @@ export default function Footer() {
 
             <div className="flex space-x-2">
               <i className="fa-solid fa-location-dot text-gray-300 py-1"></i>
-              <p className=" text-gray-300">
-                121 King St, Melbourne den 3000, Australia
-              </p>
+              <p className=" text-gray-300">ITI, Ismailia, Egypt</p>
             </div>
             <div className="group flex space-x-2 cursor-pointer">
               <i className="fa-solid fa-envelope text-gray-300 py-1  group-hover:text-gray-300 duration-300"></i>
               <p className=" text-gray-300  group-hover:text-secondary  duration-300">
-                info@example.com
+                Furnival@example.com
               </p>
             </div>
             <div className="group flex space-x-2 cursor-pointer">

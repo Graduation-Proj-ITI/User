@@ -1,22 +1,24 @@
 import { useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../../public/images/logo.png";
+import "./../../index.css";
 
 const Drawer = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [isOpen, setOpen] = useState(false);
   // console.log(location.pathname);
 
   const [search, setsearch] = useState([]);
   return (
     <>
-      <div className="drawer  h-full  overflow-y-hidden ">
-        <input id="sidemenu" type="checkbox" className="drawer-toggle " />
-        <div className="drawer-content flex flex-col ">{children}</div>
+      <div className="drawer h-min overflow-hidden">
+        <input id="sidemenu" type="checkbox" className="drawer-toggle " onClick={(e)=>{setOpen(!isOpen)}} />
+        <div className={`drawer-content ${isOpen?' h-screen':' h-full'} `}>{children}</div>
 
-        <div className="drawer-side  h-screen overflow-scroll   ">
+        <div className="drawer-side h-full hScroll overflow-hidden max-h-full">
           <label htmlFor="sidemenu" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 h-full bg-primary ">
+          <ul className="menu p-4 w-80 h-full bg-primary fixed ">
             <li className="mx-auto">
               <Link to="/" className="flex gap-1">
                 <img src={logo} className="w-9" />
@@ -52,7 +54,10 @@ const Drawer = ({ children }) => {
                 </button>
               </div> */}
             </li>
-            <li className=" text-lg">
+
+            <li
+              className={localStorage.getItem("token") ? "text-lg" : "hidden"}
+            >
               {" "}
               <NavLink
                 to="/profile"
@@ -65,6 +70,7 @@ const Drawer = ({ children }) => {
                 Profile
               </NavLink>
             </li>
+
             <li className=" text-lg">
               <NavLink
                 to="/"
@@ -137,7 +143,7 @@ const Drawer = ({ children }) => {
               </NavLink>
             </li>
 
-            <li>
+            <li className={localStorage.getItem("token") ? "" : "hidden"}>
               <button
                 className="text-white text-start mt-40"
                 onClick={() => {

@@ -45,7 +45,7 @@ const Cart = ({
                     </figure>
                     <div className="py-5 max-sm:w-1/2 sm:w-2/3 2xl:w-3/4 flex flex-col gap-2 max-sm:gap-1 ">
                       <div className="flex w-full justify-between items-start  ">
-                        <h5 className=" text-primary max-sm:leading-6  overflow-hidden max-sm:text-base">
+                        <h5 className=" text-primary max-sm:leading-4  overflow-hidden max-sm:text-base truncate ">
                           {item.product?.title}
                         </h5>
                         <button

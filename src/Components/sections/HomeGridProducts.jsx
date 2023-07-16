@@ -1,9 +1,9 @@
 import React from "react";
-import gImg1 from "../../../public/images/grid/1.jpg";
-import gImg2 from "../../../public/images/grid/2.jpg";
-import gImg3 from "../../../public/images/grid/3.jpg";
-import gImg4 from "../../../public/images/grid/4.jpg";
-import gImg5 from "../../../public/images/grid/5.jpg";
+import gImg1 from "../../../public/images/grid/1.webp";
+import gImg2 from "../../../public/images/grid/2.webp";
+import gImg3 from "../../../public/images/grid/3.webp";
+import gImg4 from "../../../public/images/grid/4.webp";
+import gImg5 from "../../../public/images/grid/5.webp";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const GridProducts = () => {

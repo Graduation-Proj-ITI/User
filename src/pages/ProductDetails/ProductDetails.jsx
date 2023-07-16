@@ -371,7 +371,7 @@ function ProductDetails({
                     </div>
 
                     {rate?.ratings > 3.5 ? (
-                      <span className="badge badge-lg relative gap-2 font-medium text-base  border-none bg-[#8FC83D] max-sm:badge-sm max-sm:py-3 flex items-center">
+                      <span className="badge badge-lg relative gap-2 font-medium text-base  border-none bg-[#8FC83D] max-sm:badge-sm max-sm:py-3 flex items-center text-white">
                         <i className="fa-solid fa-star text-sm"></i>
                         {rate?.ratings}
                       </span>

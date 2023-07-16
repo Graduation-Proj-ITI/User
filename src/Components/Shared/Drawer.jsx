@@ -11,11 +11,11 @@ const Drawer = ({ children }) => {
   const [search, setsearch] = useState([]);
   return (
     <>
-      <div className="drawer h-min overflow-hidden">
+      <div className="drawer h-full overflow-hidden">
         <input id="sidemenu" type="checkbox" className="drawer-toggle " />
         <div className="drawer-content h-full ">{children}</div>
 
-        <div className="drawer-side h-screen hScroll overflow-hidden ">
+        <div className="drawer-side ">
           <label htmlFor="sidemenu" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 h-full bg-primary ">
             <li className="mx-auto">

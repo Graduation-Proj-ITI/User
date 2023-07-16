@@ -1,4 +1,4 @@
- /** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config} */
 const colors = require("tailwindcss/colors");
 
 export default {
@@ -45,21 +45,15 @@ export default {
       },
 
       backgroundImage: {
-        community: "url('../../public/images/community/community.png')",
-        shop: "url('../../public/images/products/backgroundProduct.png')",
+        community:
+          "url('https://firebasestorage.googleapis.com/v0/b/blog-5addf.appspot.com/o/images%2Fcommunity.png?alt=media&token=c21f538c-993e-454f-a460-29bd7ba067fe')",
+        shop: "url('https://firebasestorage.googleapis.com/v0/b/blog-5addf.appspot.com/o/images%2FbackgroundProduct.png?alt=media&token=eaf08991-4ea3-4f5c-9a2b-9df52034a72e')",
         footerBg:
           "linear-gradient(to top, #133A5Ecf, #133A5Ecf), url('https://i.shgcdn.com/4427c8e2-7042-41d8-bcfb-0fb78efd53bf/-/format/auto/-/preview/3000x3000/-/quality/lighter/')",
-        slide1: "url('../../images/slider/slide1.jpg')",
-        slide2: "url('../../images/slider/slide2.jpg')",
+        slide1: "url('../../images/slider/slide1.webp')",
+        slide2: "url('../../images/slider/slide2.webp')",
         slide3: " url('../../images/slider/slide3.jpg')",
         slide4: " url('../../images/slider/slide4.jpg')",
-        bgLamp: "url('../../images/categories/lamp-1.jpg')",
-        bgSofa: "url('../../images/categories/sofa.jpg')",
-        bgChair: "url('../../images/categories/chair.jpg')",
-        bgDecoration: "url('../../images/categories/decoration.jpg')",
-        bgStorage: "url('../../images/categories/storage.jpg')",
-        bgBed: "url('../../images/categories/bed.jpg')",
-        bgTable: "url('../../images/categories/table.jpg')",
       },
       fontSize: {
         sm: "0.8rem",

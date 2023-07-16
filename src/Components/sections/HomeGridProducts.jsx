@@ -1,9 +1,9 @@
 import React from "react";
-import gImg1 from "../../../public/images/grid/1.jpg";
-import gImg2 from "../../../public/images/grid/2.jpg";
-import gImg3 from "../../../public/images/grid/3.jpg";
-import gImg4 from "../../../public/images/grid/4.jpg";
-import gImg5 from "../../../public/images/grid/5.jpg";
+import gImg1 from "../../../public/images/grid/1.webp";
+import gImg2 from "../../../public/images/grid/2.webp";
+import gImg3 from "../../../public/images/grid/3.webp";
+import gImg4 from "../../../public/images/grid/4.webp";
+import gImg5 from "../../../public/images/grid/5.webp";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const GridProducts = () => {
@@ -14,8 +14,11 @@ const GridProducts = () => {
         modern home ideas
       </h2>
       <div className="grid grid-flow-row lg:gap-4 max-sm:gap-0 max-sm:space-y-3 sm:gap-2 md:gap-2 max-sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-3 ">
-        <figure className="relative col-span-1 sm:w-full md:col-span-1 lg:col-span-1 xl:col-span-1 2xl:col-span-1">
-          <img src={gImg1} className="h-full rounded-xl" />
+        <figure className="relative col-span-1 sm:w-full md:col-span-1 lg:col-span-1 xl:col-span-1 2xl:col-span-1 ">
+          <img
+            src={gImg1}
+            className=" h-80 w-full lg:h-full rounded-xl object-cover"
+          />
           <div className="group">
             <button
               className="absolute btn-circle bg-slate-800 bg-opacity-50 btn-sm scale-100 transition-transform ease-linear 0.5s group-hover:scale-90 bottom-1/2 left-1/4 "
@@ -49,8 +52,11 @@ const GridProducts = () => {
             </Link>
           </div>
         </figure>
-        <figure className="relative col-span-1 max-sm:col-span-2 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1 2xl:col-span-1 ">
-          <img src={gImg2} className=" h-full rounded-xl" />
+        <figure className="relative col-span-1 max-sm:col-span-2 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1 2xl:col-span-1">
+          <img
+            src={gImg2}
+            className=" h-80 w-full lg:h-full rounded-xl object-cover"
+          />
           <div className="group">
             <button className="absolute btn-circle bg-slate-800 bg-opacity-50 btn-sm scale-100 transition-transform ease-linear 0.5s group-hover:scale-90 bottom-1/4  left-2/4 ">
               <i className="fa-solid fa-circle text-white scale-75"></i>
@@ -76,7 +82,10 @@ const GridProducts = () => {
           </div>
         </figure>
         <figure className="relative col-span-1 row-span-2 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2 xl:col-span-1 xl:row-span-2 2xl:col-span-1 2xl:row-span-2">
-          <img src={gImg3} className=" h-full rounded-xl" />
+          <img
+            src={gImg3}
+            className=" h-80 w-full lg:h-full rounded-xl object-cover"
+          />
           <div className="group">
             <button
               className="absolute btn-circle bg-slate-800 bg-opacity-50 btn-sm  scale-100 transition-transform ease-linear 0.5s group-hover:scale-90 top-1/2 left-1/2 "
@@ -111,7 +120,10 @@ const GridProducts = () => {
           </div>
         </figure>
         <figure className="relative col-span-2 row-span-2 sm:col-span-1 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2 xl:col-span-2 xl:row-span-2 2xl:col-span-2 2xl:row-span-2">
-          <img src={gImg4} className=" h-full rounded-xl" />
+          <img
+            src={gImg4}
+            className=" h-80 w-full lg:h-full rounded-xl object-cover"
+          />
           <div className="group">
             <button
               className="absolute btn-circle bg-slate-800 bg-opacity-50 btn-sm  scale-100 transition-transform ease-linear 0.5s group-hover:scale-90 right-1/3 bottom-1/3 "
@@ -146,7 +158,10 @@ const GridProducts = () => {
           </div>
         </figure>
         <figure className="relative col-span-1 2xl:col-span-1">
-          <img src={gImg5} className=" h-full rounded-xl" />
+          <img
+            src={gImg5}
+            className="  h-80 w-full lg:h-full rounded-xl object-cover"
+          />
           <div className="group">
             <button
               className="absolute btn-circle bg-slate-800 bg-opacity-50 btn-sm  scale-100 transition-transform ease-linear 0.5s group-hover:scale-90 bottom-1/3 right-1/3 "

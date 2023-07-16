@@ -10,12 +10,12 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
 
-import img1Slide1 from "../../../public/images/slider/img1-1.jpg";
-import img2Slide1 from "../../../public/images/slider/img1-2.jpg";
+import img1Slide1 from "../../../public/images/slider/img1-1.webp";
+import img2Slide1 from "../../../public/images/slider/img1-2.webp";
 import img1Slide2 from "../../../public/images/slider/img2-1.jpg";
 import img2Slide2 from "../../../public/images/slider/img2-2.jpg";
-import img1Slide4 from "../../../public/images/slider/img4-1.jpg";
-import img2Slide4 from "../../../public/images/slider/img4-2.jpg";
+import img1Slide4 from "../../../public/images/slider/img4-1.webp";
+import img2Slide4 from "../../../public/images/slider/img4-2.webp";
 import { Link, useNavigate } from "react-router-dom";
 
 const Slider = () => {

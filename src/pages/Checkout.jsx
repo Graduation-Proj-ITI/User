@@ -40,7 +40,7 @@ const Checkout = ({
   const [rerend, setRerend] = useState(false);
   const [defaultAddress, setDefaultAddress] = useState({});
   const [currAddress, setCurrAddress] = useState("");
-  const [radio,setRadio] =useState(false);
+  const [radio, setRadio] = useState(false);
   const [cities, setCities] = useState([
     {
       id: "0",
@@ -412,11 +412,14 @@ const Checkout = ({
           console.log(response.data.data, allAdresses);
           if (response.data.data.length === 0) {
             setDefaultAddress(0);
-            setRadio(false)
-
+            setRadio(false);
           } else {
-            setDefaultAddress(response.data.data.find(add=> add.default == true));
-            setCurrAddress(response.data.data.find(add=> add.default == true)._id);
+            setDefaultAddress(
+              response.data.data.find((add) => add.default == true)
+            );
+            setCurrAddress(
+              response.data.data.find((add) => add.default == true)._id
+            );
           }
         })
         .catch((error) => {
@@ -430,7 +433,7 @@ const Checkout = ({
     };
   }, [isDefault, rerend]);
 
-console.log(currAddress);
+  console.log(currAddress);
   return (
     <>
       <div className="">
@@ -716,7 +719,6 @@ console.log(currAddress);
                   <label
                     htmlFor="change-address-modal"
                     className="btn text-error px-4 rounded-full btn-sm border-error btn-outline btn-circle absolute right-4 top-2 hover:bg-error hover:text-white hover:border-error"
-                 
                   >
                     ✕
                   </label>
@@ -728,11 +730,10 @@ console.log(currAddress);
                     }}
                   >
                     {allAdresses.map((address) => (
-                      
                       <li
                         className={
                           " bg-gray-50 p-6 rounded-3xl flex flex-col gap-2 mb-3  border-2 " +
-                          (address._id == currAddress 
+                          (address._id == currAddress
                             ? " border-secondary"
                             : "")
                         }
@@ -743,10 +744,14 @@ console.log(currAddress);
                             type="radio"
                             name="radio-1"
                             value={address._id}
-                            className={`radio radio-gray ${address._id == currAddress?'radio-primary':'radio-gray'} text-primary`}
-                            checked = {address._id == currAddress }    
+                            className={`${
+                              address._id == currAddress
+                                ? "radio-primary"
+                                : "radio-gray"
+                            } text-primary`}
+                            checked={address._id == currAddress}
                           />
-                          
+
                           <h5 className=" capitalize ">{address.alias}</h5>
                         </div>
 
@@ -884,11 +889,9 @@ console.log(currAddress);
                     Promo Code Discount
                   </h6>
                   <h5 className=" font-normal text-green-700">
-                    {
-                    priceBeforeDiscount ?? priceAfterDiscount ?(
-                    
-                    -(priceBeforeDiscount - priceAfterDiscount).toFixed(2))
-                    : ""}
+                    {priceBeforeDiscount ?? priceAfterDiscount
+                      ? -(priceBeforeDiscount - priceAfterDiscount).toFixed(2)
+                      : ""}
                   </h5>
                 </div>
               ) : (

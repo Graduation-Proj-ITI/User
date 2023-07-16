@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import Loader from "../../Components/Shared/Loader";
 
-function SingleProduct({ product, setItemsInCart ,setItemsInWishlist}) {
+function SingleProduct({ product, setItemsInCart, setItemsInWishlist }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const AddToCart = async (e, productId) => {
@@ -36,14 +36,13 @@ function SingleProduct({ product, setItemsInCart ,setItemsInWishlist}) {
     } catch (e) {
       console.log(e);
       setLoading(false);
-
     }
   };
 
   // const { product } = props;
   return (
     <>
-    {loading && <Loader />}
+      {loading && <Loader />}
       <div className="relative w-full shadow-lg mb-10 max-sm:h-60 sm:h-56 md:h-56 lg:h-60 xl:h-64 2xl:h-72 rounded-lg">
         <Link
           to={`/product/details/${product?._id}`}
@@ -60,7 +59,7 @@ function SingleProduct({ product, setItemsInCart ,setItemsInWishlist}) {
         <div className="card-body absolute bg-white shadow-lg rounded-xl -bottom-9 left-3 right-3 2xl:left-3 2xl:right-3 max-sm:left-2 max-sm:right-2 max-sm:-bottom-10 xl:left-4 xl:right-4 ">
           <Link
             to={`/product/details/${product?._id}`}
-            className="title leading-tight h-9 overflow-hidden text-ellipsis"
+            className="title leading-tight h-9 overflow-hidden text-ellipsis text-primary"
           >
             {product?.title}
           </Link>
@@ -77,7 +76,7 @@ function SingleProduct({ product, setItemsInCart ,setItemsInWishlist}) {
             >
               Add to cart
             </button>
-            <p className="text-end font-bold max-sm:order-1">
+            <p className="text-end font-bold max-sm:order-1 text-black">
               ${product?.price}
             </p>
           </div>

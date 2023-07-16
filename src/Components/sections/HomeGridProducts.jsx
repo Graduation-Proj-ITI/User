@@ -26,28 +26,27 @@ const GridProducts = () => {
               <i className="fa-solid fa-circle text-white scale-75"></i>
             </button>
 
-            <div
-              className="absolute hidden bg-white bottom-24 left-28 cursor-pointer p-3 group-hover:block motion-safe:animate-wiggle"
-              onClick={() => {
-                naviagte("/product/details/64977ace04ef60e20778ab81");
-              }}
-            >
-              <div className="flex justify-between ">
-                <p className=" text-orange-800  font-bold text-xs py-1">New</p>
-                <i className="fa-solid fa-angle-right"></i>
+            <Link to={"/product/details/64977ace04ef60e20778ab81"}>
+              <div className="absolute hidden bg-white bottom-24 left-28 cursor-pointer p-3 group-hover:block motion-safe:animate-wiggle">
+                <div className="flex justify-between ">
+                  <p className=" text-orange-800  font-bold text-xs py-1">
+                    New
+                  </p>
+                  <i className="fa-solid fa-angle-right"></i>
+                </div>
+
+                <p className=" text-primary font-poppins font-medium  text-sm py-1">
+                  Mid-Century Modern...
+                </p>
+
+                <p className=" text-slate-700  font-poppins text-xs">
+                  Short on time, the exqu...
+                </p>
+                <p className=" font-poppins font-semibold text-sm py-1">
+                  22000 LE
+                </p>
               </div>
-
-              <p className=" text-primary font-poppins font-medium  text-sm py-1">
-                Storage Unit
-              </p>
-
-              <p className=" text-slate-700  font-poppins text-xs">
-                short description...
-              </p>
-              <p className=" font-poppins font-semibold text-sm py-1">
-                $ 75.00
-              </p>
-            </div>
+            </Link>
           </div>
         </figure>
         <figure className="relative col-span-1 max-sm:col-span-2 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1 2xl:col-span-1 ">
@@ -88,28 +87,27 @@ const GridProducts = () => {
               <i className="fa-solid fa-circle text-white scale-75"></i>
             </button>
 
-            <div
-              className="absolute hidden bg-white top-1/2 left-1/3  cursor-pointer p-3 group-hover:block motion-safe:animate-wiggle"
-              onClick={() => {
-                naviagte("/product/details/64977c3804ef60e20778ac27");
-              }}
-            >
-              <div className="flex justify-between ">
-                <p className=" text-orange-800  font-bold text-xs py-1">New</p>
-                <i className="fa-solid fa-angle-right"></i>
+            <Link to={"/product/details/64977c3804ef60e20778ac27"}>
+              <div className="absolute hidden bg-white top-1/2 left-1/3  cursor-pointer p-3 group-hover:block motion-safe:animate-wiggle">
+                <div className="flex justify-between ">
+                  <p className=" text-orange-800  font-bold text-xs py-1">
+                    New
+                  </p>
+                  <i className="fa-solid fa-angle-right"></i>
+                </div>
+
+                <p className=" text-primary font-poppins font-medium  text-sm py-1">
+                  Dining table
+                </p>
+
+                <p className=" text-slate-700  font-poppins text-xs">
+                  Calling back to the styli...
+                </p>
+                <p className=" font-poppins font-semibold text-sm py-1">
+                  7000 LE
+                </p>
               </div>
-
-              <p className=" text-primary font-poppins font-medium  text-sm py-1">
-                Storage Unit
-              </p>
-
-              <p className=" text-slate-700  font-poppins text-xs">
-                short description...
-              </p>
-              <p className=" font-poppins font-semibold text-sm py-1">
-                $ 75.00
-              </p>
-            </div>
+            </Link>
           </div>
         </figure>
         <figure className="relative col-span-2 row-span-2 sm:col-span-1 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2 xl:col-span-2 xl:row-span-2 2xl:col-span-2 2xl:row-span-2">

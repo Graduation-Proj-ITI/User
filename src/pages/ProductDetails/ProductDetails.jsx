@@ -5,8 +5,9 @@ import axios from "axios";
 import SingleProduct from "../Product/SingleProduct";
 import moment from "moment/moment";
 import { toast } from "react-toastify";
+import Loader from "../../Components/Shared/Loader";
 
-function ProductDetails() {
+function ProductDetails({ setItemsInCart }) {
   const { productId } = useParams();
 
   const [oneProduct, setOneProduct] = useState();
@@ -15,6 +16,7 @@ function ProductDetails() {
   const [imgarr, setImgArr] = useState();
   const [AllRate, setAllRate] = useState([]);
   const [allRateLoading, setAllRateLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   // const [images, setImages] = useState([
   //   "/images/grid/1.png",
   //   "/images/grid/2.png",
@@ -27,6 +29,7 @@ function ProductDetails() {
 
     console.log(localStorage.getItem("token"), productId);
     try {
+      setLoading(true);
       const { data } = await axios.post(
         "https://furnival.onrender.com/cart",
         { productId },
@@ -36,6 +39,7 @@ function ProductDetails() {
           },
         }
       );
+      setLoading(false);
       console.log(data);
       toast.success("Product added to cart successfully", {
         position: "bottom-right",
@@ -51,9 +55,11 @@ function ProductDetails() {
   };
   const getProducts = async () => {
     try {
+      setLoading(true);
       const { data } = await axios.get(
         "https://furnival.onrender.com/products"
       );
+      setLoading(false);
       setProductsSmilar(data.data);
       // setImgArr(oneProduct?.images[0]);
     } catch {
@@ -63,6 +69,7 @@ function ProductDetails() {
 
   const addToWishList = async () => {
     try {
+      setLoading(true);
       const { data } = await axios.post(
         "https://furnival.onrender.com/wishlist",
         { productId: oneProduct?._id },
@@ -72,11 +79,13 @@ function ProductDetails() {
           },
         }
       );
+      setLoading(false);
       toast.success("Add to wish succesfully");
       console.log(data);
     } catch (e) {
+      setLoading(false);
       console.error(e);
-      toast.error("error");
+      toast.error("Please login first");
     }
   };
 
@@ -86,10 +95,12 @@ function ProductDetails() {
 
   const getOneProduct = async () => {
     try {
+      setLoading(true);
       const { data } = await axios.get(
         `https://furnival.onrender.com/products/${productId}`
       );
       setOneProduct(data.data);
+      setLoading(false);
       console.log(oneProduct.images.length);
     } catch {
       console.log("error");
@@ -100,9 +111,11 @@ function ProductDetails() {
     setAllRateLoading(true);
 
     try {
+      setLoading(true);
       const { data } = await axios.get(
         `https://furnival.onrender.com/products/${productId}/reviews`
       );
+      setLoading(false);
       if (data.data.length) {
         setAllRate(data.data);
       }
@@ -114,16 +127,18 @@ function ProductDetails() {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getAllRate();
     getOneProduct();
     getProducts();
     ShowImg();
+  }, [productId]);
 
-    window.scrollTo(0, 0);
-  }, []);
+  window.scrollTo(0, 0);
 
   return (
     <>
+      {loading && <Loader />}
       <div className=" max-sm:mx-[1rem] sm:mx-[2.5rem] md:mx-[3rem] lg:mx-[4rem] xl:mx-[12rem] mt-16 m-auto">
         <div className="flex flex-col  w-full md:flex-row ">
           <div className="flex max-sm:w-full md:w-full lg:w-2/3 lg:flex-row md:flex-row ">

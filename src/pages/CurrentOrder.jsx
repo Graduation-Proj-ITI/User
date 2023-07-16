@@ -206,6 +206,7 @@ const CurrentOrder = ({ setItemsInCart }) => {
       path: "#Place Order",
     },
   ];
+  window.scrollTo(0, 0);
   return (
     <>
       {loading && <Loader />}

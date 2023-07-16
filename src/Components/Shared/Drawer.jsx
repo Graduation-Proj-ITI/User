@@ -10,7 +10,7 @@ const Drawer = ({ children }) => {
   const [search, setsearch] = useState([]);
   return (
     <>
-      <div className="drawer  h-full  overflow-y-hidden ">
+      <div className="drawer h-screen lg:h-full  overflow-y-hidden ">
         <input id="sidemenu" type="checkbox" className="drawer-toggle " />
         <div className="drawer-content flex flex-col ">{children}</div>
 
@@ -52,7 +52,10 @@ const Drawer = ({ children }) => {
                 </button>
               </div> */}
             </li>
-            <li className=" text-lg">
+
+            <li
+              className={localStorage.getItem("token") ? "text-lg" : "hidden"}
+            >
               {" "}
               <NavLink
                 to="/profile"
@@ -65,6 +68,7 @@ const Drawer = ({ children }) => {
                 Profile
               </NavLink>
             </li>
+
             <li className=" text-lg">
               <NavLink
                 to="/"
@@ -137,7 +141,7 @@ const Drawer = ({ children }) => {
               </NavLink>
             </li>
 
-            <li>
+            <li className={localStorage.getItem("token") ? "" : "hidden"}>
               <button
                 className="text-white text-start mt-40"
                 onClick={() => {

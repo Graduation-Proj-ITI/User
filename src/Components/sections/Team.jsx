@@ -7,18 +7,18 @@ const Team = () => {
       img: "./Mayar.jpg",
       name: "Mayar Mohamed",
       role: "Frontend developer",
-      github: "",
-      linkedin: "",
+      github: "https://github.com/Mayar103",
+      linkedin: "https://www.linkedin.com/in/mayar-mohamed-362b99168",
     },
     {
       id: 2,
       // img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      img:"https://media.licdn.com/dms/image/D4D03AQGpOvLhmpfgsw/profile-displayphoto-shrink_800_800/0/1685561820388?e=1693440000&v=beta&t=jQFSopv-DF5_nMKH6U_8b-GVkzoAQSx2ZmPRbw1qQiQ",
-// img:"https://img.freepik.com/free-photo/modern-muslim-woman-hijab-office-room_285396-11089.jpg?w=826&t=st=1687214513~exp=1687215113~hmac=37ee5fbf041cf71f7c2d69fe44070f1874dc5116f2024480383f110d8bdce1f6",  
-name: "Zeinab Mohamed",
+      img: "https://media.licdn.com/dms/image/D4D03AQGpOvLhmpfgsw/profile-displayphoto-shrink_800_800/0/1685561820388?e=1693440000&v=beta&t=jQFSopv-DF5_nMKH6U_8b-GVkzoAQSx2ZmPRbw1qQiQ",
+      // img:"https://img.freepik.com/free-photo/modern-muslim-woman-hijab-office-room_285396-11089.jpg?w=826&t=st=1687214513~exp=1687215113~hmac=37ee5fbf041cf71f7c2d69fe44070f1874dc5116f2024480383f110d8bdce1f6",
+      name: "Zeinab Mohamed",
       role: "Frontend developer",
-      github: "",
-      linkedin: "",
+      github: "https://github.com/zenab12",
+      linkedin: "https://www.linkedin.com/in/zienabmuhammad/",
     },
     {
       id: 3,
@@ -33,16 +33,16 @@ name: "Zeinab Mohamed",
       img: "./Naiem.jpg",
       name: "Mohamed Naiem",
       role: "Frontend developer",
-      github: "",
-      linkedin: "",
+      github: "https://github.com/mohamedNaiem2000",
+      linkedin: "https://www.linkedin.com/in/mohamed-naiem-883a78227",
     },
     {
       id: 5,
       img: "./yahia.jpg",
       name: "Mohamed Yahia",
       role: "Fullstack developer",
-      github: "",
-      linkedin: "",
+      github: "https://github.com/0xYahia",
+      linkedin: "https://www.linkedin.com/in/mohamdyahia/",
     },
   ];
   return (
@@ -67,16 +67,16 @@ name: "Zeinab Mohamed",
                 className=" scale-100 group-hover:scale-110 cursor-pointer ease-in duration-300 object-cover w-full"
                 style={{ height: "15rem" }}
               />
-              <Link to={name.github} target="blank">
+              <a href={name.github} target="_blank">
                 <div className=" hidden btn-circle bg-white btn-md  absolute group-hover:flex group-hover:justify-center group-hover:items-center  animate-wiggle top-4 right-4">
                   <i className="fa-brands fa-github text-xl text-primary"></i>
                 </div>
-              </Link>
-              <Link to={name.linkedin} target="blank">
+              </a>
+              <a href={name.linkedin} target="_blank">
                 <div className=" hidden btn-circle bg-white btn-md  absolute group-hover:flex group-hover:justify-center group-hover:items-center  animate-wiggle top-20 right-4">
                   <i className="fa-brands fa-linkedin text-xl text-primary"></i>
                 </div>
-              </Link>
+              </a>
             </div>
 
             <div className="px-3 pb-5">

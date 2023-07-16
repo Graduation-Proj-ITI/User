@@ -8,7 +8,7 @@ import axios from "axios";
 import Loader from "../Shared/Loader";
 import { toast } from "react-toastify";
 
-const Sidebar = () => {
+const Sidebar = ({setItemsInCart, itemInCart,setItemsInWishlist,itemsInWishlist}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -35,7 +35,7 @@ const Sidebar = () => {
       title: "Wishlist",
       path: "#wishlist",
       icon: "./icons/heart.svg",
-      component: <Wishlist />,
+      component: <Wishlist setCartItems={setItemsInCart} cartItems={itemInCart}  setItemsInWishlist={setItemsInWishlist} itemsInWishlist={itemsInWishlist}/>,
     },
     {
       title: "Orders",
@@ -113,6 +113,8 @@ const Sidebar = () => {
         setLoading(false);
         // console.log(err.response.data.message);
       });
+      console.log('sidebar,' , itemInCart)
+
   }, [userImage]);
 
   return (

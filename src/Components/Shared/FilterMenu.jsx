@@ -85,11 +85,11 @@ const FilterMenu = ({
             All
           </h5>
 
-          {categories?.map((category) => {
+          {categories?.map((category,ind) => {
             return (
               <>
                 <h5
-                  key={category?._id}
+                  key={ind}
                   className={`categorylink mb-4 ms-5 text-base ${
                     category?.name === currentCategory ? "categoryactive" : ""
                   }`}

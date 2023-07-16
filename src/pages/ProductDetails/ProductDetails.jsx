@@ -7,15 +7,20 @@ import moment from "moment/moment";
 import { toast } from "react-toastify";
 import Loader from "../../Components/Shared/Loader";
 
-function ProductDetails({ setItemsInCart }) {
+function ProductDetails({
+  setItemsInCart,
+  setItemsInWishlist,
+  itemsInWishlist,
+}) {
   const { productId } = useParams();
-
+  const [wishlist, setWishlist] = useState([]);
   const [oneProduct, setOneProduct] = useState();
   const [counter, setCounter] = useState(0);
   const [productsSmilar, setProductsSmilar] = useState([]);
   const [imgarr, setImgArr] = useState();
   const [AllRate, setAllRate] = useState([]);
   const [allRateLoading, setAllRateLoading] = useState(true);
+  const [isInFav, setIsInFav] = useState(false);
   const [loading, setLoading] = useState(true);
   // const [images, setImages] = useState([
   //   "/images/grid/1.png",
@@ -23,10 +28,13 @@ function ProductDetails({ setItemsInCart }) {
   //   "/images/grid/3.png",
   // ]);
 
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  console.log(productId);
+
   const AddToCart = async (e, productId) => {
     e.preventDefault();
-
+    setLoading(true);
     console.log(localStorage.getItem("token"), productId);
     try {
       setLoading(true);
@@ -49,8 +57,10 @@ function ProductDetails({ setItemsInCart }) {
         pauseOnHover: true,
       });
       setItemsInCart(data.numberOfCartItems);
+      setLoading(false);
     } catch (e) {
       console.log(e);
+      setLoading(false);
     }
   };
   const getProducts = async () => {
@@ -68,6 +78,8 @@ function ProductDetails({ setItemsInCart }) {
   };
 
   const addToWishList = async () => {
+    setLoading(true);
+
     try {
       setLoading(true);
       const { data } = await axios.post(
@@ -79,13 +91,23 @@ function ProductDetails({ setItemsInCart }) {
           },
         }
       );
+      toast.success("Your product Added to wishlist successfully!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        color: "green",
+      });
+      console.log(data.data.length);
+      setItemsInWishlist(data.data.length);
+      setIsInFav(true);
       setLoading(false);
-      toast.success("Add to wish succesfully");
-      console.log(data);
     } catch (e) {
       setLoading(false);
       console.error(e);
       toast.error("Please login first");
+      setIsInFav(false);
     }
   };
 
@@ -94,6 +116,8 @@ function ProductDetails({ setItemsInCart }) {
   };
 
   const getOneProduct = async () => {
+    setLoading(true);
+
     try {
       setLoading(true);
       const { data } = await axios.get(
@@ -102,7 +126,9 @@ function ProductDetails({ setItemsInCart }) {
       setOneProduct(data.data);
       setLoading(false);
       console.log(oneProduct.images.length);
+      setLoading(false);
     } catch {
+      setLoading(false);
       console.log("error");
     }
   };
@@ -126,15 +152,69 @@ function ProductDetails({ setItemsInCart }) {
     }
   };
 
+  let wislistIds = [];
+
+  const getWishlist = () => {
+    axios
+      .get("https://furnival.onrender.com/wishlist", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setWishlist(response.data.data);
+        response.data.data.map((item) => item._id).includes(productId)
+          ? setIsInFav(true)
+          : setIsInFav(false);
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
+  };
   useEffect(() => {
+
     window.scrollTo(0, 0);
+    getWishlist();
     getAllRate();
     getOneProduct();
     getProducts();
     ShowImg();
+
   }, [productId]);
 
   window.scrollTo(0, 0);
+
+    console.log(wislistIds);
+    // wislistIds.includes(productId) ? setIsInFav(true) : setIsInFav(false);
+    console.log(wislistIds.includes(productId));
+    window.scrollTo(0, 0);
+  }, [isInFav]);
+
+  const handleDelete = (id) => {
+    // handleRemove(id)
+    setLoading(true);
+    axios
+      .delete(`https://furnival.onrender.com/wishlist/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setWishlist(wishlist.filter((item) => item._id !== id));
+        toast.success("Your product deleted from wishlist successfully!", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          color: "green",
+        });
+        setItemsInWishlist(wishlist.length - 1);
+        setIsInFav(false);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsInFav(true);
+        setLoading(false);
+      });
+  };
 
   return (
     <>
@@ -147,6 +227,9 @@ function ProductDetails({ setItemsInCart }) {
               // style={{ height: "400px" }}
             >
               {oneProduct?.images.map((singleImage) => {
+                {
+                  setId(oneProduct._id);
+                }
                 return (
                   <img
                     key={singleImage}
@@ -163,25 +246,49 @@ function ProductDetails({ setItemsInCart }) {
                 className=" mt-5 object-cover w-full h-full rounded-2xl"
                 src={imgarr ? imgarr : oneProduct?.imageCover}
               />
-              <button
-                onClick={addToWishList}
-                className="btn btn-circle btn-secondary  px-0 mt-3 absolute right-4 top-6 "
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-7 h-7 text-white"
+              {!isInFav ? (
+                <button
+                  onClick={addToWishList}
+                  className="btn btn-circle btn-secondary  px-0 mt-3 absolute right-4 top-6 "
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-7 h-7 text-white hover:fill-white transition duration-500 ease-in-out"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                    />
+                  </svg>
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleDelete(oneProduct._id)}
+                  className="btn btn-circle btn-secondary  px-0 mt-3 absolute right-4 top-6 "
+                >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-7 h-7 text-white"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      fill="#FFF"
+                      d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                    />
+                  </svg>
+                  {/* <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 5.881C12.981 4.729 14.484 4 16.05 4C18.822 4 21 6.178 21 8.95C21 12.3492 17.945 15.1195 13.3164 19.3167L13.305 19.327L12 20.515L10.695 19.336L10.6595 19.3037C6.04437 15.1098 3 12.3433 3 8.95C3 6.178 5.178 4 7.95 4C9.516 4 11.019 4.729 12 5.881Z" fill="#ffffff"></path> </g></svg> */}
+                </button>
+              )}
             </div>
           </div>
 

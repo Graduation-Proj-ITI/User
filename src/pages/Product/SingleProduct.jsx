@@ -3,12 +3,15 @@
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useState } from "react";
+import Loader from "../../Components/Shared/Loader";
 
-function SingleProduct({ product, setItemsInCart }) {
+function SingleProduct({ product, setItemsInCart ,setItemsInWishlist}) {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const AddToCart = async (e, productId) => {
     e.preventDefault();
-
+    setLoading(true);
     console.log(localStorage.getItem("token"), productId);
     try {
       const { data } = await axios.post(
@@ -21,6 +24,7 @@ function SingleProduct({ product, setItemsInCart }) {
         }
       );
       console.log(data);
+      setLoading(false);
       toast.success("Product added to cart successfully", {
         position: "bottom-right",
         autoClose: 5000,
@@ -31,12 +35,15 @@ function SingleProduct({ product, setItemsInCart }) {
       setItemsInCart(data.numberOfCartItems);
     } catch (e) {
       console.log(e);
+      setLoading(false);
+
     }
   };
 
   // const { product } = props;
   return (
     <>
+    {loading && <Loader />}
       <div className="relative w-full shadow-lg mb-10 max-sm:h-60 sm:h-56 md:h-56 lg:h-60 xl:h-64 2xl:h-72 rounded-lg">
         <Link
           to={`/product/details/${product?._id}`}

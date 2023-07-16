@@ -2,6 +2,7 @@
 // import Home from "./pages/Home";
 // import Profile from "./Components/pages/profile";
 import { ToastContainer } from "react-toastify";
+import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import "normalize.css";
@@ -31,12 +32,15 @@ import Protected from "./Components/Shared/ProtectedRoute";
 import Blog from "./pages/Blog";
 export default function App() {
   const [itemInCart, setItemsInCart] = useState(0);
+  const [itemsInWishlist, setItemsInWishlist] = useState(0);
+  const [isRemoved,setIsRemoved]=useState(false);
+  const [isAdressAdded,setIsAdressAdded]=useState(false);
+
   return (
     <>
       <BrowserRouter>
         <Drawer>
-          <NavBar itemInCart={itemInCart} />
-
+          <NavBar itemInCart={itemInCart} setItemsInCart={setItemsInCart} itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist} isRemoved={isRemoved}/>
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
@@ -47,13 +51,14 @@ export default function App() {
             <Route path="/blog/:blogId" element={<Blog />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route
+
+            <Route 
               path="/Product/:categoryId?"
               element={<Product setItemsInCart={setItemsInCart} />}
             />
-            <Route
-              path="/product/details/:productId"
-              element={<ProductDetails setItemsInCart={setItemsInCart} />}
+           <Route
+              path="/product/details/:productId?"
+              element={<ProductDetails setItemsInCart={setItemsInCart} itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist} />}
             />
             <Route
               path="/successOrder"
@@ -67,7 +72,7 @@ export default function App() {
               path="/profile"
               element={
                 <Protected>
-                  <User />
+                  <User itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist}  setItemsInCart={setItemsInCart} itemInCart={itemInCart}/>
                 </Protected>
               }
             />
@@ -75,7 +80,7 @@ export default function App() {
               path="/wishlist"
               element={
                 <Protected>
-                  <Wishlist />
+                  <Wishlist setItemsInCart={setItemsInCart} itemInCart={itemInCart} setItemsInWishlist={setItemsInWishlist} itemsInWishlist={itemsInWishlist} />
                 </Protected>
               }
             />
@@ -91,7 +96,7 @@ export default function App() {
               path="/checkout"
               element={
                 <Protected>
-                  <Checkout setItemsInCart={setItemsInCart} />
+                  <Checkout setItemsInCart={setItemsInCart} isAdressAdded={isAdressAdded} />
                 </Protected>
               }
             />

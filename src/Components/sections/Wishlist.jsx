@@ -13,7 +13,7 @@ const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishl
   const [allItems, setAllItems] = useState([]);
   const [isInCart, setIsInCart] = useState(false);
   const handleAddToCart = (id) => {
-    if (!allItems?.cartItems.find((item) => item._id == id)) {
+    // if (!allItems?.cartItems.find((item) => item._id == id)) {
       setLoading(true);
       axios
         .post(
@@ -37,7 +37,7 @@ const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishl
           setCartItems(response.data.numberOfCartItems);
         })
         .catch((error) => {});
-    }
+    // }
     console.log("wislist", cartItems);
   };
   

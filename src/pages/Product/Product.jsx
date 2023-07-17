@@ -188,7 +188,6 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
   itemsToRender = itemsToRender.slice(start, end);
 
   useEffect(() => {
- 
     if (!categoryId) {
       getProducts();
     } else {

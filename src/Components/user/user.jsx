@@ -5,6 +5,8 @@ import ScrollButton from "../Shared/ScrollToTopButton";
 const User = ({
   setItemsInCart,
   itemInCart,
+  cart,
+  setCart,
   itemsInWishlist,
   setItemsInWishlist,
 }) => {
@@ -16,6 +18,8 @@ const User = ({
       <Sidebar
         setItemsInCart={setItemsInCart}
         itemInCart={itemInCart}
+        cart={cart}
+        setCart={setCart}
         itemsInWishlist={itemsInWishlist}
         setItemsInWishlist={setItemsInWishlist}
       />

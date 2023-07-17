@@ -11,6 +11,8 @@ import { toast } from "react-toastify";
 const Sidebar = ({
   setItemsInCart,
   itemInCart,
+  cart,
+  setCart,
   setItemsInWishlist,
   itemsInWishlist,
 }) => {
@@ -44,6 +46,8 @@ const Sidebar = ({
         <Wishlist
           setCartItems={setItemsInCart}
           cartItems={itemInCart}
+          cartI={cart}
+          setCartI={setCart}
           setItemsInWishlist={setItemsInWishlist}
           itemsInWishlist={itemsInWishlist}
         />

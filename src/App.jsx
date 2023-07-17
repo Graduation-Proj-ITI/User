@@ -101,8 +101,8 @@ export default function App() {
                   <User
                     itemsInWishlist={itemsInWishlist}
                     setItemsInWishlist={setItemsInWishlist}
-                    setItemsInCart={setItemsInCart}
-                    itemInCart={itemInCart}
+                    setCart={setItemsInCart}
+                    cart={itemInCart}
                   />
                 </Protected>
               }
@@ -112,8 +112,8 @@ export default function App() {
               element={
                 <Protected>
                   <Wishlist
-                    setItemsInCart={setItemsInCart}
-                    itemInCart={itemInCart}
+                    setItemsC={setItemsInCart}
+                    itemInC={itemInCart}
                     setItemsInWishlist={setItemsInWishlist}
                     itemsInWishlist={itemsInWishlist}
                   />

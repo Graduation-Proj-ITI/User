@@ -24,9 +24,9 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
     { name: "blue", id: 3 },
     { name: "green", id: 4 },
     { name: "brown", id: 5 },
-    {name:"beige",id:8},
-    {name:"black",id:6},
-    {name:"gray",id:7},
+    {name:"beige",id:6},
+    {name:"black",id:7},
+    {name:"gray",id:8},
     
   ]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -203,7 +203,6 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
     
   }, []);
 
-  window.scrollTo(0, 0);
   /*---------html and css--------*/
   return (
     <div className="pb-20">

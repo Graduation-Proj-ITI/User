@@ -19,7 +19,7 @@ const images = document.getElementsByTagName('img');
     // if(img.complete){
       [...images].forEach((img)=>img.complete?setLoading(false):setLoading(true));
     // }  
-   },500) 
+   },4000) 
     
   // }
 

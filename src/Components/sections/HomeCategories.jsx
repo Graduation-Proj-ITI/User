@@ -21,7 +21,7 @@ for (let i = 0; i < images.length; i++) {
   if(img.complete){
     setLoader(false);
   }  
- },200) 
+ },1500) 
   
 }
 

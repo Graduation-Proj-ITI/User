@@ -45,7 +45,7 @@ useEffect(() => {
     if(product){
       setLoader(false)
     }
-  },400)
+  },1500)
 }, [product]);
   // const { product } = props;
   return (

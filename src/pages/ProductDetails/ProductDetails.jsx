@@ -28,6 +28,7 @@ function ProductDetails({
   const [loading, setLoading] = useState(true);
   const [loader, setLoader] = useState(true);
   const [prodLoader, setProdLoader] = useState(true);
+  const [flag,setflag]=useState(false);
   // const [images, setImages] = useState([
   //   "/images/grid/1.png",
   //   "/images/grid/2.png",
@@ -41,6 +42,8 @@ function ProductDetails({
   const AddToCart = async (e, productId) => {
     e.preventDefault();
     setLoading(true);
+    setflag(true)
+
     console.log(localStorage.getItem("token"), productId);
     try {
       setLoading(true);
@@ -79,7 +82,7 @@ function ProductDetails({
       setProductsSmilar(data.data);
       setTimeout(()=>{
         setProdLoader(false)
-      },400)
+      },1000)
       // setImgArr(oneProduct?.images[0]);
     } catch {
       console.log("error");
@@ -88,9 +91,10 @@ function ProductDetails({
 
   const addToWishList = async () => {
     setLoading(true);
-
+    setLoader(false)
+    setflag(true)
     try {
-      setLoading(true);
+      setLoader(false);
       const { data } = await axios.post(
         "https://furnival.onrender.com/wishlist",
         { productId: oneProduct?._id },
@@ -112,11 +116,15 @@ function ProductDetails({
       setItemsInWishlist(data.data.length);
       setIsInFav(true);
       setLoading(false);
+      setLoader(false);
+
     } catch (e) {
       setLoading(false);
       console.error(e);
       toast.error("Please login first");
       setIsInFav(false);
+      setLoader(false);
+
     }
   };
 
@@ -127,17 +135,20 @@ function ProductDetails({
   const getOneProduct = async () => {
     setLoader(true);
     try {
+     if(!flag){
       setLoader(true);
+     }
       const { data } = await axios.get(
         `https://furnival.onrender.com/products/${productId}`
       );
       setOneProduct(data.data);
       setTimeout(()=>{
          setLoader(false);
-      });
+      },1000);
       console.log(oneProduct.images.length);
     } catch {
       console.log("error");
+      
     }
   };
 
@@ -153,7 +164,7 @@ function ProductDetails({
         setAllRate(data.data);
         setTimeout(()=>{
           setAllRateLoading(false);
-       },400);
+       },1000);
       }
     } catch {
       console.log("error");
@@ -179,6 +190,7 @@ function ProductDetails({
       });
   };
   useEffect(() => {
+    setLoader(false);
     getWishlist();
     getAllRate();
     getOneProduct();
@@ -193,6 +205,8 @@ function ProductDetails({
   const handleDelete = (id) => {
     // handleRemove(id)
     setLoading(true);
+    setflag(true)
+
     axios
       .delete(`https://furnival.onrender.com/wishlist/${id}`, {
         headers: { Authorization: `Bearer ${token}` },

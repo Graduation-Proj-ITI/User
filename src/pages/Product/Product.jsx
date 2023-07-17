@@ -24,6 +24,10 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
     { name: "blue", id: 3 },
     { name: "green", id: 4 },
     { name: "brown", id: 5 },
+    {name:"beige",id:8},
+    {name:"black",id:6},
+    {name:"gray",id:7},
+    
   ]);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentCategory, setCurrentCategory] = useState("");
@@ -197,10 +201,9 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
       console.log("clean useEffect shop ");
     };
     
-    // window.scrollTo(0, 0);
   }, []);
 
-  // window.scrollTo(0, 0);
+  window.scrollTo(0, 0);
   /*---------html and css--------*/
   return (
     <div className="pb-20">

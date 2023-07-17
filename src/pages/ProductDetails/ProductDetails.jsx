@@ -334,7 +334,12 @@ function ProductDetails({
                 </div>
                 */}
                 <button
-                  className="btn addToCart mt-6"
+                  className={
+                    "btn  mt-6 " +
+                    (oneProduct?.quantity < 1
+                      ? " btn-disabled"
+                      : " bg-primary  hover:bg-primary")
+                  }
                   onClick={(e) => {
                     if (localStorage.getItem("token")) {
                       AddToCart(e, productId);
@@ -343,7 +348,7 @@ function ProductDetails({
                     }
                   }}
                 >
-                  Add to cart
+                  {oneProduct?.quantity < 1 ? "Out of stock" : "Add to cart"}
                 </button>
               </div>
             </div>

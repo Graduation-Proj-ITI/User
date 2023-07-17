@@ -2,6 +2,7 @@
 // import Home from "./pages/Home";
 // import Profile from "./Components/pages/profile";
 import { ToastContainer } from "react-toastify";
+import { useEffect } from "react";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -30,15 +31,29 @@ import ForgetPassword from "./pages/ForgetPassword";
 import ErrorPage from "./pages/error";
 import Protected from "./Components/Shared/ProtectedRoute";
 import Blog from "./pages/Blog";
+import Loader from "./Components/Shared/Loader";
 export default function App() {
   const [itemInCart, setItemsInCart] = useState(0);
   const [itemsInWishlist, setItemsInWishlist] = useState(0);
   const [isRemoved,setIsRemoved]=useState(false);
   const [isAdressAdded,setIsAdressAdded]=useState(false);
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time
+    window.onload=()=>{
+  setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);    
+    }
+  }, []);
+
+  
   return (
     <>
-      <BrowserRouter>
+ {isLoading && <Loader />}
+ <BrowserRouter>
         <Drawer>
           <NavBar itemInCart={itemInCart} setItemsInCart={setItemsInCart} itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist} isRemoved={isRemoved}/>
           <Routes>

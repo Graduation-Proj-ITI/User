@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Contact = () => {
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
   const handleClick = (event) => {
     // handle the logic for clicking the link
     event.preventDefault();

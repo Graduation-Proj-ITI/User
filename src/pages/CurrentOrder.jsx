@@ -5,6 +5,7 @@ import SuccessOrder from "./SuccessOrder";
 import Loader from "../Components/Shared/Loader";
 import axios from "axios";
 import { toast } from "react-toastify";
+import ScrollButton from "../Components/Shared/ScrollToTopButton";
 
 const CurrentOrder = ({ setItemsInCart }) => {
   const [currentIndex, setCurrentIndex] = useState(1);
@@ -234,6 +235,7 @@ const CurrentOrder = ({ setItemsInCart }) => {
             {step.component}
           </div>
         ))}
+        {/* <ScrollButton /> */}
       </div>
     </>
   );

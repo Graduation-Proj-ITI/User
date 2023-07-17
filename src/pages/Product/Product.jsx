@@ -6,6 +6,7 @@ import Navbar from "../../Components/navbar/Navbar";
 import SingleProduct from "./SingleProduct";
 import FilterMenu from "../../Components/Shared/FilterMenu";
 import { Link, useParams } from "react-router-dom";
+import ScrollButton from "../../Components/Shared/ScrollToTopButton";
 
 const pageSize = 9;
 
@@ -354,6 +355,8 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
           </div>
         </div>
       </div>
+
+      <ScrollButton />
     </div>
   );
 }

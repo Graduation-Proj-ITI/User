@@ -6,6 +6,7 @@ import SingleProduct from "../Product/SingleProduct";
 import moment from "moment/moment";
 import { toast } from "react-toastify";
 import Loader from "../../Components/Shared/Loader";
+import ScrollButton from "../../Components/Shared/ScrollToTopButton";
 
 function ProductDetails({
   setItemsInCart,
@@ -227,7 +228,7 @@ function ProductDetails({
                 return (
                   <img
                     key={singleImage}
-                    className="mt-5 hover:cursor-pointer object-fit-cover w-full h-[160px] rounded-2xl "
+                    className="mt-5 hover:cursor-pointer object-cover w-full h-[160px] rounded-2xl "
                     src={singleImage}
                     alt="img1"
                     onClick={(e) => ShowImg(e.target.src)}
@@ -400,6 +401,8 @@ function ProductDetails({
             </div>
           </div>
         </div>
+
+        <ScrollButton />
       </div>
     </>
   );

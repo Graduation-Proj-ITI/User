@@ -20,7 +20,7 @@ const ProductCard = () => {
         
         setTimeout(() => {
           setIsLoading(false);
-        }, 1500);
+        }, 3500);
       };
       getProducts();
     } catch (err) {

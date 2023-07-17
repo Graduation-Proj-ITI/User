@@ -140,7 +140,7 @@ function Login() {
                   </span> */}
                 </div>
                 <div className="forminput text-center">
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={handleSubmit} autocomplete="off">
                     <div className="form-control m-auto max-w-xs">
                       <label className="label" htmlFor="email">
                         <span className="label-text text-black text-lg">

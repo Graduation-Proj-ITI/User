@@ -32,30 +32,36 @@ import ErrorPage from "./pages/error";
 import Protected from "./Components/Shared/ProtectedRoute";
 import Blog from "./pages/Blog";
 import Loader from "./Components/Shared/Loader";
+import ScrollButton from "./Components/Shared/ScrollToTopButton";
 export default function App() {
   const [itemInCart, setItemsInCart] = useState(0);
   const [itemsInWishlist, setItemsInWishlist] = useState(0);
-  const [isRemoved,setIsRemoved]=useState(false);
-  const [isAdressAdded,setIsAdressAdded]=useState(false);
+  const [isRemoved, setIsRemoved] = useState(false);
+  const [isAdressAdded, setIsAdressAdded] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Simulate loading time
-    window.onload=()=>{
-  setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);    
-    }
+    window.onload = () => {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    };
   }, []);
 
-  
   return (
     <>
- {isLoading && <Loader />}
- <BrowserRouter>
+      {isLoading && <Loader />}
+      <BrowserRouter>
         <Drawer>
-          <NavBar itemInCart={itemInCart} setItemsInCart={setItemsInCart} itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist} isRemoved={isRemoved}/>
+          <NavBar
+            itemInCart={itemInCart}
+            setItemsInCart={setItemsInCart}
+            itemsInWishlist={itemsInWishlist}
+            setItemsInWishlist={setItemsInWishlist}
+            isRemoved={isRemoved}
+          />
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
@@ -67,13 +73,19 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
 
-            <Route 
+            <Route
               path="/Product/:categoryId?"
               element={<Product setItemsInCart={setItemsInCart} />}
             />
-           <Route
+            <Route
               path="/product/details/:productId?"
-              element={<ProductDetails setItemsInCart={setItemsInCart} itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist} />}
+              element={
+                <ProductDetails
+                  setItemsInCart={setItemsInCart}
+                  itemsInWishlist={itemsInWishlist}
+                  setItemsInWishlist={setItemsInWishlist}
+                />
+              }
             />
             <Route
               path="/successOrder"
@@ -87,7 +99,12 @@ export default function App() {
               path="/profile"
               element={
                 <Protected>
-                  <User itemsInWishlist={itemsInWishlist} setItemsInWishlist={setItemsInWishlist}  setItemsInCart={setItemsInCart} itemInCart={itemInCart}/>
+                  <User
+                    itemsInWishlist={itemsInWishlist}
+                    setItemsInWishlist={setItemsInWishlist}
+                    setItemsInCart={setItemsInCart}
+                    itemInCart={itemInCart}
+                  />
                 </Protected>
               }
             />
@@ -95,7 +112,12 @@ export default function App() {
               path="/wishlist"
               element={
                 <Protected>
-                  <Wishlist setItemsInCart={setItemsInCart} itemInCart={itemInCart} setItemsInWishlist={setItemsInWishlist} itemsInWishlist={itemsInWishlist} />
+                  <Wishlist
+                    setItemsInCart={setItemsInCart}
+                    itemInCart={itemInCart}
+                    setItemsInWishlist={setItemsInWishlist}
+                    itemsInWishlist={itemsInWishlist}
+                  />
                 </Protected>
               }
             />
@@ -111,14 +133,17 @@ export default function App() {
               path="/checkout"
               element={
                 <Protected>
-                  <Checkout setItemsInCart={setItemsInCart} isAdressAdded={isAdressAdded} />
+                  <Checkout
+                    setItemsInCart={setItemsInCart}
+                    isAdressAdded={isAdressAdded}
+                  />
                 </Protected>
               }
             />
 
             <Route path="*" element={<ErrorPage />} />
           </Routes>
-
+          {/* <ScrollButton /> */}
           <ToastContainer />
           <Footer />
         </Drawer>

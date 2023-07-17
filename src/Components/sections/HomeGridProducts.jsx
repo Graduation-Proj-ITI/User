@@ -19,7 +19,7 @@ const images = document.getElementsByTagName('img');
     if(img.complete){
       setLoading(false);
     }  
-   }) 
+   },1500) 
     
   }
 

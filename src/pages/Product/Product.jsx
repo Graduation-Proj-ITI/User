@@ -42,7 +42,7 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
       console.log(data.data);
       setTimeout(()=>{
         setLoading(false)
-      },400)
+      },1000)
     } catch {
       console.log("error");
     }
@@ -57,7 +57,7 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
       setProducts(data.data);
       setTimeout(()=>{
         setLoading(false)
-      },400)
+      },1000)
       setItemsToRender(data.data);
       console.log(data.data);
     } catch {
@@ -75,7 +75,7 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
       setCategory(data.data);
       setTimeout(()=>{
         setLoading(false)
-      },400)
+      },1000)
       console.log(data.data);
     } catch {
       console.log("error");
@@ -91,7 +91,7 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
       setProducts(data);
       setTimeout(()=>{
         setLoading(false)
-      },400)
+      },1000)
     } catch {
       console.log("error");
     }
@@ -106,7 +106,7 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
       setItemsToRender(data.data);
       setTimeout(()=>{
         setLoading(false)
-      },400)
+      },1000)
       console.log(itemsToRender);
     } catch {
       console.log("error");
@@ -122,7 +122,7 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
       setItemsToRender(data.data);
       setTimeout(()=>{
         setLoading(false)
-      },400)
+      },1000)
       console.log(itemsToRender);
     } catch {
       console.log("error");
@@ -138,7 +138,7 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
       setItemsToRender(data.data);
       setTimeout(()=>{
         setLoading(false)
-      },400)
+      },1000)
       console.log(itemsToRender);
     } catch {
       console.log("error");
@@ -149,7 +149,7 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
   setLoading(true);
     setTimeout(()=>{
       setLoading(false)
-    },400)
+    },1000)
     setCurrentCategory(name);
     setCurrentPage(1);
   };

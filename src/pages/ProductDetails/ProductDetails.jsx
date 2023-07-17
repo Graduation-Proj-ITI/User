@@ -190,6 +190,7 @@ function ProductDetails({
       });
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
     setLoader(false);
     getWishlist();
     getAllRate();

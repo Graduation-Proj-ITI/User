@@ -4,7 +4,15 @@ import Loader from "../Shared/Loader";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import empwishlist from "../../../public/wishlist.svg";
-const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishlistItems,setItemsInWishlist,itemsInWishlist }) => {
+const Wishlist = ({
+  setItemsInCart,
+  itemInCart,
+  cartItems,
+  setCartItems,
+  setWishlistItems,
+  setItemsInWishlist,
+  itemsInWishlist,
+}) => {
   const token = localStorage.getItem("token");
   const [wishlist, setWishlist] = useState([]);
   // const [wishlist, setWishlist] = useState([]);
@@ -40,9 +48,9 @@ const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishl
     }
     console.log("wislist", cartItems);
   };
-  
-  const [listInCart,setListInCart]=useState([]);
-  const newItems=[]
+
+  const [listInCart, setListInCart] = useState([]);
+  const newItems = [];
 
   useEffect(() => {
     if (window.location.pathname === "/wishlist") {
@@ -67,7 +75,6 @@ const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishl
     getWishlist();
 
     const getCartItems = () => {
-    
       axios
         .get("https://furnival.onrender.com/cart", {
           headers: { Authorization: `Bearer ${token}` },
@@ -79,48 +86,42 @@ const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishl
         .catch((error) => {
           // console.log(error);
         });
-      
     };
 
     getCartItems();
-    console.log(allItems?.cartItems)
-    const productIds = wishlist.map((item)=>item._id);
+    console.log(allItems?.cartItems);
+    const productIds = wishlist.map((item) => item._id);
     console.log(productIds);
     console.log(allItems?.cartItems);
     // if(allItems?.cartItems?.length==0){
     //   setIsInCart(false)
     //   }
     const items = [];
-     productIds.forEach((element)=>{
-      
-      if(allItems?.cartItems?.length==0){
-        setIsInCart(false)
-        }
-      allItems?.cartItems?.forEach((item)=>{
-        if(item.product._id==element){
-        
-        items.push({id:element,isInCart:true})
-         console.log('true')
-          setIsInCart(true);
-        }else 
-        {
-          items.push({id:element,isInCart:false})
-          setIsInCart(false);
-          console.log('false')
-
-        }
-      })
-    });
-    
-    items.forEach((item,ind,items)=>{
-         
-      if(item.id == items[ind+1]?.id){
-        newItems.push(item)
-         console.log(item.id)
+    productIds.forEach((element) => {
+      if (allItems?.cartItems?.length == 0) {
+        setIsInCart(false);
       }
-     })
-    setListInCart(newItems)
-  }, [isInCart,itemsInWishlist]);
+      allItems?.cartItems?.forEach((item) => {
+        if (item.product._id == element) {
+          items.push({ id: element, isInCart: true });
+          console.log("true");
+          setIsInCart(true);
+        } else {
+          items.push({ id: element, isInCart: false });
+          setIsInCart(false);
+          console.log("false");
+        }
+      });
+    });
+
+    items.forEach((item, ind, items) => {
+      if (item.id == items[ind + 1]?.id) {
+        newItems.push(item);
+        console.log(item.id);
+      }
+    });
+    setListInCart(newItems);
+  }, [isInCart, itemsInWishlist]);
   const handleDelete = (id) => {
     // handleRemove(id)
     setLoading(true);
@@ -139,19 +140,17 @@ const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishl
           pauseOnHover: true,
           color: "green",
         });
-        console.log('deleted')
+        console.log("deleted");
         // console.log(wishlistItems)
         // setIsRemoved(true)
-        setItemsInWishlist(wishlist.length -1);
+        setItemsInWishlist(wishlist.length - 1);
         // console.log(wishlistItems)
-
       })
       .catch((error) => {
-      // setIsRemoved(false)
+        // setIsRemoved(false)
         // console.log(error);
       });
   };
-
 
   return (
     <div
@@ -203,17 +202,21 @@ const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishl
                     <div className="flex flex-col absolute -bottom-3 w-[90%] mx-auto self-center bg-white px-4 py-4 rounded-[8px] h-auto gap-2 ">
                       <p className="text-black truncate">{item.title}</p>
                       <div className="flex flex-row justify-between items-center content-center gap-2">
-                     
-                          <button
-                            className="btn-primary text-sm"
-                            onClick={() => {
-                              handleAddToCart(item._id);
-                            }}
-                          >
-                            Add to cart
-                          </button>
-                       
-                        <p className="text-black text-sm font-bold self-end">
+                        <button
+                          className={
+                            " text-sm btn btn-sm px-3 " +
+                            (item?.quantity < 1
+                              ? " btn-disabled"
+                              : " btn-primary  hover:bg-primary")
+                          }
+                          onClick={() => {
+                            handleAddToCart(item._id);
+                          }}
+                        >
+                          {item?.quantity < 1 ? "Out of stock" : "Add to cart"}
+                        </button>
+
+                        <p className="text-black text-base font-bold self-end">
                           {item.price}$
                         </p>
                       </div>

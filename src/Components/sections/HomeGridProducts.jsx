@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import gImg1 from "../../../public/images/grid/555.webp";
 import gImg2 from "../../../public/images/grid/4444.webp";
 import gImg3 from "../../../public/images/grid/11.webp";
@@ -6,14 +6,29 @@ import gImg4 from "../../../public/images/grid/444.webp";
 import gImg5 from "../../../public/images/grid/333.webp";
 
 import { Link, Navigate, useNavigate } from "react-router-dom";
-
+import HomeGridSkeleton from "../common/HomeGridSkeleton";
 const GridProducts = () => {
+  const [loading, setLoading] = React.useState(true);
   const naviagte = useNavigate();
+
+const images = document.getElementsByTagName('img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    console.log(img)
+   setTimeout(()=>{
+    if(img.complete){
+      setLoading(false);
+    }  
+   }) 
+    
+  }
+
   return (
     <section className="my-28 max-sm:my-12 sm:my-12 xl:my-28">
       <h2 className="text-primary capitalize max-sm:mb-5 sm:mb-5 md:mb-5 lg:mb-10 font-bold max-sm:text-2xl sm:text-2xl md:text-2xl lg:text-2xl 2xl:text-2xl">
         modern home ideas
       </h2>
+      {loading ?<HomeGridSkeleton /> :
       <div className="grid grid-flow-row lg:gap-4 max-sm:gap-0 max-sm:space-y-3 sm:gap-2 md:gap-2 max-sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-3 ">
         <figure className="relative col-span-1 sm:w-full md:col-span-1 lg:col-span-1 xl:col-span-1 2xl:col-span-1 ">
           <img
@@ -57,6 +72,7 @@ const GridProducts = () => {
           <img
             src={gImg2}
             className=" h-80 w-full lg:h-full rounded-xl object-cover"
+
           />
           <div className="group">
             <button
@@ -91,6 +107,7 @@ const GridProducts = () => {
           <img
             src={gImg4}
             className=" h-80 w-full lg:h-full rounded-xl object-cover"
+
           />
           <div className="group">
             <button
@@ -128,6 +145,7 @@ const GridProducts = () => {
           <img
             src={gImg3}
             className=" h-80 w-full lg:h-full rounded-xl object-cover"
+
           />
           <div className="group">
             <button
@@ -170,6 +188,7 @@ const GridProducts = () => {
           <img
             src={gImg5}
             className="  h-80 w-full lg:h-full rounded-xl object-cover"
+
           />
           <div className="group">
             <button
@@ -207,6 +226,7 @@ const GridProducts = () => {
           </div>
         </figure>
       </div>
+}
     </section>
   );
 };

@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Star from "../icons/Star";
 import { Link } from "react-router-dom";
+import ProductCardSkeleton from "./ProductSkeleton";
 
 const ProductCard = () => {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     try {
       const getProducts = async () => {
@@ -15,15 +17,24 @@ const ProductCard = () => {
 
         console.log(data.data);
         setProducts(data.data);
+        
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
       };
       getProducts();
     } catch (err) {
       console.error(err);
     }
   }, []);
+  
+ 
   const renderProduct = products.slice(0, 4).map((item) => (
+
     <Link to={`/product/details/${item._id}`} key={item._id}>
-      {" "}
+        {
+  isLoading ? <ProductCardSkeleton />
+  :
       <div className=" w-8/9 bg-transparent m-0 group cursor-pointer h-60 max-sm:h-48 mb-16">
         {/* Card Image */}
         <figure className="overflow-hidden rounded-xl h-full w-full ">
@@ -61,6 +72,7 @@ const ProductCard = () => {
           </div>
         </div>
       </div>
+}
     </Link>
   ));
   return (

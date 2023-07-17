@@ -6,7 +6,9 @@ import SingleProduct from "../Product/SingleProduct";
 import moment from "moment/moment";
 import { toast } from "react-toastify";
 import Loader from "../../Components/Shared/Loader";
-
+import ProductDetailsSkeleton from "../../Components/common/ProductDetailsSkeleton";
+import RatingSkeleton from "../../Components/common/RatingSkeleton";
+import ProductCardSkeleton from "../../Components/common/ProductSkeleton";
 function ProductDetails({
   setItemsInCart,
   setItemsInWishlist,
@@ -22,6 +24,8 @@ function ProductDetails({
   const [allRateLoading, setAllRateLoading] = useState(true);
   const [isInFav, setIsInFav] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loader, setLoader] = useState(true);
+  const [prodLoader, setProdLoader] = useState(true);
   // const [images, setImages] = useState([
   //   "/images/grid/1.png",
   //   "/images/grid/2.png",
@@ -64,13 +68,16 @@ function ProductDetails({
     }
   };
   const getProducts = async () => {
+    setLoading(false);
     try {
-      setLoading(true);
       const { data } = await axios.get(
         "https://furnival.onrender.com/products"
       );
-      setLoading(false);
+    
       setProductsSmilar(data.data);
+      setTimeout(()=>{
+        setProdLoader(false)
+      },400)
       // setImgArr(oneProduct?.images[0]);
     } catch {
       console.log("error");
@@ -116,19 +123,18 @@ function ProductDetails({
   };
 
   const getOneProduct = async () => {
-    setLoading(true);
-
+    setLoader(true);
     try {
-      setLoading(true);
+      setLoader(true);
       const { data } = await axios.get(
         `https://furnival.onrender.com/products/${productId}`
       );
       setOneProduct(data.data);
-      setLoading(false);
+      setTimeout(()=>{
+         setLoader(false);
+      });
       console.log(oneProduct.images.length);
-      setLoading(false);
     } catch {
-      setLoading(false);
       console.log("error");
     }
   };
@@ -137,18 +143,19 @@ function ProductDetails({
     setAllRateLoading(true);
 
     try {
-      setLoading(true);
+      setAllRateLoading(true);
       const { data } = await axios.get(
         `https://furnival.onrender.com/products/${productId}/reviews`
       );
-      setLoading(false);
-      if (data.data.length) {
+     if (data.data.length) {
         setAllRate(data.data);
+        setTimeout(()=>{
+          setAllRateLoading(false);
+       },400);
       }
     } catch {
       console.log("error");
     } finally {
-      setAllRateLoading(false);
     }
   };
 
@@ -170,7 +177,6 @@ function ProductDetails({
       });
   };
   useEffect(() => {
-    window.scrollTo(0, 0);
     getWishlist();
     getAllRate();
     getOneProduct();
@@ -214,6 +220,7 @@ function ProductDetails({
     <>
       {loading && <Loader />}
       <div className=" max-sm:mx-[1rem] sm:mx-[2.5rem] md:mx-[3rem] lg:mx-[4rem] xl:mx-[12rem] mt-16 m-auto">
+        {loader? <ProductDetailsSkeleton/>:
         <div className="flex flex-col  w-full md:flex-row ">
           <div className="flex max-sm:w-full md:w-full lg:w-2/3 lg:flex-row md:flex-row ">
             <div
@@ -348,6 +355,7 @@ function ProductDetails({
             </div>
           </div>
         </div>
+}
 
         <div className="p-8 mt-16">
           <h2 className="text-center mb-8">Rating</h2>
@@ -355,6 +363,7 @@ function ProductDetails({
             {AllRate.length ? (
               AllRate?.map((rate) => {
                 return (
+                allRateLoading? <RatingSkeleton/>:
                   <div
                     key={rate._id}
                     className="stat w-64 rounded-2xl shadow-md relative"
@@ -382,6 +391,7 @@ function ProductDetails({
                       </span>
                     )}
                   </div>
+              
                 );
               })
             ) : (
@@ -394,7 +404,9 @@ function ProductDetails({
           <h3 className=" text-blue-950 mb-4">Similar Products</h3>
           <div className=" ">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-5 gap-4 ">
+          
               {Array.from(Array(4)).map((e, i) => (
+              prodLoader? <ProductCardSkeleton/>:
                 <SingleProduct key={i} product={productsSmilar[i]} />
               ))}
             </div>

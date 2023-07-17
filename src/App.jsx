@@ -38,15 +38,15 @@ export default function App() {
   const [isRemoved, setIsRemoved] = useState(false);
   const [isAdressAdded, setIsAdressAdded] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    // Simulate loading time
-    window.onload = () => {
-        setIsLoading(false);
+  // useEffect(() => {
+  //   // Simulate loading time
+  //   window.onload = () => {
+  //       setIsLoading(false);
   
-    };
-  }, []);
+  //   };
+  // }, []);
 
   return (
     <>

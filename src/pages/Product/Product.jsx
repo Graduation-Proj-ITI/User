@@ -7,6 +7,7 @@ import SingleProduct from "./SingleProduct";
 import FilterMenu from "../../Components/Shared/FilterMenu";
 import { Link, useParams } from "react-router-dom";
 import ProductCardSkeleton from "../../Components/common/ProductSkeleton";
+import ScrollButton from "../../Components/Shared/ScrollToTopButton";
 const pageSize = 9;
 
 function Product({ setItemsInCart, setItemsInWishlist }) {
@@ -390,6 +391,8 @@ function Product({ setItemsInCart, setItemsInWishlist }) {
           </div>
         </div>
       </div>
+
+      <ScrollButton />
     </div>
   );
 }

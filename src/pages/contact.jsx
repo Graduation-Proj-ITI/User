@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 // import "../../form.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ScrollButton from "../Components/Shared/ScrollToTopButton";
 const Contact = () => {
   // window.scrollTo(0, 0);
   const handleClick = (event) => {
@@ -403,6 +404,7 @@ const Contact = () => {
           </div>
         </div>
       </section>
+      <ScrollButton />
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Team from "../Components/sections/Team";
 import Testimonials from "../Components/sections/Testimonials";
 import AboutCard from "../Components/sections/AboutCard";
+import ScrollButton from "../Components/Shared/ScrollToTopButton";
 
 function handleClick(event) {
   event.preventDefault();
@@ -87,6 +88,7 @@ const About = () => {
       <AboutCard />
       <Testimonials />
       <Team />
+      <ScrollButton />
     </div>
   );
 };

@@ -9,6 +9,8 @@ import Loader from "../../Components/Shared/Loader";
 import ProductDetailsSkeleton from "../../Components/common/ProductDetailsSkeleton";
 import RatingSkeleton from "../../Components/common/RatingSkeleton";
 import ProductCardSkeleton from "../../Components/common/ProductSkeleton";
+import ScrollButton from "../../Components/Shared/ScrollToTopButton";
+
 function ProductDetails({
   setItemsInCart,
   setItemsInWishlist,
@@ -234,7 +236,7 @@ function ProductDetails({
                 return (
                   <img
                     key={singleImage}
-                    className="mt-5 hover:cursor-pointer object-fit-cover w-full h-[160px] rounded-2xl "
+                    className="mt-5 hover:cursor-pointer object-cover w-full h-[160px] rounded-2xl "
                     src={singleImage}
                     alt="img1"
                     onClick={(e) => ShowImg(e.target.src)}
@@ -412,6 +414,8 @@ function ProductDetails({
             </div>
           </div>
         </div>
+
+        <ScrollButton />
       </div>
     </>
   );

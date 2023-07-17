@@ -32,12 +32,12 @@ import ErrorPage from "./pages/error";
 import Protected from "./Components/Shared/ProtectedRoute";
 import Blog from "./pages/Blog";
 import Loader from "./Components/Shared/Loader";
+import ScrollButton from "./Components/Shared/ScrollToTopButton";
 export default function App() {
   const [itemInCart, setItemsInCart] = useState(0);
   const [itemsInWishlist, setItemsInWishlist] = useState(0);
   const [isRemoved, setIsRemoved] = useState(false);
   const [isAdressAdded, setIsAdressAdded] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
 
   // useEffect(() => {
@@ -47,6 +47,7 @@ export default function App() {
   
   //   };
   // }, []);
+
 
   return (
     <>
@@ -141,7 +142,7 @@ export default function App() {
 
             <Route path="*" element={<ErrorPage />} />
           </Routes>
-
+          {/* <ScrollButton /> */}
           <ToastContainer />
           <Footer />
         </Drawer>

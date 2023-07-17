@@ -3,12 +3,13 @@
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "../../Components/Shared/Loader";
 
 function SingleProduct({ product, setItemsInCart, setItemsInWishlist }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [loader, setLoader] = useState(false);
   const AddToCart = async (e, productId) => {
     e.preventDefault();
     setLoading(true);
@@ -39,6 +40,13 @@ function SingleProduct({ product, setItemsInCart, setItemsInWishlist }) {
     }
   };
 
+useEffect(() => {
+  setTimeout(()=>{
+    if(product){
+      setLoader(false)
+    }
+  },400)
+}, [product]);
   // const { product } = props;
   return (
     <>

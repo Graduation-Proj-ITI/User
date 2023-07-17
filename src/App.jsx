@@ -38,17 +38,16 @@ export default function App() {
   const [itemsInWishlist, setItemsInWishlist] = useState(0);
   const [isRemoved, setIsRemoved] = useState(false);
   const [isAdressAdded, setIsAdressAdded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(true);
+  // useEffect(() => {
+  //   // Simulate loading time
+  //   window.onload = () => {
+  //       setIsLoading(false);
+  
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    // Simulate loading time
-    window.onload = () => {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-    };
-  }, []);
 
   return (
     <>

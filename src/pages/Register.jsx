@@ -19,25 +19,30 @@ function Register() {
     password: "",
     passwordConfirm: "",
   });
-  const [formErrors, setFormErrors] = useState([{
-    name: "",
-  },{
-    email: ""},
+  const [formErrors, setFormErrors] = useState([
     {
-    password: ""},{
-    passwordConfirm: ""},
+      name: "",
+    },
+    {
+      email: "",
+    },
+    {
+      password: "",
+    },
+    {
+      passwordConfirm: "",
+    },
   ]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  
-  
+
   const isValidEmail = (email) => {
     // Email validation logic (regex or other validation methods)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-  
-  const validateName = ()=>{
+
+  const validateName = () => {
     setFormErrors((prevErrors) => ({
       ...prevErrors,
       name: "",
@@ -62,18 +67,16 @@ function Register() {
       }));
       isValid = false;
     }
-    
+
     return isValid;
-  
-  }
-  
-  
-  const validateEmail = ()=>{
+  };
+
+  const validateEmail = () => {
     setFormErrors((prevErrors) => ({
       ...prevErrors,
       email: "",
     }));
-    let isValid=true;
+    let isValid = true;
     if (regiester.email.trim() === "") {
       setFormErrors((prevErrors) => ({
         ...prevErrors,
@@ -87,66 +90,61 @@ function Register() {
       }));
       isValid = false;
     }
-    
+
     return isValid;
-  }
-  
-  const validatePassword = ()=>{
+  };
+
+  const validatePassword = () => {
     setFormErrors((prevErrors) => ({
       ...prevErrors,
       password: "",
     }));
-    let isValid=false;
-    if(regiester.password.trim() === "") {
+    let isValid = false;
+    if (regiester.password.trim() === "") {
       setFormErrors((prevErrors) => ({
         ...prevErrors,
         password: "Password is required",
       }));
       isValid = false;
-    
     } else if (regiester.password.trim().length <= 5) {
-    
       setFormErrors((prevErrors) => ({
         ...prevErrors,
         password: "Password must be at least 6 characters long",
       }));
       isValid = false;
     } else if (regiester.password.trim().length >= 20) {
-         setFormErrors({...prevErrors,password: "Password must be less than 20 characters long"})
-         
-         isValid=false;
+      setFormErrors({
+        ...prevErrors,
+        password: "Password must be less than 20 characters long",
+      });
+
+      isValid = false;
     }
-    
+
     return isValid;
-  }
-  
-   
-  const validatePasswordConfirm = ()=>{
+  };
+
+  const validatePasswordConfirm = () => {
     setFormErrors((prevErrors) => ({
       ...prevErrors,
       passwordConfirm: "",
     }));
-    let isValid=true;
-    if(regiester.passwordConfirm.trim() === "") {
-       
+    let isValid = true;
+    if (regiester.passwordConfirm.trim() === "") {
       setFormErrors((prevErrors) => ({
         ...prevErrors,
         passwordConfirm: "confirm Password is required",
       }));
       isValid = false;
-    
-    }else if (regiester.passwordConfirm.trim() !== regiester.password.trim()) {
-       
+    } else if (regiester.passwordConfirm.trim() !== regiester.password.trim()) {
       setFormErrors((prevErrors) => ({
         ...prevErrors,
         passwordConfirm: "Password and confirm password must be the same",
       }));
       isValid = false;
-    }    
+    }
     return isValid;
-  }
-  
-  
+  };
 
   const handlesubmit = async (e) => {
     e.preventDefault();
@@ -170,46 +168,42 @@ function Register() {
           pauseOnHover: true,
         });
         setExistEmail(false);
-        setTimeout(() => {          
+        setTimeout(() => {
           navigate("/", { replace: true });
         }, 350);
       })
       .catch((e) => {
         console.log(e.response.data.errors);
         const errors = {};
-        e.response.data.errors.forEach(err => {
+        e.response.data.errors.forEach((err) => {
           if (err.param === "name") {
-          errors.name= err.msg;
-        }else if (err.param === "email") {
-          errors.email= err.msg;
-        }else if (err.param === "password") {
-          errors.password= err.msg;
-        } else if (err.param === "passwordConfirm") {
-          errors.passwordConfirm= err.msg;
+            errors.name = err.msg;
+          } else if (err.param === "email") {
+            errors.email = err.msg;
+          } else if (err.param === "password") {
+            errors.password = err.msg;
+          } else if (err.param === "passwordConfirm") {
+            errors.passwordConfirm = err.msg;
+          }
+        });
+
+        if (errors.email === "E-mail already in used") {
+          setExistEmail(true);
         }
-      }
-        );
-        
-        if(errors.email === "E-mail already in used"){
-           setExistEmail(true);
-        }
-        setLoading(true); 
+        setLoading(true);
         console.log(regiester);
       })
       .finally(() => setLoading(false));
-      
-    };
-    
-    const handlechange = (e) => {
-      setregister({ ...regiester, [e.target.name]: e.target.value });
-    };
-    
-    
-    
-    console.log(formErrors)
+  };
+
+  const handlechange = (e) => {
+    setregister({ ...regiester, [e.target.name]: e.target.value });
+  };
+
+  console.log(formErrors);
   return (
     <>
-      <div className=" bg-slide2 h-full w-full bg-cover  bg-no-repeat">
+      <div className=" bg-slide2 h-screen w-screen bg-cover  bg-no-repeat">
         <div className="bg-black bg-opacity-60 w-full h-full flex items-center">
           <div className=" m-auto text-center bg-white w-full md:w-fit lg:w-fit p-10 lg:px-14 lg:py-7 flex justify-center rounded-3xl animate-wiggle ">
             <div className="grid lg:grid-cols-1 sm:grid-cols-1 md:grid-cols-1">
@@ -254,14 +248,14 @@ function Register() {
                                 validateName();
                               }}
                             />
-                            {formErrors.name &&
-                            <p
+                            {formErrors.name && (
+                              <p
                                 className="text-red-900 text-left"
                                 id="nameerror"
                               >
                                 {formErrors.name}
-                              </p>}
-                              
+                              </p>
+                            )}
                           </div>
 
                           <div className="form-control m-auto max-w-xs">
@@ -279,27 +273,24 @@ function Register() {
                               id="email"
                               // required
                               className="input input-bordered w-full max-w-xs px-3"
-                              onKeyUp={(e) => {                                
+                              onKeyUp={(e) => {
                                 validateEmail(e);
                               }}
-                              
                             />
-                                {formErrors.email &&  
-                            (<p
+                            {formErrors.email && (
+                              <p
                                 className="text-red-900 text-left"
                                 id="emailerror"
                               >
                                 {formErrors.email}
-                              </p>)}
-                              
-                              
-                            
-                           { 
-                            existEmail &&
-                              <p className="text-red-900 text-left"> 
+                              </p>
+                            )}
+
+                            {existEmail && (
+                              <p className="text-red-900 text-left">
                                 E-mail already in used
                               </p>
-}  
+                            )}
                           </div>
 
                           <div className="form-control m-auto max-w-xs ">
@@ -321,13 +312,14 @@ function Register() {
                                 validatePassword(e);
                               }}
                             />
-                          {formErrors.password &&  
-                            (<p
+                            {formErrors.password && (
+                              <p
                                 className="text-red-900 text-left"
                                 id="passworderror"
                               >
                                 {formErrors.password}
-                              </p>)}
+                              </p>
+                            )}
                           </div>
 
                           <div className="form-control m-auto max-w-xs">
@@ -350,13 +342,14 @@ function Register() {
                                 validatePasswordConfirm(e);
                               }}
                             />
-                              { formErrors.passwordConfirm&&  
-                            (<p
+                            {formErrors.passwordConfirm && (
+                              <p
                                 className="text-red-900 text-left"
                                 id="passworderror"
                               >
                                 {formErrors.passwordConfirm}
-                              </p>)}
+                              </p>
+                            )}
                           </div>
 
                           {!loading ? (

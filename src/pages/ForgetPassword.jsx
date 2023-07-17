@@ -76,12 +76,12 @@ function ForgetPassword() {
           newPassword,
         }
       );
-      toast.success('password changed successfully');
+      toast.success("password changed successfully");
       navigate("/Login");
     } catch (e) {
       setLoading(true);
       console.log("Something went wrong! try again later");
-    toast.error(e.response.data.message);
+      toast.error(e.response.data.message);
     } finally {
       setLoading(false);
     }
@@ -89,7 +89,7 @@ function ForgetPassword() {
 
   return (
     <>
-      <div className=" bg-slide2 h-full w-full bg-cover bg-no-repeat">
+      <div className=" bg-slide2 h-screen w-screen bg-cover bg-no-repeat">
         <div className="bg-black bg-opacity-60 w-full h-full flex items-center">
           <div className=" m-auto text-center bg-white w-full md:w-fit lg:w-fit p-10 lg:p-14 flex justify-center rounded-3xl animate-wiggle ">
             <div className="grid lg:grid-cols-1 sm:grid-cols-1 md:grid-cols-1">

@@ -90,12 +90,10 @@ function Login() {
     await axios
       .post("https://furnival.onrender.com/auth/login", formState)
       .then((res) => {
-        setFormErrors(
-        {
-        email:"",
-        password:""
-        }
-        );
+        setFormErrors({
+          email: "",
+          password: "",
+        });
         toast.success("Login Succesufully", {
           position: "top-right",
           autoClose: 5000,
@@ -104,7 +102,7 @@ function Login() {
           pauseOnHover: true,
         });
         setIsErr(false);
-        setTimeout(() => {          
+        setTimeout(() => {
           navigate("/", { replace: true });
         }, 500);
         localStorage.setItem("token", res.data.token);
@@ -123,7 +121,7 @@ function Login() {
 
   return (
     <>
-      <div className=" bg-slide2 h-full w-full bg-cover bg-no-repeat">
+      <div className=" bg-slide2 h-screen w-screen bg-cover bg-no-repeat">
         <div className="bg-black bg-opacity-60 w-full h-full flex items-center">
           <div className=" m-auto text-center bg-white w-full md:w-fit lg:w-fit p-10 lg:p-14 flex justify-center rounded-3xl animate-wiggle ">
             <div className="grid lg:grid-cols-1 sm:grid-cols-1 md:grid-cols-1">
@@ -167,8 +165,6 @@ function Login() {
                           {formErrors.email}
                         </span>
                       )}
-
-                   
                     </div>
 
                     <div className="form-control m-auto max-w-xs">

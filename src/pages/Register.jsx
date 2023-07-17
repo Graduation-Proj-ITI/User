@@ -227,7 +227,7 @@ function Register() {
                   <div className="grid lg:grid-cols-1 sm:grid-cols-1 md:grid-cols-1">
                     <div className="">
                       <div className="forminput text-center">
-                        <form onSubmit={handlesubmit}>
+                        <form onSubmit={handlesubmit} autocomplete="off">
                           <div className="form-control m-auto max-w-xs">
                             <label className="label pb-0" htmlFor="username">
                               <span className="label-text text-black text-lg">

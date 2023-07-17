@@ -355,13 +355,13 @@ const Checkout = ({
       setLoading(false);
     } catch (e) {
       setLoading(false);
-      toast.error(`${e.response.data.message}!`, {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-      });
+      // toast.error(`${e.response.data.message}!`, {
+      //   position: "bottom-right",
+      //   autoClose: 3000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: false,
+      // });
       console.log(e.response);
     }
   };

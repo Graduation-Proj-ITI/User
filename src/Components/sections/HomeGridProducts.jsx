@@ -12,16 +12,16 @@ const GridProducts = () => {
   const naviagte = useNavigate();
 
 const images = document.getElementsByTagName('img');
-  for (let i = 0; i < images.length; i++) {
-    const img = images[i];
-    console.log(img)
+  // for (let i = 0; i < images.length; i++) {
+    // const img = images[i];
+    // console.log(img)
    setTimeout(()=>{
-    if(img.complete){
-      setLoading(false);
-    }  
-   },1500) 
+    // if(img.complete){
+      [...images].forEach((img)=>img.complete?setLoading(false):setLoading(true));
+    // }  
+   },500) 
     
-  }
+  // }
 
   return (
     <section className="my-28 max-sm:my-12 sm:my-12 xl:my-28">

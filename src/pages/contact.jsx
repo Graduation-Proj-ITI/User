@@ -283,7 +283,7 @@ const Contact = () => {
             <div className="self-center ">
               <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <div className="flex justify-between gap-6">
-                  <div className="flex w-full flex-col gap-1">
+                  <div className="flex w-1/2 flex-col gap-1">
                     <input
                       type="text"
                       name="fName"
@@ -292,7 +292,7 @@ const Contact = () => {
                       onChange={handleChange}
                       className={`${getInputColor(
                         "fName"
-                      )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+                      )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2 w-full`}
                     />
                     <label htmlFor="fName" className="text-primary order-1">
                       First Name*
@@ -304,7 +304,7 @@ const Contact = () => {
                       </span>
                     )}
                   </div>
-                  <div className="flex w-full flex-col gap-1">
+                  <div className="flex w-1/2 flex-col gap-1">
                     <input
                       type="text"
                       name="lName"
@@ -313,7 +313,7 @@ const Contact = () => {
                       onChange={handleChange}
                       className={`${getInputColor(
                         "lName"
-                      )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2`}
+                      )} order-2 border border-[rgba(0,0,0,.1)] rounded px-4 py-2 w-full`}
                     />
                     <label htmlFor="lName" className="text-primary order-1">
                       Last Name*

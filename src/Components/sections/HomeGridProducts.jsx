@@ -11,12 +11,15 @@ const GridProducts = () => {
   return (
     <section className="my-28 max-sm:my-12 sm:my-12 xl:my-28">
       <h2 className="text-primary capitalize max-sm:mb-5 sm:mb-5 md:mb-5 lg:mb-10 font-bold max-sm:text-2xl sm:text-2xl md:text-2xl lg:text-2xl 2xl:text-2xl">
-        modern home ideas
+        modern fashion ideas
       </h2>
+
+
+
       <div className="grid grid-flow-row lg:gap-4 max-sm:gap-0 max-sm:space-y-3 sm:gap-2 md:gap-2 max-sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-3 ">
         <figure className="relative col-span-1 sm:w-full md:col-span-1 lg:col-span-1 xl:col-span-1 2xl:col-span-1 ">
           <img
-            src={gImg1}
+            src={"../../../public/images/category1.jpg"}
             className=" h-80 w-full lg:h-full rounded-xl object-cover"
           />
           <div className="group">
@@ -54,7 +57,7 @@ const GridProducts = () => {
         </figure>
         <figure className="relative col-span-1 max-sm:col-span-2 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1 2xl:col-span-1">
           <img
-            src={gImg2}
+            src={"../../../public/images/category2.jpg"}
             className=" h-80 w-full lg:h-full rounded-xl object-cover"
           />
           <div className="group">
@@ -83,7 +86,7 @@ const GridProducts = () => {
         </figure>
         <figure className="relative col-span-1 row-span-2 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2 xl:col-span-1 xl:row-span-2 2xl:col-span-1 2xl:row-span-2">
           <img
-            src={gImg3}
+            src={"../../../public/images/category3.jpg"}
             className=" h-80 w-full lg:h-full rounded-xl object-cover"
           />
           <div className="group">
@@ -121,7 +124,7 @@ const GridProducts = () => {
         </figure>
         <figure className="relative col-span-2 row-span-2 sm:col-span-1 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2 xl:col-span-2 xl:row-span-2 2xl:col-span-2 2xl:row-span-2">
           <img
-            src={gImg4}
+            src={"../../../public/images/category4.jpg"}
             className=" h-80 w-full lg:h-full rounded-xl object-cover"
           />
           <div className="group">
@@ -159,7 +162,7 @@ const GridProducts = () => {
         </figure>
         <figure className="relative col-span-1 2xl:col-span-1">
           <img
-            src={gImg5}
+            src={"../../../public/images/category5.jpg"}
             className="  h-80 w-full lg:h-full rounded-xl object-cover"
           />
           <div className="group">

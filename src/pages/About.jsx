@@ -19,7 +19,7 @@ const About = () => {
       <div className="relative">
         <img
           className="w-full h-[40vh] lg:h-[45vh]"
-          src={cover}
+          src={"../../public/images/logo.png"}
           alt="Cover"
           style={{ opacity: "0.8" }}
         />
@@ -69,10 +69,7 @@ const About = () => {
             We pick our team
           </h6>
           <p className="text-gray-500 font-inter leading-5 max-sm:text-center max-sm:text-base sm:text-center sm:text-lg  md:leading-7 text-sm md:text-lg md:text-start">
-            Our team is passionate about furniture, and we collaborate
-            effectively to achieve your goals and deliver high-quality work.
-            We're trying to go above and beyond to meet your expectations and
-            deliver exceptional results to make your dream home true.
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi corporis deserunt labore saepe officia placeat hic voluptatibus porro alias minus, qui dolorem quam! Qui facere repellat, a omnis nihil sunt?
           </p>
         </div>
         <div>
@@ -86,7 +83,7 @@ const About = () => {
 
       <AboutCard />
       <Testimonials />
-      <Team />
+      
     </div>
   );
 };

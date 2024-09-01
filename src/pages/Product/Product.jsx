@@ -171,7 +171,7 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
   return (
     <div className="pb-20">
       {/* <Navbar /> */}
-      <div className="bg-shop w-full h-[40vh] lg:h-[45vh] bg-no-repeat bg-cover ">
+      <div className=" w-full h-[40vh] lg:h-[45vh] bg-no-repeat bg-cover ">
         <div className=" w-full h-full bg-gray-600/30 backdrop-brightness-75 flex flex-col justify-center items-center">
           <h1 className="text-white font-semibold text-xl md:text-4xl mb-4 md:mb-6">
             Shop
@@ -210,7 +210,7 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
         <div className="intro flex justify-center items-center">
           <div className="introcontent  text-center pt-1">
             <h1 className="text-xl font-extrabold pb-3">
-              Make your dream home true
+              Make your dream fashion
             </h1>
             <p className="leading-8">
               Lorem ipsum dolor sit amet consectetur. Sed tincidunt aliquam

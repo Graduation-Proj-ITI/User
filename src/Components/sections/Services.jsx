@@ -92,10 +92,10 @@ const Services = () => {
           <div className=" flex flex-row justify-center gap-3 rounded-3xl mb-5 absolute 2xl:right-28 2xl:left-28 2xl:-top-12 xl:right-20 xl:-top-12 xl:left-20 lg:right-12 lg:left-12 lg:-top-12 ">
             {Service}
           </div>
-          <img
+          {/* <img
             src="/images/services.png"
             className="absolute w-[80%] md:top-2/3 md:right-20 2xl:top-1/3 2xl:right-28 2xl:left-28 max-sm:hidden xl:top-1/3 xl:right-20 xl:left-20 lg:right-24 lg:left-24 lg:top-32"
-          />
+          /> */}
         </div>
       ) : (
         <div className="pt-5 bg-primary rounded-3xl relative h-96">
@@ -121,7 +121,7 @@ const Services = () => {
             ))}
           </Swiper>
           <img
-            src="/images/services.png"
+            src=""
             className="absolute w-[80%] max-sm:w-full max-sm:right-0 max-sm:left-0 right-20 left-20 -bottom-12 z-20 md:right-16 md:left-16  sm:right-12 sm:left-12  "
           />
         </div>

@@ -28,11 +28,10 @@ export default function Footer() {
               /> */}
               {/* <Link to="/">
                 <img src={logo} className="w-20" /> */}
-              <h1 className=" text-white">Furnival</h1>
+              <h1 className=" text-white">Khoulod</h1>
               {/* </Link> */}
               <p className=" text-gray-300 text-base capitalize ">
-                the perfect place for every contemporary furniture store and
-                manufacturer. This is Furnival.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum facere aspernatur, voluptatem ipsa laudantium recusandae?
               </p>
 
               <div className="flex space-x-1 ">
@@ -86,23 +85,23 @@ export default function Footer() {
             <hr className=" w-14 "></hr>
             <ul className=" text-gray-300 font-semibold list-disc px-3 grid grid-cols-2">
               <li className=" hover:text-secondary hover:translate-x-3 duration-300 cursor-pointer">
-                Sofas
+                BAGS
               </li>
               <li className=" hover:text-secondary hover:translate-x-3 duration-300 cursor-pointer">
-                Lambs
+                T-SHIRTS
               </li>
               <li className=" hover:text-secondary hover:translate-x-3 duration-300 cursor-pointer">
-                Chairs
+                SCARF
               </li>
               <li className=" hover:text-secondary hover:translate-x-3 duration-300 cursor-pointer">
-                Tables
+                WATCHES
               </li>
-              <li className=" hover:text-secondary hover:translate-x-3 duration-300 cursor-pointer">
+              {/* <li className=" hover:text-secondary hover:translate-x-3 duration-300 cursor-pointer">
                 Doors
               </li>
               <li className=" hover:text-secondary hover:translate-x-3 duration-300 cursor-pointer">
                 Drawers
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -112,18 +111,18 @@ export default function Footer() {
 
             <div className="flex space-x-2">
               <i className="fa-solid fa-location-dot text-gray-300 py-1"></i>
-              <p className=" text-gray-300">ITI, Ismailia, Egypt</p>
+              <p className=" text-gray-300">Abu Dhabi , United Arab Emirates</p>
             </div>
             <div className="group flex space-x-2 cursor-pointer">
               <i className="fa-solid fa-envelope text-gray-300 py-1  group-hover:text-gray-300 duration-300"></i>
               <p className=" text-gray-300  group-hover:text-secondary  duration-300">
-                Furnival@example.com
+                Khoulod@example.com
               </p>
             </div>
             <div className="group flex space-x-2 cursor-pointer">
               <i className="fa-solid fa-phone text-gray-300 py-1 group-hover:text-gray-300 duration-300"></i>
               <p className=" text-gray-300 group-hover:text-secondary  duration-300">
-                +000 000 0000
+                0096123456789
               </p>
             </div>
           </div>
@@ -138,7 +137,7 @@ export default function Footer() {
             </a>
           </div>
           <div className=" text-gray-300">
-            2023 © Furnival. All Rights are Reserved
+            2024 © Khoulod. All Rights are Reserved
           </div>
         </div>
       </footer>

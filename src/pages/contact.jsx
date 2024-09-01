@@ -13,15 +13,15 @@ const Contact = () => {
   const cards = [
     {
       icon: "phone.svg",
-      desc: "01234567890",
+      desc: "0097123456789",
     },
     {
       icon: "email.svg",
-      desc: "Furnival@gmail.com",
+      desc: "Khoulod@gmail.com",
     },
     {
       icon: "location.svg",
-      desc: "Ismailia, ITI",
+      desc: "Abu Dhabi, United Arab Emirates",
     },
   ];
 
@@ -284,7 +284,7 @@ const Contact = () => {
         <div className="container mx-auto px-5  lg:px-[40px] xl:px-[100px] mb-[40px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[30px] lg:gap-[0px]">
             <img
-              src="/contact/Vector.png"
+              src=".././../public/images/logo.png"
               className="w-full m-auto md:w-3/4 max-w-[100%]"
             />
 

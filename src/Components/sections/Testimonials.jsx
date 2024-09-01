@@ -12,32 +12,32 @@ const Testimonials = () => {
     {
       id: 1,
       description:
-        "Finding furniture that aligns with my sustainability values was a priority for me, and this website exceeded my expectations. I was able to find beautifully designed pieces that are made with sustainable materials.",
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi corporis deserunt labore saepe officia placeat hic voluptatibus porro alias minus, qui dolorem quam! Qui facere repellat, a omnis nihil sunt?",
       img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60",
       name: "Jenny Wilson",
-      role: "Graphic Designer",
+      role: "Customer",
     },
     {
       id: 2,
       description:
-        "I was impressed by the attention to detail and the exquisite craftsmanship of the furniture I purchased from this website. The pieces I received were even more beautiful in person than in the pictures.",
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi corporis deserunt labore saepe officia placeat hic voluptatibus porro alias minus, qui dolorem quam! Qui facere repellat, a omnis nihil sunt?.",
       img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60",
       name: "Leslie Alexander",
-      role: "Frontend Developer",
+      role: "Customer",
     },
     {
       id: 3,
-      description: `I couldn't be happier with my experience shopping at this furniture website. The selection of furniture is amazing, and the quality is top-notch. The customer service team was incredibly helpful.`,
+      description: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi corporis deserunt labore saepe officia placeat hic voluptatibus porro alias minus, qui dolorem quam! Qui facere repellat, a omnis nihil sunt?.`,
       img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60",
       name: "Wade Warren",
-      role: "Backend Developer",
+      role: "Customer",
     },
     {
       id: 4,
-      description: `I just love their design for all stunning details. You must know what can you do for a project before taking it, but with Furnival, the sky is the limit.`,
+      description: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi corporis deserunt labore saepe officia placeat hic voluptatibus porro alias minus, qui dolorem quam! Qui facere repellat, a omnis nihil sunt?`,
       img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60",
       name: "Wade Warren",
-      role: "Backend Developer",
+      role: "Customer",
     },
   ];
   return (

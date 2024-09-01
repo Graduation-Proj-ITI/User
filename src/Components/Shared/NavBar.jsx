@@ -77,7 +77,7 @@ const NavBar = ({setItemsInCart,itemInCart,itemsInWishlist,setItemsInWishlist })
 
         <Link to="/" className="flex gap-1">
           <img src={logo} className="w-9" />
-          <h3 className=" text-white">Furnival</h3>
+          <h3 className=" text-white">Khoulod</h3>
         </Link>
 
         {/* <div className="max-sm:hidden sm:hidden bg-gray-100 lg:flex md:hidden items-center rounded-3xl justify-around w-1/4 sm:w-1/5 py-1">

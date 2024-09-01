@@ -17,11 +17,7 @@ const AboutCard = () => {
               This is how it's began
             </h6>
             <p className="text-md leading-normal text-gray-700 font-inter max-sm:text-center">
-              From the initial stages of brainstorming and ideation to the final
-              implementation, our team works hand in hand, pooling our
-              collective talents and perspectives. We foster an environment that
-              encourages open communication, creative thinking, and mutual
-              respect.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, aperiam adipisci delectus necessitatibus odio dolorum magnam hic at aspernatur cum quo illum facilis enim repellat, qui pariatur quos. Quod, officiis?  
             </p>
           </div>
         </div>
@@ -37,11 +33,7 @@ const AboutCard = () => {
               Attention to details
             </h6>
             <p className="text-md leading-normal text-gray-700 font-inter max-sm:text-center">
-              We are dedicated to provide our customers with the highest quality
-              furniture that meets their lifestyle. Our team's commitment to
-              meticulous craftsmanship, attention to detail, and a deep
-              understanding of materials ensures that every piece we create
-              reflects our passion for excellence.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste voluptatibus, ducimus deserunt voluptate error quam numquam inventore quis cupiditate non illum asperiores enim. Aliquid nihil laudantium, non ex exercitationem dolorum.
             </p>
           </div>
         </div>

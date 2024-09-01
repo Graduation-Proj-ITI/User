@@ -56,7 +56,7 @@ const Categories = () => {
         className="carousel carousel-center w-full py-4 gap-3 max-sm:gap-1"
         ref={ref}
       >
-        {categories.map((category) => (
+        {/* {categories.map((category) => (
           <Link to={`/Product/${category._id}`} key={category._id}>
             {" "}
             <div
@@ -80,7 +80,148 @@ const Categories = () => {
               </div>
             </div>
           </Link>
-        ))}
+        ))} */}
+
+        <div
+          className={
+            "max-sm:w-36 max-sm:h-56 w-56 h-72 carousel-item flex flex-col cursor-pointer group bg-cover rounded-xl  relative"
+          }
+        >
+          <img
+            src={"../../../public/images/category1.jpg"}
+            className=" absolute w-full h-full rounded-xl object-cover"
+          />
+          <div className="w-full h-full hidden group-hover:flex group-hover:flex-col group-hover:items-center group-hover:justify-center group-hover:animate-wiggle group-hover:bg-primary group-hover:bg-opacity-50 rounded-xl">
+            {/* <img
+                  src={category?.icon}
+                  alt={bag}
+                  className="w-3/12 object-cover "
+                /> */}
+            <h6 className="max-sm:mt-3 mt-6  text-center text-lg  capitalize text-white font-medium  ">
+              watch
+            </h6>
+          </div>
+        </div>
+        <div
+          className={
+            "max-sm:w-36 max-sm:h-56 w-56 h-72 carousel-item flex flex-col cursor-pointer group bg-cover rounded-xl  relative"
+          }
+        >
+          <img
+            src={"../../../public/images/category2.jpg"}
+            className=" absolute w-full h-full rounded-xl object-cover"
+          />
+          <div className="w-full h-full hidden group-hover:flex group-hover:flex-col group-hover:items-center group-hover:justify-center group-hover:animate-wiggle group-hover:bg-primary group-hover:bg-opacity-50 rounded-xl">
+            {/* <img
+                  src={category?.icon}
+                  alt={bag}
+                  className="w-3/12 object-cover "
+                /> */}
+            <h6 className="max-sm:mt-3 mt-6  text-center text-lg  capitalize text-white font-medium  ">
+            Accessories
+            </h6>
+          </div>
+        </div>
+        <div
+          className={
+            "max-sm:w-36 max-sm:h-56 w-56 h-72 carousel-item flex flex-col cursor-pointer group bg-cover rounded-xl  relative"
+          }
+        >
+          <img
+            src={"../../../public/images/category3.jpg"}
+            className=" absolute w-full h-full rounded-xl object-cover"
+          />
+          <div className="w-full h-full hidden group-hover:flex group-hover:flex-col group-hover:items-center group-hover:justify-center group-hover:animate-wiggle group-hover:bg-primary group-hover:bg-opacity-50 rounded-xl">
+            {/* <img
+                  src={category?.icon}
+                  alt={bag}
+                  className="w-3/12 object-cover "
+                /> */}
+            <h6 className="max-sm:mt-3 mt-6  text-center text-lg  capitalize text-white font-medium  ">
+            clothes
+            </h6>
+          </div>
+        </div>
+        <div
+          className={
+            "max-sm:w-36 max-sm:h-56 w-56 h-72 carousel-item flex flex-col cursor-pointer group bg-cover rounded-xl  relative"
+          }
+        >
+          <img
+            src={"../../../public/images/category4.jpg"}
+            className=" absolute w-full h-full rounded-xl object-cover"
+          />
+          <div className="w-full h-full hidden group-hover:flex group-hover:flex-col group-hover:items-center group-hover:justify-center group-hover:animate-wiggle group-hover:bg-primary group-hover:bg-opacity-50 rounded-xl">
+            {/* <img
+                  src={category?.icon}
+                  alt={bag}
+                  className="w-3/12 object-cover "
+                /> */}
+            <h6 className="max-sm:mt-3 mt-6  text-center text-lg  capitalize text-white font-medium  ">
+              watch
+            </h6>
+          </div>
+        </div>
+         <div
+          className={
+            "max-sm:w-36 max-sm:h-56 w-56 h-72 carousel-item flex flex-col cursor-pointer group bg-cover rounded-xl  relative"
+          }
+        >
+          <img
+            src={"../../../public/images/category5.jpg"}
+            className=" absolute w-full h-full rounded-xl object-cover"
+          />
+          <div className="w-full h-full hidden group-hover:flex group-hover:flex-col group-hover:items-center group-hover:justify-center group-hover:animate-wiggle group-hover:bg-primary group-hover:bg-opacity-50 rounded-xl">
+            {/* <img
+                  src={category?.icon}
+                  alt={bag}
+                  className="w-3/12 object-cover "
+                /> */}
+            <h6 className="max-sm:mt-3 mt-6  text-center text-lg  capitalize text-white font-medium  ">
+             scarf
+            </h6>
+          </div>
+        </div>
+        <div
+          className={
+            "max-sm:w-36 max-sm:h-56 w-56 h-72 carousel-item flex flex-col cursor-pointer group bg-cover rounded-xl  relative"
+          }
+        >
+          <img
+            src={"../../../public/images/category6.jpg"}
+            className=" absolute w-full h-full rounded-xl object-cover"
+          />
+          <div className="w-full h-full hidden group-hover:flex group-hover:flex-col group-hover:items-center group-hover:justify-center group-hover:animate-wiggle group-hover:bg-primary group-hover:bg-opacity-50 rounded-xl">
+            {/* <img
+                  src={category?.icon}
+                  alt={bag}
+                  className="w-3/12 object-cover "
+                /> */}
+            <h6 className="max-sm:mt-3 mt-6  text-center text-lg  capitalize text-white font-medium  ">
+            Wallet
+            </h6>
+          </div>
+        </div>
+        <div
+          className={
+            "max-sm:w-36 max-sm:h-56 w-56 h-72 carousel-item flex flex-col cursor-pointer group bg-cover rounded-xl  relative"
+          }
+        >
+          <img
+            src={"../../../public/images/category7.jpg"}
+            className=" absolute w-full h-full rounded-xl object-cover"
+          />
+          <div className="w-full h-full hidden group-hover:flex group-hover:flex-col group-hover:items-center group-hover:justify-center group-hover:animate-wiggle group-hover:bg-primary group-hover:bg-opacity-50 rounded-xl">
+            {/* <img
+                  src={category?.icon}
+                  alt={bag}
+                  className="w-3/12 object-cover "
+                /> */}
+            <h6 className="max-sm:mt-3 mt-6  text-center text-lg  capitalize text-white font-medium  ">
+             bag
+            </h6>
+          </div>
+        </div>
       </div>
     </section>
   );

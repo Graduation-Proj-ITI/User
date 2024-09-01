@@ -14,7 +14,7 @@ import img1Slide1 from "../../../public/images/slider/img1-1.webp";
 import img2Slide1 from "../../../public/images/slider/img1-2.webp";
 import img1Slide2 from "../../../public/images/slider/img2-1.jpg";
 import img2Slide2 from "../../../public/images/slider/img2-2.jpg";
-import img1Slide4 from "../../../public/images/slider/img4-1.webp";
+import img1Slide4 from "../../../public/images/slider/img2-2.jpg";
 import img2Slide4 from "../../../public/images/slider/img4-2.webp";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -40,7 +40,7 @@ const Slider = () => {
     },
     {
       id: 3,
-      bgimg: "bg-slide3",
+      bgimg: "bg-slide1",
       img1: img1Slide1,
       img2: img2Slide1,
       title: "Better interiors",
@@ -49,7 +49,7 @@ const Slider = () => {
     },
     {
       id: 4,
-      bgimg: "bg-slide4",
+      bgimg: "bg-slide2",
       img1: img1Slide4,
       img2: img2Slide4,
       title: "Better interiors",
@@ -94,18 +94,18 @@ const Slider = () => {
                 </div>
 
                 <div className="md:flex lg:flex gap-12 mt-24 relative max-sm:hidden sm:hidden">
-                  <figure className="">
+                  {/* <figure className="">
                     <img
                       src={slider.img1}
                       className=" w-80 object-contain rounded-[16px] shadow-2xl"
-                    />
-                  </figure>
+                    /> */}
+                  {/* </figure>
                   <figure className=" mt-20">
                     <img
                       src={slider.img2}
                       className=" w-80 object-contain rounded-[16px] shadow-2xl"
                     />
-                  </figure>
+                  </figure> */}
                 </div>
               </div>
             </div>

@@ -4,7 +4,7 @@ import Loader from "../Shared/Loader";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import empwishlist from "../../../public/wishlist.svg";
-const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishlistItems,setItemsInWishlist,itemsInWishlist }) => {
+const Wishlist = ({ cartI,setCartI, itemInC, setItemsC,setWishlistItems,setItemsInWishlist,itemsInWishlist }) => {
   const token = localStorage.getItem("token");
   const [wishlist, setWishlist] = useState([]);
   // const [wishlist, setWishlist] = useState([]);
@@ -12,8 +12,9 @@ const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishl
   const [wishPage, setWishPage] = useState(false);
   const [allItems, setAllItems] = useState([]);
   const [isInCart, setIsInCart] = useState(false);
+  console.log('......',cartI)
   const handleAddToCart = (id) => {
-    if (!allItems?.cartItems.find((item) => item._id == id)) {
+    // if (!allItems?.cartItems.find((item) => item._id == id)) {
       setLoading(true);
       axios
         .post(
@@ -33,12 +34,18 @@ const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishl
             pauseOnHover: true,
             color: "green",
           });
-          setItemsInCart(response.data.numberOfCartItems);
-          setCartItems(response.data.numberOfCartItems);
+          console.log('hello');
+          if(window.location.pathname == '/profile'){
+          setCartI(response.data.numberOfCartItems);
+          }else 
+          {
+          setItemsC(response.data.numberOfCartItems);
+          }
         })
         .catch((error) => {});
-    }
-    console.log("wislist", cartItems);
+        // }
+        console.log('profile',cartI)
+        console.log("wislist,,,,,", itemInC);
   };
   
   const [listInCart,setListInCart]=useState([]);
@@ -75,6 +82,8 @@ const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishl
         .then((response) => {
           setLoading(false);
           setAllItems(...allItems, response.data.data);
+          setCartI(response.data.numberOfCartItems);
+          setItemsC(response.data.numberOfCartItems);
         })
         .catch((error) => {
           // console.log(error);
@@ -120,7 +129,7 @@ const Wishlist = ({ setItemsInCart, itemInCart, cartItems, setCartItems,setWishl
       }
      })
     setListInCart(newItems)
-  }, [isInCart,itemsInWishlist]);
+  }, [isInCart,itemsInWishlist,cartI,itemInC]);
   const handleDelete = (id) => {
     // handleRemove(id)
     setLoading(true);

@@ -1,15 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import HomeCategories from "../common/HomeCategories";
 
 const Categories = () => {
   const ref = useRef(null);
+  const [loader,setLoader]=useState(true)
   const scroll = (scrollOffset) => {
     ref.current.scrollLeft += scrollOffset;
     // console.log(ref.current.scrollLeft);
   };
 
   const [categories, setCategories] = useState([]);
+  
+const images = document.getElementsByTagName('img');
+for (let i = 0; i < images.length; i++) {
+  const img = images[i];
+  console.log(img)
+ setTimeout(()=>{
+  if(img.complete){
+    setLoader(false);
+  }  
+ },3500) 
+  
+}
+
   useEffect(() => {
     async function getCategory() {
       try {
@@ -64,11 +79,12 @@ const Categories = () => {
                 "max-sm:w-36 max-sm:h-56 w-56 h-72 carousel-item flex flex-col cursor-pointer group bg-cover rounded-xl  relative"
               }
             >
+            {loader ? <HomeCategories/>:
               <img
                 src={category.image}
                 className=" absolute w-full h-full rounded-xl object-cover"
-              />
-              <div className="w-full h-full hidden group-hover:flex group-hover:flex-col group-hover:items-center group-hover:justify-center group-hover:animate-wiggle group-hover:bg-primary group-hover:bg-opacity-50 rounded-xl">
+              />}
+              <div className={`w-full h-full hidden group-hover:flex group-hover:flex-col group-hover:items-center group-hover:justify-center group-hover:animate-wiggle group-hover:bg-primary group-hover:bg-opacity-50 rounded-xl ${loader?' group-hover:hidden' : ' group-hover:flex'}`}>
                 <img
                   src={category?.icon}
                   alt={category.name}
@@ -78,6 +94,7 @@ const Categories = () => {
                   {category.name}
                 </h6>
               </div>
+
             </div>
           </Link>
         ))}

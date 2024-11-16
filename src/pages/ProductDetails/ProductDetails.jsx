@@ -6,6 +6,10 @@ import SingleProduct from "../Product/SingleProduct";
 import moment from "moment/moment";
 import { toast } from "react-toastify";
 import Loader from "../../Components/Shared/Loader";
+import ProductDetailsSkeleton from "../../Components/common/ProductDetailsSkeleton";
+import RatingSkeleton from "../../Components/common/RatingSkeleton";
+import ProductCardSkeleton from "../../Components/common/ProductSkeleton";
+import ScrollButton from "../../Components/Shared/ScrollToTopButton";
 
 function ProductDetails({
   setItemsInCart,
@@ -22,6 +26,9 @@ function ProductDetails({
   const [allRateLoading, setAllRateLoading] = useState(true);
   const [isInFav, setIsInFav] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loader, setLoader] = useState(true);
+  const [prodLoader, setProdLoader] = useState(true);
+  const [flag,setflag]=useState(false);
   // const [images, setImages] = useState([
   //   "/images/grid/1.png",
   //   "/images/grid/2.png",
@@ -35,6 +42,8 @@ function ProductDetails({
   const AddToCart = async (e, productId) => {
     e.preventDefault();
     setLoading(true);
+    setflag(true)
+
     console.log(localStorage.getItem("token"), productId);
     try {
       setLoading(true);
@@ -64,13 +73,16 @@ function ProductDetails({
     }
   };
   const getProducts = async () => {
+    setLoading(false);
     try {
-      setLoading(true);
       const { data } = await axios.get(
         "https://furnival.onrender.com/products"
       );
-      setLoading(false);
+    
       setProductsSmilar(data.data);
+      setTimeout(()=>{
+        setProdLoader(false)
+      },1000)
       // setImgArr(oneProduct?.images[0]);
     } catch {
       console.log("error");
@@ -79,9 +91,10 @@ function ProductDetails({
 
   const addToWishList = async () => {
     setLoading(true);
-
+    setLoader(false)
+    setflag(true)
     try {
-      setLoading(true);
+      setLoader(false);
       const { data } = await axios.post(
         "https://furnival.onrender.com/wishlist",
         { productId: oneProduct?._id },
@@ -103,11 +116,15 @@ function ProductDetails({
       setItemsInWishlist(data.data.length);
       setIsInFav(true);
       setLoading(false);
+      setLoader(false);
+
     } catch (e) {
       setLoading(false);
       console.error(e);
       toast.error("Please login first");
       setIsInFav(false);
+      setLoader(false);
+
     }
   };
 
@@ -116,20 +133,22 @@ function ProductDetails({
   };
 
   const getOneProduct = async () => {
-    setLoading(true);
-
+    setLoader(true);
     try {
-      setLoading(true);
+     if(!flag){
+      setLoader(true);
+     }
       const { data } = await axios.get(
         `https://furnival.onrender.com/products/${productId}`
       );
       setOneProduct(data.data);
-      setLoading(false);
+      setTimeout(()=>{
+         setLoader(false);
+      },1000);
       console.log(oneProduct.images.length);
-      setLoading(false);
     } catch {
-      setLoading(false);
       console.log("error");
+      
     }
   };
 
@@ -137,18 +156,19 @@ function ProductDetails({
     setAllRateLoading(true);
 
     try {
-      setLoading(true);
+      setAllRateLoading(true);
       const { data } = await axios.get(
         `https://furnival.onrender.com/products/${productId}/reviews`
       );
-      setLoading(false);
-      if (data.data.length) {
+     if (data.data.length) {
         setAllRate(data.data);
+        setTimeout(()=>{
+          setAllRateLoading(false);
+       },1000);
       }
     } catch {
       console.log("error");
     } finally {
-      setAllRateLoading(false);
     }
   };
 
@@ -171,6 +191,7 @@ function ProductDetails({
   };
   useEffect(() => {
     window.scrollTo(0, 0);
+    setLoader(false);
     getWishlist();
     getAllRate();
     getOneProduct();
@@ -185,6 +206,8 @@ function ProductDetails({
   const handleDelete = (id) => {
     // handleRemove(id)
     setLoading(true);
+    setflag(true)
+
     axios
       .delete(`https://furnival.onrender.com/wishlist/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -214,6 +237,7 @@ function ProductDetails({
     <>
       {loading && <Loader />}
       <div className=" max-sm:mx-[1rem] sm:mx-[2.5rem] md:mx-[3rem] lg:mx-[4rem] xl:mx-[12rem] mt-16 m-auto">
+        {loader? <ProductDetailsSkeleton/>:
         <div className="flex flex-col  w-full md:flex-row ">
           <div className="flex max-sm:w-full md:w-full lg:w-2/3 lg:flex-row md:flex-row ">
             <div
@@ -227,7 +251,7 @@ function ProductDetails({
                 return (
                   <img
                     key={singleImage}
-                    className="mt-5 hover:cursor-pointer object-fit-cover w-full h-[160px] rounded-2xl "
+                    className="mt-5 hover:cursor-pointer object-cover w-full h-[160px] rounded-2xl "
                     src={singleImage}
                     alt="img1"
                     onClick={(e) => ShowImg(e.target.src)}
@@ -333,7 +357,12 @@ function ProductDetails({
                 </div>
                 */}
                 <button
-                  className="btn addToCart mt-6"
+                  className={
+                    "btn  mt-6 " +
+                    (oneProduct?.quantity < 1
+                      ? " btn-disabled"
+                      : " bg-primary  hover:bg-primary")
+                  }
                   onClick={(e) => {
                     if (localStorage.getItem("token")) {
                       AddToCart(e, productId);
@@ -342,12 +371,13 @@ function ProductDetails({
                     }
                   }}
                 >
-                  Add to cart
+                  {oneProduct?.quantity < 1 ? "Out of stock" : "Add to cart"}
                 </button>
               </div>
             </div>
           </div>
         </div>
+}
 
         <div className="p-8 mt-16">
           <h2 className="text-center mb-8">Rating</h2>
@@ -355,6 +385,7 @@ function ProductDetails({
             {AllRate.length ? (
               AllRate?.map((rate) => {
                 return (
+                allRateLoading? <RatingSkeleton/>:
                   <div
                     key={rate._id}
                     className="stat w-64 rounded-2xl shadow-md relative"
@@ -382,6 +413,7 @@ function ProductDetails({
                       </span>
                     )}
                   </div>
+              
                 );
               })
             ) : (
@@ -394,12 +426,16 @@ function ProductDetails({
           <h3 className=" text-blue-950 mb-4">Similar Products</h3>
           <div className=" ">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-5 gap-4 ">
+          
               {Array.from(Array(4)).map((e, i) => (
+              prodLoader? <ProductCardSkeleton/>:
                 <SingleProduct key={i} product={productsSmilar[i]} />
               ))}
             </div>
           </div>
         </div>
+
+        <ScrollButton />
       </div>
     </>
   );

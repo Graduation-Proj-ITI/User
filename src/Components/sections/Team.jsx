@@ -4,7 +4,7 @@ const Team = () => {
   const names = [
     {
       id: 1,
-      img: "./Mayar.jpg",
+      img: "/images/About/mayar.jpg",
       name: "Mayar Mohamed",
       role: "Frontend developer",
       github: "https://github.com/Mayar103",

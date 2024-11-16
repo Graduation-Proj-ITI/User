@@ -6,23 +6,28 @@ import Navbar from "../../Components/navbar/Navbar";
 import SingleProduct from "./SingleProduct";
 import FilterMenu from "../../Components/Shared/FilterMenu";
 import { Link, useParams } from "react-router-dom";
-// import sorryImg from "../../../public/images/community/Feeling sorry-cuate.jpg";
-
+import ProductCardSkeleton from "../../Components/common/ProductSkeleton";
+import ScrollButton from "../../Components/Shared/ScrollToTopButton";
 const pageSize = 9;
 
-function Product({ setItemsInCart ,setItemsInWishlist}) {
+function Product({ setItemsInCart, setItemsInWishlist }) {
   const { categoryId } = useParams();
   console.log(categoryId);
 
   const [products, setProducts] = useState([]);
   let [itemsToRender, setItemsToRender] = useState([]);
   const [categories, setCategory] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [colors, setColors] = useState([
     { name: "red", id: 1 },
     { name: "yellow", id: 2 },
     { name: "blue", id: 3 },
     { name: "green", id: 4 },
     { name: "brown", id: 5 },
+    {name:"beige",id:6},
+    {name:"black",id:7},
+    {name:"gray",id:8},
+    
   ]);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentCategory, setCurrentCategory] = useState("");
@@ -39,18 +44,24 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
       setProducts(data.data);
       setItemsToRender(data.data);
       console.log(data.data);
+      setTimeout(()=>{
+        setLoading(false)
+      },1000)
     } catch {
       console.log("error");
     }
   };
 
   const getProductsByCategoryId = async (categoryId) => {
+    setLoading(true)
     try {
       const { data } = await axios.get(
         `https://furnival.onrender.com/products?category=${categoryId}`
       );
       setProducts(data.data);
-
+      setTimeout(()=>{
+        setLoading(false)
+      },1000)
       setItemsToRender(data.data);
       console.log(data.data);
     } catch {
@@ -59,11 +70,16 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
   };
   /*--------------category--------------*/
   const getCategory = async () => {
+    setLoading(true)
+
     try {
       const { data } = await axios.get(
         "https://furnival.onrender.com/categories"
       );
       setCategory(data.data);
+      setTimeout(()=>{
+        setLoading(false)
+      },1000)
       console.log(data.data);
     } catch {
       console.log("error");
@@ -71,22 +87,30 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
   };
   /*----------------------getProductInCategory--------*/
   const getProductInCategory = async (catname) => {
+    setLoading(true)
     try {
       const { data } = await axios.get(
         `https://fakestoreapi.com/products/category/${catname}`
       );
       setProducts(data);
+      setTimeout(()=>{
+        setLoading(false)
+      },1000)
     } catch {
       console.log("error");
     }
   };
   /*-------------Color---------------------*/
   const getProductWirhColor = async (colorName) => {
+    setLoading(true)
     try {
       const { data } = await axios.get(
         ` https://furnival.onrender.com/products?colors=${colorName}`
       );
       setItemsToRender(data.data);
+      setTimeout(()=>{
+        setLoading(false)
+      },1000)
       console.log(itemsToRender);
     } catch {
       console.log("error");
@@ -94,11 +118,15 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
   };
   /*--------------price-------------------------*/
   const getProductWirhPrice = async (price) => {
+    setLoading(true)
     try {
       const { data } = await axios.get(
         ` https://furnival.onrender.com/products?price[lte]=${price}`
       );
       setItemsToRender(data.data);
+      setTimeout(()=>{
+        setLoading(false)
+      },1000)
       console.log(itemsToRender);
     } catch {
       console.log("error");
@@ -106,11 +134,15 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
   };
   /*--------------------product-with-rate----------*/
   const getProductWithRate = async (rate) => {
+    setLoading(true)
     try {
       const { data } = await axios.get(
         ` https://furnival.onrender.com/products?rate[lte]=${rate}`
       );
       setItemsToRender(data.data);
+      setTimeout(()=>{
+        setLoading(false)
+      },1000)
       console.log(itemsToRender);
     } catch {
       console.log("error");
@@ -118,6 +150,10 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
   };
   /*----------------------------------------*/
   const changeCurrentCateegory = (name) => {
+  setLoading(true);
+    setTimeout(()=>{
+      setLoading(false)
+    },1000)
     setCurrentCategory(name);
     setCurrentPage(1);
   };
@@ -163,10 +199,9 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
     return () => {
       console.log("clean useEffect shop ");
     };
-    window.scrollTo(0, 0);
+    
   }, []);
 
-  window.scrollTo(0, 0);
   /*---------html and css--------*/
   return (
     <div className="pb-20">
@@ -212,7 +247,7 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
             <h1 className="text-xl font-extrabold pb-3">
               Make your dream home true
             </h1>
-            <p className="leading-8">
+            <p className="leading-8 text-gray-700">
               Lorem ipsum dolor sit amet consectetur. Sed tincidunt aliquam
               feugiat nunc tortor. Elementum sit urna arcu velit. Blandit odio
               vestibulum id lacus. Pellentesque turpis vel sed mattis a et eget
@@ -319,12 +354,14 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
                     })
                     .map((product) => {
                       return (
+                      loading? (<ProductCardSkeleton/>) :
                         <SingleProduct
                           product={product}
                           key={product._id}
                           setItemsInCart={setItemsInCart}
                           setItemsInWishlist={setItemsInWishlist}
                         />
+                      
                       );
                     })
                 ) : (
@@ -332,24 +369,8 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
                     <h2 className="text-black text-center">
                       No Products Match
                     </h2>
-                    {/* <img src={sorryImg} alt="sorry" /> */}
                   </div>
                 )}
-                {/* {itemsToRender
-                  .filter((product) => {
-                    return product.title
-                      .toLowerCase()
-                      .includes(search.toLowerCase());
-                  })
-                  .map((product) => {
-                    return (
-                      <SingleProduct
-                        product={product}
-                        setItemsInCart={setItemsInCart}
-                        key={product._id}
-                      />
-                    );
-                  })} */}
               </div>
               <div className=" flex w-full justify-center items-center mt-5 gap-1 ">
                 {pages?.map((page) => (
@@ -371,6 +392,8 @@ function Product({ setItemsInCart ,setItemsInWishlist}) {
           </div>
         </div>
       </div>
+
+      <ScrollButton />
     </div>
   );
 }

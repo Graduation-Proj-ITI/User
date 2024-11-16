@@ -3,12 +3,13 @@
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "../../Components/Shared/Loader";
 
 function SingleProduct({ product, setItemsInCart, setItemsInWishlist }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [loader, setLoader] = useState(false);
   const AddToCart = async (e, productId) => {
     e.preventDefault();
     setLoading(true);
@@ -39,6 +40,13 @@ function SingleProduct({ product, setItemsInCart, setItemsInWishlist }) {
     }
   };
 
+useEffect(() => {
+  setTimeout(()=>{
+    if(product){
+      setLoader(false)
+    }
+  },1500)
+}, [product]);
   // const { product } = props;
   return (
     <>
@@ -65,7 +73,12 @@ function SingleProduct({ product, setItemsInCart, setItemsInWishlist }) {
           </Link>
           <div className="flex flex-row items-center max-sm:flex-col gap-2 ">
             <button
-              className="btn text-sm py-0 w-1/2 max-sm:w-full bg-primary p-0 max-sm:order-2 max-sm:btn-sm md:w-2/3 lg:w-2/3 2xl:w-2/3 hover:bg-primary "
+              className={
+                "btn text-sm py-0 w-1/2 max-sm:w-full p-0 max-sm:order-2 max-sm:btn-sm md:w-2/3 lg:w-2/3 2xl:w-2/3 " +
+                (product?.quantity < 1
+                  ? " btn-disabled"
+                  : " bg-primary  hover:bg-primary")
+              }
               onClick={(e) => {
                 if (localStorage.getItem("token")) {
                   AddToCart(e, product?._id);
@@ -74,7 +87,7 @@ function SingleProduct({ product, setItemsInCart, setItemsInWishlist }) {
                 }
               }}
             >
-              Add to cart
+              {product?.quantity < 1 ? "Out of stock" : "Add to cart"}
             </button>
             <p className="text-end font-bold max-sm:order-1 text-black">
               ${product?.price}

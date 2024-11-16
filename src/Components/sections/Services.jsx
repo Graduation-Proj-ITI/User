@@ -88,7 +88,7 @@ const Services = () => {
         Services
       </h2>
       {size.width > 1023 ? (
-        <div className="bg-primary relative h-96  rounded-3xl">
+        <div className="bg-primary relative h-96  rounded-3xl lg:mb-16">
           <div className=" flex flex-row justify-center gap-3 rounded-3xl mb-5 absolute 2xl:right-28 2xl:left-28 2xl:-top-12 xl:right-20 xl:-top-12 xl:left-20 lg:right-12 lg:left-12 lg:-top-12 ">
             {Service}
           </div>

@@ -13,6 +13,7 @@ const FilterMenu = ({
   setPrice,
   changeCurrentCateegory,
 }) => {
+   
   return (
     <>
       <div className="filterPrice  ps-4 mb-8">
@@ -122,6 +123,7 @@ const FilterMenu = ({
                     height: "18px",
                     borderRadius: "20%",
                     backgroundColor: color.name,
+                    filter: "brightness(0.7)",
                     display: "inline-block",
                     marginTop: "5px",
                   }}

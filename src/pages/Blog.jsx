@@ -5,6 +5,7 @@ import axios from "axios";
 import ReadMore from "../../src/Components/Shared/Readmore";
 import { Link, useParams } from "react-router-dom";
 import Loader from "../Components/Shared/Loader";
+import ScrollButton from "../Components/Shared/ScrollToTopButton";
 // import Footer from "../Components/Shared/Footer";
 
 const Blog = () => {
@@ -96,6 +97,7 @@ const Blog = () => {
             {blog.content}
           </p>
         </div>
+        <ScrollButton />
       </section>
     </>
   );
